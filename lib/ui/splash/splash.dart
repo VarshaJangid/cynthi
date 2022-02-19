@@ -25,20 +25,39 @@ class _SplashScreenState extends State<SplashScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Container(
-        color: Colors.black,
+        color: const Color(0XFF08263d),
         height: MediaQuery.of(context).size.height,
         width: MediaQuery.of(context).size.width,
         child: Center(
-          child: Card(
-            elevation: 0,
-            color: Colors.white.withOpacity(0.2),
-            child: Image.asset(
-                Assets.sad,
-                width: 100
-            ),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Image.asset(Assets.logo, width: 120),
+              const SizedBox(height: 20),
+              const Text(
+                "Cynthi’ans",
+                style: TextStyle(
+                    color: Colors.white,
+                    fontSize: 32,
+                    fontWeight: FontWeight.w500),
+              ),
+              RichText(
+                text: const TextSpan(
+                  text: 'App for ',
+                  style: TextStyle(color: Colors.white, fontSize: 22),
+                  children: <TextSpan>[
+                    TextSpan(
+                        text: 'Knowledge',
+                        style: TextStyle(
+                            fontWeight: FontWeight.bold,
+                            color: Color(0XFFf26d1e))),
+                  ],
+                ),
+              ),
+            ],
           ),
         ),
-      )
+      ),
     );
   }
 

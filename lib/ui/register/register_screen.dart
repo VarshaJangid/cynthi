@@ -1,11 +1,11 @@
-import 'package:cynthi/ui/register/register_screen.dart';
+import 'package:cynthi/ui/reset_password/reset_password_screen.dart';
 
 import '/ui/sign_up/sign_up_screen.dart';
 import '/utils/app_route.dart';
 import 'package:flutter/material.dart';
 
-class LoginScreen extends StatelessWidget {
-  const LoginScreen({Key? key}) : super(key: key);
+class RegisterScreen extends StatelessWidget {
+  const RegisterScreen({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -15,12 +15,16 @@ class LoginScreen extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            const SizedBox(height: 50),
+            const SizedBox(height: 20),
             const Text(
-              "Cynthi'ans \n\nEnter your contact number",
+              "Cynthi'ans\n\nLog back in\n",
               style: TextStyle(fontWeight: FontWeight.bold, fontSize: 26),
             ),
-            const SizedBox(height: 50),
+            const Text(
+              "You're already registered!\nLog back in to continue.",
+              style: TextStyle(fontSize: 23, color: Colors.grey),
+            ),
+            const SizedBox(height: 40),
             SizedBox(
               height: 50,
               width: 315,
@@ -77,13 +81,45 @@ class LoginScreen extends StatelessWidget {
                 ],
               ),
             ),
-            const SizedBox(height: 50),
+            const SizedBox(height: 40),
+            SizedBox(
+              height: 50,
+              child: TextField(
+                autocorrect: true,
+                decoration: InputDecoration(
+                    labelText: 'Enter Password',
+                    labelStyle:
+                        const TextStyle(color: Colors.black, fontSize: 15),
+                    filled: true,
+                    fillColor: Colors.white70,
+                    enabledBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(15),
+                    ),
+                    focusedBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(15),
+                      borderSide:
+                          const BorderSide(color: Colors.black, width: 2),
+                    ),
+                    suffixIcon: const Icon(Icons.visibility_off)),
+              ),
+            ),
+            const SizedBox(height: 10),
+            GestureDetector(
+              onTap: () => AppRoutes.goto(context, ResetPasswordScreen()),
+              child: const Center(
+                child: Text(
+                  "Forgot your Password?",
+                  style: TextStyle(color: Colors.black, fontSize: 15),
+                ),
+              ),
+            ),
+            const SizedBox(height: 40),
             TextButton(
               onPressed: () => AppRoutes.goto(context, const SignUpScreen()),
               child: Container(
                 width: 300,
                 height: 50,
-                color: Color(0XFF08263d),
+                color: const Color(0XFF08263d),
                 child: const Center(
                   child: Text(
                     "CONTINUE",
@@ -93,20 +129,17 @@ class LoginScreen extends StatelessWidget {
               ),
             ),
             const SizedBox(height: 20),
-            InkWell(
-              onTap: () => AppRoutes.goto(context, RegisterScreen()),
-              child: Padding(
-                padding: const EdgeInsets.only(left: 30, right: 30),
-                child: RichText(
-                  text: const TextSpan(
-                    text: 'By creating an account, you agree to our  ',
-                    style: TextStyle(color: Colors.black, fontSize: 16),
-                    children: <TextSpan>[
-                      TextSpan(
-                          text: 'Privacy Policy',
-                          style: TextStyle(fontWeight: FontWeight.bold)),
-                    ],
-                  ),
+            Padding(
+              padding: const EdgeInsets.only(left: 30, right: 30),
+              child: RichText(
+                text: const TextSpan(
+                  text: 'By creating an account, you agree to our  ',
+                  style: TextStyle(color: Colors.black, fontSize: 16),
+                  children: <TextSpan>[
+                    TextSpan(
+                        text: 'Privacy Policy',
+                        style: TextStyle(fontWeight: FontWeight.bold)),
+                  ],
                 ),
               ),
             )
