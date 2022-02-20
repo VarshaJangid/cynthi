@@ -1,3 +1,6 @@
+import 'package:cynthi/ui/gender/gender_screen.dart';
+import 'package:cynthi/utils/app_route.dart';
+
 import '/ui/component/custom_button.dart';
 import 'package:flutter/material.dart';
 import '/utils/app_constant.dart';
@@ -54,7 +57,9 @@ class SignUpScreen extends StatelessWidget {
             const SizedBox(height: 40),
             textField(context, Constants.confirmPassword),
             const SizedBox(height: 40),
-            CustomButton(title: Constants.next, callback: () {}),
+            CustomButton(
+                title: Constants.next,
+                callback: () => AppRoutes.goto(context, const GenderScreen())),
             Padding(
               padding: const EdgeInsets.fromLTRB(15, 20, 15, 0),
               child: RichText(

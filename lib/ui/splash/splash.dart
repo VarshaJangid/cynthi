@@ -1,7 +1,8 @@
-import 'package:cynthi/ui/onboarding_screens/onboarding.dart';
-import 'package:cynthi/utils/app_assets.dart';
-import 'package:cynthi/utils/app_route.dart';
+import '/ui/onboarding_screens/onboarding.dart';
 import 'package:flutter/material.dart';
+import '/utils/app_constant.dart';
+import '/utils/app_assets.dart';
+import '/utils/app_route.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({Key? key}) : super(key: key);
@@ -18,7 +19,7 @@ class _SplashScreenState extends State<SplashScreen> {
   }
 
   callScreen() async {
-    AppRoutes.goto(context, OnBoardingScreen());
+    AppRoutes.makeFirst(context, OnBoardingScreen());
   }
 
   @override
@@ -35,7 +36,7 @@ class _SplashScreenState extends State<SplashScreen> {
               Image.asset(Assets.logo, width: 120),
               const SizedBox(height: 20),
               const Text(
-                "Cynthi’ans",
+                Constants.cynthians,
                 style: TextStyle(
                     color: Colors.white,
                     fontSize: 32,
