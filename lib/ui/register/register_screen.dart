@@ -1,8 +1,10 @@
-import 'package:cynthi/ui/reset_password/reset_password_screen.dart';
-
+import '/ui/reset_password/reset_password_screen.dart';
+import '/ui/component/app_text_field.dart';
+import '/ui/component/custom_button.dart';
 import '/ui/sign_up/sign_up_screen.dart';
-import '/utils/app_route.dart';
 import 'package:flutter/material.dart';
+import '/utils/app_constant.dart';
+import '/utils/app_route.dart';
 
 class RegisterScreen extends StatelessWidget {
   const RegisterScreen({Key? key}) : super(key: key);
@@ -10,18 +12,36 @@ class RegisterScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        elevation: 0,
+        backgroundColor: Colors.transparent,
+        leading: IconButton(
+          onPressed: () => AppRoutes.dismiss(context),
+          icon: const Icon(Icons.arrow_back_ios, color: Colors.black),
+        ),
+      ),
       body: SingleChildScrollView(
-        padding: const EdgeInsets.all(20),
+        padding: const EdgeInsets.fromLTRB(20, 10, 20, 0),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            const SizedBox(height: 20),
             const Text(
-              "Cynthi'ans\n\nLog back in\n",
-              style: TextStyle(fontWeight: FontWeight.bold, fontSize: 26),
+              Constants.cynthians,
+              style: TextStyle(fontWeight: FontWeight.bold, fontSize: 25),
             ),
+            const SizedBox(height: 15),
             const Text(
-              "You're already registered!\nLog back in to continue.",
+              Constants.logBack,
+              style: TextStyle(fontWeight: FontWeight.bold, fontSize: 25),
+            ),
+            const SizedBox(height: 15),
+            const Text(
+              Constants.youAreAlreadyRegistered,
+              style: TextStyle(fontSize: 23, color: Colors.grey),
+            ),
+            const SizedBox(height: 10),
+            const Text(
+              Constants.logBackInToContinue,
               style: TextStyle(fontSize: 23, color: Colors.grey),
             ),
             const SizedBox(height: 40),
@@ -59,7 +79,8 @@ class RegisterScreen extends StatelessWidget {
                     child: TextField(
                       autocorrect: true,
                       decoration: InputDecoration(
-                        labelText: 'Mobile Number',
+                        contentPadding: EdgeInsets.only(left: 30),
+                        labelText: Constants.mobileNumber,
                         labelStyle:
                             TextStyle(color: Colors.black, fontSize: 15),
                         filled: true,
@@ -81,63 +102,33 @@ class RegisterScreen extends StatelessWidget {
                 ],
               ),
             ),
-            const SizedBox(height: 40),
-            SizedBox(
-              height: 50,
-              child: TextField(
-                autocorrect: true,
-                decoration: InputDecoration(
-                    labelText: 'Enter Password',
-                    labelStyle:
-                        const TextStyle(color: Colors.black, fontSize: 15),
-                    filled: true,
-                    fillColor: Colors.white70,
-                    enabledBorder: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(15),
-                    ),
-                    focusedBorder: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(15),
-                      borderSide:
-                          const BorderSide(color: Colors.black, width: 2),
-                    ),
-                    suffixIcon: const Icon(Icons.visibility_off)),
-              ),
-            ),
+            const SizedBox(height: 30),
+            AppTextField(labelText: Constants.enterPassword, isIcon: true),
             const SizedBox(height: 10),
             GestureDetector(
-              onTap: () => AppRoutes.goto(context, ResetPasswordScreen()),
+              onTap: () => AppRoutes.goto(context, const ResetPasswordScreen()),
               child: const Center(
                 child: Text(
-                  "Forgot your Password?",
+                  Constants.forgotYourPassword,
                   style: TextStyle(color: Colors.black, fontSize: 15),
                 ),
               ),
             ),
             const SizedBox(height: 40),
-            TextButton(
-              onPressed: () => AppRoutes.goto(context, const SignUpScreen()),
-              child: Container(
-                width: 300,
-                height: 50,
-                color: const Color(0XFF08263d),
-                child: const Center(
-                  child: Text(
-                    "CONTINUE",
-                    style: TextStyle(color: Colors.white),
-                  ),
-                ),
-              ),
+            CustomButton(
+              title: Constants.Continue,
+              callback: () => AppRoutes.goto(context, const SignUpScreen()),
             ),
             const SizedBox(height: 20),
             Padding(
-              padding: const EdgeInsets.only(left: 30, right: 30),
+              padding: const EdgeInsets.only(left: 15, right: 15),
               child: RichText(
                 text: const TextSpan(
-                  text: 'By creating an account, you agree to our  ',
+                  text: Constants.buCreatingAnAccount,
                   style: TextStyle(color: Colors.black, fontSize: 16),
                   children: <TextSpan>[
                     TextSpan(
-                        text: 'Privacy Policy',
+                        text: Constants.privacyPolicy,
                         style: TextStyle(fontWeight: FontWeight.bold)),
                   ],
                 ),

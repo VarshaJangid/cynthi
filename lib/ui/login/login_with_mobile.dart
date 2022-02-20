@@ -1,8 +1,9 @@
-import 'package:cynthi/ui/register/register_screen.dart';
-
+import '/ui/register/register_screen.dart';
+import '/ui/component/custom_button.dart';
 import '/ui/sign_up/sign_up_screen.dart';
-import '/utils/app_route.dart';
 import 'package:flutter/material.dart';
+import '/utils/app_constant.dart';
+import '/utils/app_route.dart';
 
 class LoginScreen extends StatelessWidget {
   const LoginScreen({Key? key}) : super(key: key);
@@ -11,20 +12,25 @@ class LoginScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       body: SingleChildScrollView(
-        padding: const EdgeInsets.all(20),
+        padding: const EdgeInsets.fromLTRB(30, 70, 30, 20),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            const SizedBox(height: 50),
             const Text(
-              "Cynthi'ans \n\nEnter your contact number",
-              style: TextStyle(fontWeight: FontWeight.bold, fontSize: 26),
+              Constants.cynthians,
+              style: TextStyle(fontWeight: FontWeight.bold, fontSize: 25),
             ),
-            const SizedBox(height: 50),
+            const SizedBox(height: 15),
+            const Text(
+              Constants.enterContactNumber,
+              style: TextStyle(fontWeight: FontWeight.bold, fontSize: 25),
+            ),
+            const SizedBox(height: 60),
             SizedBox(
               height: 50,
               width: 315,
               child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
                 children: const [
                   SizedBox(
                     width: 55,
@@ -51,11 +57,11 @@ class LoginScreen extends StatelessWidget {
                     ),
                   ),
                   SizedBox(
-                    width: 260,
+                    width: 240,
                     child: TextField(
                       autocorrect: true,
                       decoration: InputDecoration(
-                        labelText: 'Mobile Number',
+                        labelText: Constants.mobileNumber,
                         labelStyle:
                             TextStyle(color: Colors.black, fontSize: 15),
                         filled: true,
@@ -77,33 +83,30 @@ class LoginScreen extends StatelessWidget {
                 ],
               ),
             ),
-            const SizedBox(height: 50),
-            TextButton(
-              onPressed: () => AppRoutes.goto(context, const SignUpScreen()),
-              child: Container(
-                width: 300,
-                height: 50,
-                color: Color(0XFF08263d),
-                child: const Center(
-                  child: Text(
-                    "CONTINUE",
-                    style: TextStyle(color: Colors.white),
-                  ),
-                ),
-              ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.end,
+              children: const [
+                Text(Constants.forgotPassword),
+                SizedBox(width: 25),
+              ],
+            ),
+            const SizedBox(height: 40),
+            CustomButton(
+              title: Constants.Continue,
+              callback: () => AppRoutes.goto(context, const SignUpScreen()),
             ),
             const SizedBox(height: 20),
             InkWell(
-              onTap: () => AppRoutes.goto(context, RegisterScreen()),
+              onTap: () => AppRoutes.goto(context, const RegisterScreen()),
               child: Padding(
-                padding: const EdgeInsets.only(left: 30, right: 30),
+                padding: const EdgeInsets.only(left: 10, right: 10),
                 child: RichText(
                   text: const TextSpan(
-                    text: 'By creating an account, you agree to our  ',
+                    text: Constants.buCreatingAnAccount,
                     style: TextStyle(color: Colors.black, fontSize: 16),
                     children: <TextSpan>[
                       TextSpan(
-                          text: 'Privacy Policy',
+                          text: Constants.privacyPolicy,
                           style: TextStyle(fontWeight: FontWeight.bold)),
                     ],
                   ),
