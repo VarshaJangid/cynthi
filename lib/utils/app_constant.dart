@@ -1,6 +1,4 @@
-class
-
-Constants {
+class Constants {
   static const String mobileNumber = "Mobile Number";
 
   static const String Continue = "CONTINUE";
@@ -82,4 +80,15 @@ Constants {
 
   static const String welcomeAbroad = "Welcome abroad\nPayal!";
 
+  static const String knowledgeHub = "Knowledge hub";
+
+  static const String planner = "Planner";
+
+  static const String cyntest = "Cyntest";
+
+  static const String setting = "Setting";
+
+  static const String schoolCollege = "School/ College";
+
+  static const String coaching = "Coaching";
 }

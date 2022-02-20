@@ -1,9 +1,12 @@
-import 'package:cynthi/ui/component/custom_button.dart';
-import 'package:cynthi/utils/app_constant.dart';
-import 'package:cynthi/utils/app_route.dart';
+import '/ui/dashboard/dashboard_screen.dart';
+import '/ui/component/custom_button.dart';
 import 'package:flutter/material.dart';
+import '/utils/app_constant.dart';
+import '/utils/app_route.dart';
 
 class WelcomeScreen extends StatelessWidget {
+  const WelcomeScreen({Key? key}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -19,7 +22,7 @@ class WelcomeScreen extends StatelessWidget {
         ),
       ),
       body: Container(
-        padding: EdgeInsets.all(25),
+        padding: const EdgeInsets.all(25),
         width: MediaQuery.of(context).size.width,
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.center,
@@ -49,7 +52,10 @@ class WelcomeScreen extends StatelessWidget {
               style: TextStyle(fontWeight: FontWeight.w500, fontSize: 17),
             ),
             const Spacer(),
-            CustomButton(callback: () {}, title: Constants.begin),
+            CustomButton(
+              callback: () => AppRoutes.goto(context, DashboardScreen()),
+              title: Constants.begin,
+            ),
             const SizedBox(height: 50),
           ],
         ),
