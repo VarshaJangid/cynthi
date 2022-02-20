@@ -1,4 +1,6 @@
-class Constants {
+class
+
+Constants {
   static const String mobileNumber = "Mobile Number";
 
   static const String Continue = "CONTINUE";
@@ -37,11 +39,47 @@ class Constants {
 
   static const String createYourAccount = "Create your account";
 
-  static const String createAnAccountToGetStarted = "Create an account to get started.";
+  static const String createAnAccountToGetStarted =
+      "Create an account to get started.";
 
   static const String firstName = "First Name";
 
   static const String lastName = "Last Name";
 
   static const String next = "NEXT";
+
+  static const String pleaseSelectYourGender = "Please select your Gender";
+
+  static const String enterYourBirthDate = "Enter your Birth Date?";
+
+  static const String date = "Date";
+
+  static const String month = "Month";
+
+  static const String year = "Year";
+
+  static const String addPhotoOfYou = "Add A Photo of You";
+
+  static const String takePhoto = "Take Photo";
+
+  static const String chooseFromCameraRoll = "Choose From Camera Roll";
+
+  static const String enterYourLocation = "Enter your location.";
+
+  static const String create = "Create";
+
+  static const String addPhoto = "Add Photo";
+
+  static const String camera = "Camera";
+
+  static const String gallery = "Gallery";
+
+  static const String cancel = "Cancel";
+
+  static const String weAreHappyToHaveYou = "We are happy to have you here!";
+
+  static const String begin = "BEGIN";
+
+  static const String welcomeAbroad = "Welcome abroad\nPayal!";
+
 }
