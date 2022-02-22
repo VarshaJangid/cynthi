@@ -1,3 +1,5 @@
+import 'package:cynthi/ui/coaching/coaching_screen.dart';
+import 'package:cynthi/ui/cythians/cynthians_screen.dart';
 import 'package:cynthi/utils/app_assets.dart';
 import 'package:cynthi/utils/app_constant.dart';
 import 'package:flutter/cupertino.dart';
@@ -16,6 +18,7 @@ class TabBarDemo extends StatelessWidget {
             elevation: 0,
             backgroundColor: Colors.transparent,
             bottom: const TabBar(
+              padding: EdgeInsets.only(left: 10, right: 10),
               // indicatorSize: TabBarIndicatorSize.label,
               indicatorWeight: 3,
               labelColor: Color(0XFF0060aa),
@@ -91,8 +94,8 @@ class TabBarDemo extends StatelessWidget {
           ),
           body: const TabBarView(
             children: [
-              Icon(Icons.directions_car),
-              Icon(Icons.directions_transit),
+              CythiansScreen(),
+              CoachingScreen(),
               Icon(Icons.directions_bike),
             ],
           ),

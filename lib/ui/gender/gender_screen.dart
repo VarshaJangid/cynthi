@@ -7,7 +7,14 @@ import '/utils/app_constant.dart';
 import '/utils/app_route.dart';
 
 class GenderScreen extends StatefulWidget {
-  const GenderScreen({Key? key}) : super(key: key);
+  GenderScreen(
+      {required this.firstName,
+      required this.lastName,
+      required this.password});
+
+  final String firstName;
+  final String lastName;
+  final String password;
 
   @override
   _GenderState createState() => _GenderState();
@@ -17,6 +24,7 @@ class _GenderState extends State<GenderScreen> {
   String selectedGender = "";
   List<GenderModel> listGender = [];
   DateTime? datePicked;
+  String gender = '';
 
   @override
   void initState() {
@@ -49,7 +57,15 @@ class _GenderState extends State<GenderScreen> {
     return Scaffold(
       floatingActionButton: FloatingActionButton(
         elevation: 0,
-        onPressed: () => AppRoutes.goto(context, AddPhotoScreen()),
+        onPressed: () => AppRoutes.goto(
+            context,
+            AddPhotoScreen(
+              firstName: widget.firstName,
+              lastName: widget.lastName,
+              datePicked: datePicked!,
+              gender: gender,
+              password: widget.password,
+            )),
         backgroundColor: Colors.grey,
         child: const Icon(Icons.arrow_forward_ios),
       ),
@@ -86,6 +102,9 @@ class _GenderState extends State<GenderScreen> {
                         genderModel: e,
                         callback: () {
                           updateGenderList(e);
+                          setState(() {
+                            gender = e.title!;
+                          });
                         },
                       );
                     }).toList(),
