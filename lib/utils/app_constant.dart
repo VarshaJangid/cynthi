@@ -91,4 +91,10 @@ class Constants {
   static const String schoolCollege = "School/ College";
 
   static const String coaching = "Coaching";
+
+  static const String verifyYourNumber = "Verify Your Number";
+
+  static const String otpShouldArrive = "OTP should arrive within 60s. ";
+
+  static const String resendOTP = "Resend OTP";
 }
