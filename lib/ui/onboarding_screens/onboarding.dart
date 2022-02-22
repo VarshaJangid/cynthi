@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import '/ui/login/login_with_mobile.dart';
 import '/utils/app_assets.dart';
 import '/utils/app_route.dart';
@@ -20,6 +22,24 @@ class Body extends StatefulWidget {
 
 class _BodyState extends State<Body> {
   int currentPage = 0;
+  final PageController _pageController = PageController(initialPage: 0);
+
+  @override
+  void initState() {
+    super.initState();
+    Timer.periodic(const Duration(seconds: 5), (Timer timer) {
+      if (currentPage < 3) {
+        currentPage++;
+      } else {
+        currentPage = 0;
+      }
+      _pageController.animateToPage(
+        currentPage,
+        duration: const Duration(milliseconds: 350),
+        curve: Curves.easeIn,
+      );
+    });
+  }
 
   List<Map<String, String>> onBoardingData = [
     {
@@ -48,9 +68,10 @@ class _BodyState extends State<Body> {
         color: const Color(0XFF08263d),
         child: Column(
           children: [
-            Container(
+            SizedBox(
               height: size.height * 0.8,
               child: PageView.builder(
+                controller: _pageController,
                 onPageChanged: (value) {
                   setState(() {
                     currentPage = value;
@@ -70,21 +91,21 @@ class _BodyState extends State<Body> {
               mainAxisAlignment: MainAxisAlignment.center,
               children: List.generate(
                 onBoardingData.length,
-                (index) => Container(
+                    (index) => Container(
                   margin: const EdgeInsets.only(right: 15),
                   height: 13,
                   width: 13,
                   decoration: BoxDecoration(
                     color: currentPage == index ? Colors.black : Colors.white,
                     border: Border.all(color: Colors.black),
-                    borderRadius: BorderRadius.all(Radius.circular(10)),
+                    borderRadius: const BorderRadius.all(Radius.circular(10)),
                   ),
                 ),
               ),
             ),
             SizedBox(height: size.height * 0.03),
             TextButton(
-              onPressed: () => AppRoutes.goto(context, LoginScreen()),
+              onPressed: () => AppRoutes.goto(context, const LoginScreen()),
               child: RichText(
                 text: const TextSpan(
                   text: 'Already have an account? ',
@@ -130,7 +151,7 @@ class Content extends StatelessWidget {
             children: [
               Text(
                 text,
-                style: TextStyle(
+                style: const TextStyle(
                   color: Colors.black,
                   fontWeight: FontWeight.bold,
                 ),
@@ -175,7 +196,7 @@ class Content extends StatelessWidget {
                 width: MediaQuery.of(context).size.width * .8,
                 color: Colors.white,
                 height: 50,
-                child: Center(
+                child: const Center(
                   child: Text(
                     "LET'S GET STARTED",
                     style: TextStyle(color: Color(0XFF08263d)),
