@@ -56,8 +56,8 @@ class RegisterScreen extends StatelessWidget {
                   height: 50,
                   width: 315,
                   child: Row(
-                    children: const [
-                      SizedBox(
+                    children: [
+                      const SizedBox(
                         width: 55,
                         child: TextField(
                           autocorrect: true,
@@ -86,7 +86,7 @@ class RegisterScreen extends StatelessWidget {
                         width: 260,
                         child: TextField(
                           autocorrect: true,
-                          decoration: InputDecoration(
+                          decoration: const InputDecoration(
                             contentPadding: EdgeInsets.only(left: 30),
                             labelText: Constants.mobileNumber,
                             labelStyle:
@@ -106,13 +106,18 @@ class RegisterScreen extends StatelessWidget {
                                   BorderSide(color: Colors.black, width: 2),
                             ),
                           ),
+                          controller: viewModel.mobileNumber,
                         ),
                       ),
                     ],
                   ),
                 ),
                 const SizedBox(height: 30),
-                AppTextField(labelText: Constants.enterPassword, isIcon: true),
+                AppTextField(
+                  labelText: Constants.enterPassword,
+                  isIcon: true,
+                  controller: viewModel.password,
+                ),
                 const SizedBox(height: 10),
                 GestureDetector(
                   onTap: () =>
@@ -127,7 +132,10 @@ class RegisterScreen extends StatelessWidget {
                 const SizedBox(height: 40),
                 CustomButton(
                   title: Constants.Continue,
-                  callback: (){},
+                  callback: () {
+                    print("Clciked");
+                    viewModel.loginWithPassword(context);
+                  },
                   // callback: () => AppRoutes.goto(context, SignUpScreen()),
                 ),
                 const SizedBox(height: 20),
