@@ -111,8 +111,7 @@ class LoginScreen extends StatelessWidget {
                 ),
                 const SizedBox(height: 20),
                 InkWell(
-                  // onTap: () => AppRoutes.goto(context, const RegisterScreen()),
-                  onTap: () => AppRoutes.goto(context, OtpVerifyScreen()),
+                  onTap: () => AppRoutes.goto(context, const RegisterScreen()),
                   child: Padding(
                     padding: const EdgeInsets.only(left: 10, right: 10),
                     child: RichText(
