@@ -14,4 +14,7 @@ class Assets {
   static const String setting = "assets/images/setting.png";
 
   static const String notification = "assets/images/Notification.png";
+
+  static const String share = "assets/images/share.png";
+
 }

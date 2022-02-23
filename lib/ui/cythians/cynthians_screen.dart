@@ -1,6 +1,6 @@
-import 'package:cynthi/utils/app_assets.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
+import '/utils/app_constant.dart';
+import '/utils/app_assets.dart';
 
 class CythiansScreen extends StatelessWidget {
   const CythiansScreen({Key? key}) : super(key: key);
@@ -33,16 +33,17 @@ class CythiansScreen extends StatelessWidget {
                       ),
                     ),
                     Positioned(
-                        right: 0,
-                        top: 0,
-                        child: Container(
-                          height: 10,
-                          width: 10,
-                          decoration: const BoxDecoration(
-                            color: Colors.red,
-                            shape: BoxShape.circle,
-                          ),
-                        ))
+                      right: 0,
+                      top: 0,
+                      child: Container(
+                        height: 10,
+                        width: 10,
+                        decoration: const BoxDecoration(
+                          color: Colors.red,
+                          shape: BoxShape.circle,
+                        ),
+                      ),
+                    )
                   ],
                 ),
                 const Spacer(),
@@ -57,87 +58,147 @@ class CythiansScreen extends StatelessWidget {
             ),
           ),
         ),
-        Expanded(
-          child: Container(
-            width: MediaQuery.of(context).size.width,
-            color: const Color(0XFF08263d),
-            child: SingleChildScrollView(
-              child: Column(
+        Container(
+          width: MediaQuery.of(context).size.width,
+          color: const Color(0XFF08263d),
+          child: Column(
+            children: [
+              Row(
                 children: [
-                  cythiansWidget(),
-                  cythiansWidget(),
-                  cythiansWidget(),
+                  const SizedBox(width: 10),
+                  const Text(
+                    "Today",
+                    style: TextStyle(
+                        color: Colors.white, fontWeight: FontWeight.w500),
+                  ),
+                  const Spacer(),
+                  const Text(
+                    "Sort By",
+                    style: TextStyle(
+                        color: Colors.white, fontWeight: FontWeight.w500),
+                  ),
+                  IconButton(
+                    onPressed: () {},
+                    icon: const Icon(
+                      Icons.arrow_drop_down,
+                      color: Colors.white,
+                    ),
+                  ),
                 ],
               ),
-            ),
+              SizedBox(
+                height: 360,
+                child: SingleChildScrollView(
+                  padding: const EdgeInsets.only(left: 10, right: 10),
+                  child: Column(
+                    children: [
+                      cythiansWidget(context),
+                      cythiansWidget(context),
+                      cythiansWidget(context),
+                    ],
+                  ),
+                ),
+              ),
+            ],
           ),
         ),
       ],
     );
   }
 
-  Widget cythiansWidget() => Column(
+  Widget cythiansWidget(BuildContext context) => Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          const SizedBox(height: 20),
-          Container(
-            margin: const EdgeInsets.fromLTRB(20, 0, 20, 0),
-            padding: const EdgeInsets.all(15),
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(20),
-              color: const Color(0XFFeaf2f6),
-            ),
-            child: Row(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Column(
-                  children: [
-                    Container(
-                      height: 80,
-                      width: 100,
-                      decoration: const BoxDecoration(
-                        image: DecorationImage(
-                          image: AssetImage(Assets.sad),
-                        ),
-                      ),
-                    ),
-                    const SizedBox(height: 10),
-                    const Text(
-                      "IAS, Ketki Sharma\nBatch 1999,\nKanpur",
-                      style: TextStyle(
-                          color: Colors.black, fontWeight: FontWeight.w500),
-                    ),
-                  ],
+          Stack(
+            overflow: Overflow.visible,
+            children: <Widget>[
+              Container(
+                padding: const EdgeInsets.all(15),
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(20),
+                  color: const Color(0XFFeaf2f6),
                 ),
-                const SizedBox(width: 30),
-                Column(
+                child: Row(
                   crossAxisAlignment: CrossAxisAlignment.start,
-                  children: const [
-                    Text(
-                      "01:30 PM - 02:30 PM",
-                      style: TextStyle(
-                          color: Colors.grey, fontWeight: FontWeight.w500),
+                  children: [
+                    Column(
+                      children: [
+                        Container(
+                          height: 80,
+                          width: 100,
+                          decoration: const BoxDecoration(
+                            image: DecorationImage(
+                              image: AssetImage(Assets.sad),
+                            ),
+                          ),
+                        ),
+                        const SizedBox(height: 10),
+                        const Text(
+                          "IAS, Ketki Sharma\nBatch 1999,\nKanpur",
+                          style: TextStyle(
+                              color: Colors.black, fontWeight: FontWeight.w500),
+                        ),
+                      ],
                     ),
-                    SizedBox(height: 10),
-                    Text(
-                      "How to prepare for\nUPSC Entrance\nexam",
-                      style: TextStyle(
-                          color: Color(0XFF446481),
-                          fontWeight: FontWeight.bold,
-                          fontSize: 16),
-                    ),
-                    SizedBox(height: 10),
-                    Text(
-                      "Topics Covered",
-                      style: TextStyle(
-                          color: Colors.black,
-                          fontWeight: FontWeight.bold,
-                          fontSize: 14),
+                    const SizedBox(width: 30),
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        const Text(
+                          "01:30 PM - 02:30 PM",
+                          style: TextStyle(
+                              color: Colors.grey, fontWeight: FontWeight.w500),
+                        ),
+                        const SizedBox(height: 10),
+                        const Text(
+                          "How to prepare for\nUPSC Entrance\nexam",
+                          style: TextStyle(
+                              color: Color(0XFF446481),
+                              fontWeight: FontWeight.bold,
+                              fontSize: 16),
+                        ),
+                        const SizedBox(height: 10),
+                        Row(
+                          children: const [
+                            Text(
+                              Constants.topicsCovered,
+                              style: TextStyle(
+                                  color: Colors.black,
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 14),
+                            ),
+                            SizedBox(width: 5),
+                            Icon(
+                              Icons.info_outline,
+                              size: 19,
+                            )
+                          ],
+                        )
+                      ],
                     )
                   ],
-                )
-              ],
-            ),
+                ),
+              ),
+              Positioned(
+                left: 100,
+                bottom: -10 * 2,
+                child: Container(
+                  padding: const EdgeInsets.fromLTRB(20, 10, 20, 10),
+                  decoration: BoxDecoration(
+                      color: Colors.blue,
+                      borderRadius: BorderRadius.circular(25)),
+                  child: const Center(
+                    child: Text(
+                      Constants.bookNow,
+                      style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                          fontSize: 19,
+                          color: Colors.white),
+                    ),
+                  ),
+                ),
+              ),
+            ],
           ),
           const SizedBox(height: 10),
           Padding(
@@ -160,13 +221,10 @@ class CythiansScreen extends StatelessWidget {
                   ],
                 ),
                 Row(
-                  children: const [
-                    Icon(
-                      Icons.share,
-                      color: Colors.white,
-                    ),
-                    SizedBox(width: 5),
-                    Text(
+                  children: [
+                    Image.asset(Assets.share),
+                    const SizedBox(width: 5),
+                    const Text(
                       "Share",
                       style: TextStyle(
                           color: Colors.white, fontWeight: FontWeight.bold),
@@ -175,7 +233,8 @@ class CythiansScreen extends StatelessWidget {
                 )
               ],
             ),
-          )
+          ),
+          const SizedBox(height: 20),
         ],
       );
 }

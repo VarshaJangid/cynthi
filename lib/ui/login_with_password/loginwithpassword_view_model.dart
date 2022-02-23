@@ -1,5 +1,4 @@
-import 'package:cynthi/utils/auth.dart';
-
+import '/utils/auth.dart';
 import '/ui/dashboard/dashboard_screen.dart';
 import 'package:http/http.dart' as http;
 import 'package:flutter/material.dart';

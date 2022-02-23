@@ -101,6 +101,12 @@ class Constants {
   static const String alreadyHaveAccount = "Already have an account? ";
 
   static const String login = "Log in";
+
+  static const String bookNow = "BOOK NOW";
+
+  static const String topicsCovered = "Topics Covered";
+
+  static const String startNow = "Start Now";
 }
 
 class AuthConstants{

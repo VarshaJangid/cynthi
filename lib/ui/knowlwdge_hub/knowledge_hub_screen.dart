@@ -26,9 +26,7 @@ class TabBarDemo extends StatelessWidget {
               unselectedLabelColor: Colors.grey,
               tabs: [
                 Tab(text: Constants.cynthians),
-                Tab(
-                  text: Constants.coaching,
-                ),
+                Tab(text: Constants.coaching),
                 Tab(text: Constants.schoolCollege),
               ],
             ),
