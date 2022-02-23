@@ -1,5 +1,5 @@
-import 'package:cynthi/ui/splash/splash.dart';
 import 'package:flutter/material.dart';
+import '/ui/splash/splash.dart';
 
 void main() {
   runApp(const MyApp());

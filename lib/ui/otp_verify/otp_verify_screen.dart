@@ -1,9 +1,9 @@
-import 'package:cynthi/ui/register/mobile_view_model.dart';
-import 'package:cynthi/utils/app_route.dart';
 import 'package:pin_code_fields/pin_code_fields.dart';
+import '/ui/register/mobile_view_model.dart';
 import 'package:flutter/material.dart';
 import 'package:stacked/stacked.dart';
 import '/utils/app_constant.dart';
+import '/utils/app_route.dart';
 
 class OtpVerifyScreen extends StatelessWidget {
   const OtpVerifyScreen({Key? key, required this.mobileNumber})

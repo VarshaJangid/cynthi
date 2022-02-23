@@ -1,13 +1,14 @@
-import 'package:cynthi/ui/component/app_text_field.dart';
-import 'package:cynthi/ui/component/custom_button.dart';
-import 'package:cynthi/ui/reset_password/reset_pass_view_model.dart';
+import '/ui/reset_password/reset_pass_view_model.dart';
+import '/ui/component/app_text_field.dart';
+import '/ui/component/custom_button.dart';
 import 'package:flutter/material.dart';
 import 'package:stacked/stacked.dart';
 import '/utils/app_constant.dart';
 import '/utils/app_route.dart';
 
 class ResetPasswordScreen extends StatelessWidget {
-  const ResetPasswordScreen({Key? key, required this.mobileNumber}) : super(key: key);
+  const ResetPasswordScreen({Key? key, required this.mobileNumber})
+      : super(key: key);
   final String mobileNumber;
 
   @override
@@ -57,7 +58,8 @@ class ResetPasswordScreen extends StatelessWidget {
                 const SizedBox(height: 40),
                 CustomButton(
                   title: Constants.resetPassword.toUpperCase(),
-                  callback: () => viewModel.resetPassword(context, mobileNumber),
+                  callback: () =>
+                      viewModel.resetPassword(context, mobileNumber),
                 ),
               ],
             ),

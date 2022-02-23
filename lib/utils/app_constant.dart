@@ -95,4 +95,10 @@ class Constants {
   static const String otpShouldArrive = "OTP should arrive within 60s. ";
 
   static const String resendOTP = "Resend OTP";
+
+  static const String welcomeText = "Welcome to the\nworld of knowledge";
+
+  static const String alreadyHaveAccount = "Already have an account? ";
+
+  static const String login = "Log in";
 }

@@ -1,10 +1,10 @@
-import 'package:cynthi/ui/component/login_text_field.dart';
-import 'package:stacked/stacked.dart';
+import '/ui/component/login_text_field.dart';
 import '/ui/component/custom_button.dart';
 import 'package:flutter/material.dart';
+import 'package:stacked/stacked.dart';
 import '/utils/app_constant.dart';
-import '/utils/app_route.dart';
 import 'mobile_view_model.dart';
+import '/utils/app_route.dart';
 
 class MobileScreen extends StatelessWidget {
   const MobileScreen({Key? key}) : super(key: key);

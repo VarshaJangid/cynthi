@@ -1,9 +1,10 @@
-import 'dart:async';
-import 'package:cynthi/ui/login_with_password/loginwithpassword_screen.dart';
-import 'package:cynthi/ui/register/mobile_screen.dart';
+import '/ui/login_with_password/loginwithpassword_screen.dart';
+import '/ui/register/mobile_screen.dart';
+import 'package:flutter/material.dart';
+import '/utils/app_constant.dart';
 import '/utils/app_assets.dart';
 import '/utils/app_route.dart';
-import 'package:flutter/material.dart';
+import 'dart:async';
 
 class OnBoardingScreen extends StatelessWidget {
   @override
@@ -86,17 +87,17 @@ class _BodyState extends State<Body> {
                 ),
               ),
             ),
-            SizedBox(height: size.height * 0.04),
+            // SizedBox(height: size.height * 0.04),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: List.generate(
                 onBoardingData.length,
                 (index) => Container(
                   margin: const EdgeInsets.only(right: 15),
-                  height: 13,
-                  width: 13,
+                  height: currentPage == index ? 20 : 13,
+                  width: currentPage == index ? 20 : 13,
                   decoration: BoxDecoration(
-                    color: currentPage == index ? Colors.black : Colors.white,
+                    color: currentPage == index ? Colors.white : Colors.white,
                     border: Border.all(color: Colors.black),
                     borderRadius: const BorderRadius.all(Radius.circular(10)),
                   ),
@@ -109,11 +110,11 @@ class _BodyState extends State<Body> {
                   AppRoutes.goto(context, const LoginWithPasswordScreen()),
               child: RichText(
                 text: const TextSpan(
-                  text: 'Already have an account? ',
+                  text: Constants.alreadyHaveAccount,
                   style: TextStyle(color: Colors.white, fontSize: 18),
                   children: <TextSpan>[
                     TextSpan(
-                      text: 'Log in',
+                      text: Constants.login,
                       style: TextStyle(
                         fontWeight: FontWeight.bold,
                         decoration: TextDecoration.underline,
@@ -147,6 +148,7 @@ class Content extends StatelessWidget {
       color: const Color(0XFF08263d),
       child: Column(
         children: [
+          const SizedBox(height: 30),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
@@ -159,15 +161,8 @@ class Content extends StatelessWidget {
               ),
             ],
           ),
-          const SizedBox(
-            height: 10,
-          ),
-          Image.asset(
-            Assets.logo,
-            width: 100,
-            height: 100,
-            fit: BoxFit.fill,
-          ),
+          const SizedBox(height: 10),
+          Image.asset(Assets.logo, width: 100, height: 100, fit: BoxFit.fill),
           const SizedBox(height: 20),
           const Text(
             "Cynthi’ans",
@@ -175,35 +170,30 @@ class Content extends StatelessWidget {
                 color: Colors.white, fontSize: 33, fontWeight: FontWeight.w500),
           ),
           const SizedBox(height: 30),
-          Image.asset(
-            Assets.onboarding,
-            width: 120,
-            height: 120,
-            fit: BoxFit.fill,
-          ),
+          Image.asset(Assets.onboarding,
+              width: 120, height: 120, fit: BoxFit.fill),
           const SizedBox(height: 10),
           const Text(
-            "Welcome to the\nworld of knowledge",
+            Constants.welcomeText,
             style: TextStyle(
                 color: Colors.white, fontSize: 18, fontWeight: FontWeight.w500),
             textAlign: TextAlign.center,
           ),
-          const SizedBox(
-            height: 10,
-          ),
+          const SizedBox(height: 10),
           TextButton(
-              onPressed: () => AppRoutes.goto(context, const MobileScreen()),
-              child: Container(
-                width: MediaQuery.of(context).size.width * .8,
-                color: Colors.white,
-                height: 50,
-                child: const Center(
-                  child: Text(
-                    "LET'S GET STARTED",
-                    style: TextStyle(color: Color(0XFF08263d)),
-                  ),
+            onPressed: () => AppRoutes.goto(context, const MobileScreen()),
+            child: Container(
+              width: MediaQuery.of(context).size.width * .8,
+              color: Colors.white,
+              height: 50,
+              child: const Center(
+                child: Text(
+                  "LET'S GET STARTED",
+                  style: TextStyle(color: Color(0XFF08263d)),
                 ),
-              )),
+              ),
+            ),
+          ),
           SizedBox(height: size.height * 0.03),
           const Text(
             "This is a place to learn, plan & grow.",

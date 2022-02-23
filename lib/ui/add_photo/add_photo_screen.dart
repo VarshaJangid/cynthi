@@ -1,6 +1,4 @@
-import 'package:cynthi/ui/add_photo/add_photo_view_model.dart';
-import 'package:cynthi/ui/welcome/welcome_screen.dart';
-import 'package:image_picker/image_picker.dart';
+import '/ui/add_photo/add_photo_view_model.dart';
 import 'package:stacked/stacked.dart';
 import '/ui/component/custom_button.dart';
 import 'package:flutter/material.dart';

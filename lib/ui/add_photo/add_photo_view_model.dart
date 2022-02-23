@@ -1,13 +1,11 @@
-import 'package:cynthi/model/register_model.dart';
-import 'package:cynthi/ui/welcome/welcome_screen.dart';
-import 'package:cynthi/utils/app_route.dart';
 import 'package:image_picker/image_picker.dart';
-
-import '/model/login_with_otp_model.dart';
+import '/ui/welcome/welcome_screen.dart';
+import 'package:http/http.dart' as http;
 import 'package:flutter/material.dart';
 import 'package:stacked/stacked.dart';
-import 'package:http/http.dart' as http;
+import '/model/register_model.dart';
 import '/utils/app_methods.dart';
+import '/utils/app_route.dart';
 import 'dart:convert';
 import 'dart:io';
 
@@ -75,7 +73,7 @@ class AddPhotoViewModel extends BaseViewModel {
       if (registerModel.message == "Password saved successfully") {
         flutterToast("Password saved successfully.", Colors.green);
         flutterToast("User Registered successfully.", Colors.green);
-        AppRoutes.goto(context, WelcomeScreen());
+        AppRoutes.goto(context, const WelcomeScreen());
       } else {
         Exception("Exception in Register API.");
       }

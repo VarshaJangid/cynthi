@@ -1,13 +1,12 @@
-import 'package:cynthi/ui/component/login_text_field.dart';
-import 'package:cynthi/ui/register/mobile_screen.dart';
-import 'package:stacked/stacked.dart';
-import '/ui/reset_password/reset_password_screen.dart';
+import '/ui/component/login_text_field.dart';
 import '/ui/component/app_text_field.dart';
+import 'loginwithpassword_view_model.dart';
 import '/ui/component/custom_button.dart';
+import '/ui/register/mobile_screen.dart';
 import 'package:flutter/material.dart';
+import 'package:stacked/stacked.dart';
 import '/utils/app_constant.dart';
 import '/utils/app_route.dart';
-import 'loginwithpassword_view_model.dart';
 
 class LoginWithPasswordScreen extends StatelessWidget {
   const LoginWithPasswordScreen({Key? key}) : super(key: key);

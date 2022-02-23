@@ -1,11 +1,10 @@
-import 'package:cynthi/ui/gender/gender_screen.dart';
-import 'package:cynthi/utils/app_route.dart';
-import 'package:stacked/stacked.dart';
-
 import '/ui/component/custom_button.dart';
 import 'package:flutter/material.dart';
-import '/utils/app_constant.dart';
+import '/ui/gender/gender_screen.dart';
+import 'package:stacked/stacked.dart';
 import 'create_user_view_model.dart';
+import '/utils/app_constant.dart';
+import '/utils/app_route.dart';
 
 class CreateUserScreen extends StatelessWidget {
   const CreateUserScreen({Key? key}) : super(key: key);

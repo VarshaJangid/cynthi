@@ -1,12 +1,10 @@
-import 'package:cynthi/model/login_pass_model.dart';
-import 'package:cynthi/ui/dashboard/dashboard_screen.dart';
-import 'package:cynthi/utils/app_route.dart';
-
-import '/model/login_with_otp_model.dart';
+import '/ui/dashboard/dashboard_screen.dart';
+import 'package:http/http.dart' as http;
 import 'package:flutter/material.dart';
 import 'package:stacked/stacked.dart';
-import 'package:http/http.dart' as http;
+import '/model/login_pass_model.dart';
 import '/utils/app_methods.dart';
+import '/utils/app_route.dart';
 import 'dart:convert';
 
 class LoginWithPassViewModel extends BaseViewModel {

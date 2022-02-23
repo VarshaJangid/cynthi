@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'dart:math';
 
 class FullScreenLoader extends StatelessWidget {
+  const FullScreenLoader({Key? key}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     return WillPopScope(
