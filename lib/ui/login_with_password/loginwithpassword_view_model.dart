@@ -1,3 +1,5 @@
+import 'package:cynthi/utils/auth.dart';
+
 import '/ui/dashboard/dashboard_screen.dart';
 import 'package:http/http.dart' as http;
 import 'package:flutter/material.dart';
@@ -30,6 +32,30 @@ class LoginWithPassViewModel extends BaseViewModel {
     if (response.statusCode == 200) {
       loginPassModel = LoginPassModel.fromJson(jsonDecode(response.body));
       notifyListeners();
+
+      auth.setUser(
+        studentId: loginPassModel.studentId,
+        firstName: "",
+        lastName: "",
+        mobileNo: loginPassModel.mobile,
+        gender: "",
+        token: loginPassModel.token,
+      );
+
+      auth.updateUserInSharedPrefs(
+        loginPassModel.studentId,
+        "",
+        "",
+        loginPassModel.mobile,
+        "",
+        loginPassModel.token,
+      );
+
+      auth.setUserFromPreference();
+      print("Student Id ==========>>> ${auth.currentUser!.studentId}");
+      print("Mobile ==========>>> ${auth.currentUser!.mobileNo}");
+      print("Token ==========>>> ${auth.currentUser!.token}");
+
       flutterToast("Successfully Logged In !!!", Colors.green);
       //set auth
       AppRoutes.goto(context, const DashboardScreen());

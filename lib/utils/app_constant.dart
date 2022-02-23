@@ -102,3 +102,13 @@ class Constants {
 
   static const String login = "Log in";
 }
+
+class AuthConstants{
+  static const String studentID = "studentID";
+  static const String firstName = "firstName";
+  static const String lastName = "lastName";
+  static const String gender = "gender";
+  static const String mobileNo = "mobileNo";
+  static const String token = "token";
+
+}

@@ -104,7 +104,7 @@ class _BodyState extends State<Body> {
                 ),
               ),
             ),
-            SizedBox(height: size.height * 0.03),
+            // SizedBox(height: size.height * 0.03),
             TextButton(
               onPressed: () =>
                   AppRoutes.goto(context, const LoginWithPasswordScreen()),
@@ -148,7 +148,7 @@ class Content extends StatelessWidget {
       color: const Color(0XFF08263d),
       child: Column(
         children: [
-          const SizedBox(height: 30),
+          // const SizedBox(height: 30),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
