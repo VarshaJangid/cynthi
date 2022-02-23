@@ -18,6 +18,7 @@ dependencies:
   http:
   pin_code_fields:
   fluttertoast: ^8.0.8
+  pin_entry_text_field:
 
 
 
