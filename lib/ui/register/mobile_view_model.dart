@@ -66,7 +66,8 @@ class MobileViewModel extends BaseViewModel {
       if (userExistModel.loginType == 'exist') {
         //already exist
         flutterToast("You can reset your password.", Colors.green);
-        AppRoutes.goto(context, ResetPasswordScreen());
+        AppRoutes.goto(
+            context, ResetPasswordScreen(mobileNumber: mobileNumber));
       } else {
         flutterToast("Please your details.", Colors.green);
         AppRoutes.goto(context, const CreateUserScreen());

@@ -7,7 +7,8 @@ import '/utils/app_constant.dart';
 import '/utils/app_route.dart';
 
 class ResetPasswordScreen extends StatelessWidget {
-  const ResetPasswordScreen({Key? key}) : super(key: key);
+  const ResetPasswordScreen({Key? key, required this.mobileNumber}) : super(key: key);
+  final String mobileNumber;
 
   @override
   Widget build(BuildContext context) {
@@ -56,9 +57,7 @@ class ResetPasswordScreen extends StatelessWidget {
                 const SizedBox(height: 40),
                 CustomButton(
                   title: Constants.resetPassword.toUpperCase(),
-                  callback: () {
-                    //call reset password api
-                  },
+                  callback: () => viewModel.resetPassword(context, mobileNumber),
                 ),
               ],
             ),
