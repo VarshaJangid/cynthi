@@ -1,6 +1,6 @@
 import 'dart:async';
-
-import '/ui/login/login_with_mobile.dart';
+import 'package:cynthi/ui/login_with_password/loginwithpassword_screen.dart';
+import 'package:cynthi/ui/register/mobile_screen.dart';
 import '/utils/app_assets.dart';
 import '/utils/app_route.dart';
 import 'package:flutter/material.dart';
@@ -91,7 +91,7 @@ class _BodyState extends State<Body> {
               mainAxisAlignment: MainAxisAlignment.center,
               children: List.generate(
                 onBoardingData.length,
-                    (index) => Container(
+                (index) => Container(
                   margin: const EdgeInsets.only(right: 15),
                   height: 13,
                   width: 13,
@@ -105,7 +105,8 @@ class _BodyState extends State<Body> {
             ),
             SizedBox(height: size.height * 0.03),
             TextButton(
-              onPressed: () => AppRoutes.goto(context, const LoginScreen()),
+              onPressed: () =>
+                  AppRoutes.goto(context, const LoginWithPasswordScreen()),
               child: RichText(
                 text: const TextSpan(
                   text: 'Already have an account? ',
@@ -191,7 +192,7 @@ class Content extends StatelessWidget {
             height: 10,
           ),
           TextButton(
-              onPressed: () {},
+              onPressed: () => AppRoutes.goto(context, const MobileScreen()),
               child: Container(
                 width: MediaQuery.of(context).size.width * .8,
                 color: Colors.white,

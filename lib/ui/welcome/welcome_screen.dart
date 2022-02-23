@@ -53,7 +53,7 @@ class WelcomeScreen extends StatelessWidget {
             ),
             const Spacer(),
             CustomButton(
-              callback: () => AppRoutes.goto(context, DashboardScreen()),
+              callback: () => AppRoutes.goto(context, const DashboardScreen()),
               title: Constants.begin,
             ),
             const SizedBox(height: 50),

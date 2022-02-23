@@ -12,8 +12,6 @@ class Constants {
   static const String buCreatingAnAccount =
       "By creating an account, you agree to our ";
 
-  static const String forgotPassword = "Forgot Password?";
-
   static const String logBack = "Log back in";
 
   static const String youAreAlreadyRegistered = "You're already registered!";

@@ -9,7 +9,7 @@ import 'package:http/http.dart' as http;
 import '/utils/app_methods.dart';
 import 'dart:convert';
 
-class RegisterViewModel extends BaseViewModel {
+class LoginWithPassViewModel extends BaseViewModel {
   TextEditingController mobileNumber = TextEditingController();
   TextEditingController password = TextEditingController();
   LoginPassModel loginPassModel = LoginPassModel();
@@ -32,7 +32,9 @@ class RegisterViewModel extends BaseViewModel {
     if (response.statusCode == 200) {
       loginPassModel = LoginPassModel.fromJson(jsonDecode(response.body));
       notifyListeners();
-      AppRoutes.goto(context, DashboardScreen());
+      flutterToast("Successfully Logged In !!!", Colors.green);
+      //set auth
+      AppRoutes.goto(context, const DashboardScreen());
     }
   }
 }

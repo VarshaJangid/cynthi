@@ -1,26 +1,38 @@
+import 'package:cynthi/ui/register/mobile_view_model.dart';
+import 'package:cynthi/utils/app_route.dart';
 import 'package:pin_code_fields/pin_code_fields.dart';
-import '/ui/login/login_view_model.dart';
 import 'package:flutter/material.dart';
 import 'package:stacked/stacked.dart';
 import '/utils/app_constant.dart';
 
 class OtpVerifyScreen extends StatelessWidget {
-  const OtpVerifyScreen({Key? key, required this.mobileNumber}) : super(key: key);
+  const OtpVerifyScreen({Key? key, required this.mobileNumber})
+      : super(key: key);
   final String mobileNumber;
-
 
   @override
   Widget build(BuildContext context) {
-    return ViewModelBuilder<LoginViewModel>.reactive(
-      viewModelBuilder: () => LoginViewModel(),
+    return ViewModelBuilder<MobileViewModel>.reactive(
+      viewModelBuilder: () => MobileViewModel(),
       onModelReady: (viewModel) => viewModel.init(context),
       builder: (context, viewModel, child) {
         return Scaffold(
+          appBar: AppBar(
+            elevation: 0,
+            backgroundColor: Colors.transparent,
+            leading: IconButton(
+              onPressed: () => AppRoutes.dismiss(context),
+              icon: const Icon(
+                Icons.arrow_back_ios,
+                color: Colors.black,
+              ),
+            ),
+          ),
           floatingActionButton: FloatingActionButton(
             elevation: 0,
             onPressed: () {
               viewModel.verifyOTP(context, mobileNumber);
-              },
+            },
             backgroundColor: Colors.grey,
             child: const Icon(Icons.arrow_forward_ios),
           ),

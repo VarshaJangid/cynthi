@@ -1,26 +1,33 @@
-import 'package:cynthi/ui/login/login_view_model.dart';
-import 'package:cynthi/ui/otp_verify/otp_verify_screen.dart';
+import 'package:cynthi/ui/register/mobile_screen.dart';
 import 'package:stacked/stacked.dart';
-
-import '/ui/register/register_screen.dart';
+import '/ui/reset_password/reset_password_screen.dart';
+import '/ui/component/app_text_field.dart';
 import '/ui/component/custom_button.dart';
-import '/ui/sign_up/sign_up_screen.dart';
 import 'package:flutter/material.dart';
 import '/utils/app_constant.dart';
 import '/utils/app_route.dart';
+import 'loginwithpassword_view_model.dart';
 
-class LoginScreen extends StatelessWidget {
-  const LoginScreen({Key? key}) : super(key: key);
+class LoginWithPasswordScreen extends StatelessWidget {
+  const LoginWithPasswordScreen({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return ViewModelBuilder<LoginViewModel>.reactive(
-      viewModelBuilder: () => LoginViewModel(),
+    return ViewModelBuilder<LoginWithPassViewModel>.reactive(
+      viewModelBuilder: () => LoginWithPassViewModel(),
       onModelReady: (viewModel) => viewModel.init(context),
       builder: (context, viewModel, child) {
         return Scaffold(
+          appBar: AppBar(
+            elevation: 0,
+            backgroundColor: Colors.transparent,
+            leading: IconButton(
+              onPressed: () => AppRoutes.dismiss(context),
+              icon: const Icon(Icons.arrow_back_ios, color: Colors.black),
+            ),
+          ),
           body: SingleChildScrollView(
-            padding: const EdgeInsets.fromLTRB(30, 70, 30, 20),
+            padding: const EdgeInsets.fromLTRB(20, 10, 20, 0),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
@@ -30,15 +37,24 @@ class LoginScreen extends StatelessWidget {
                 ),
                 const SizedBox(height: 15),
                 const Text(
-                  Constants.enterContactNumber,
+                  Constants.logBack,
                   style: TextStyle(fontWeight: FontWeight.bold, fontSize: 25),
                 ),
-                const SizedBox(height: 60),
+                const SizedBox(height: 15),
+                const Text(
+                  Constants.youAreAlreadyRegistered,
+                  style: TextStyle(fontSize: 23, color: Colors.grey),
+                ),
+                const SizedBox(height: 10),
+                const Text(
+                  Constants.logBackInToContinue,
+                  style: TextStyle(fontSize: 23, color: Colors.grey),
+                ),
+                const SizedBox(height: 40),
                 SizedBox(
                   height: 50,
                   width: 315,
                   child: Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       const SizedBox(
                         width: 55,
@@ -66,11 +82,11 @@ class LoginScreen extends StatelessWidget {
                         ),
                       ),
                       SizedBox(
-                        width: 240,
+                        width: 260,
                         child: TextField(
                           autocorrect: true,
-                          controller: viewModel.mobileNumber,
                           decoration: const InputDecoration(
+                            contentPadding: EdgeInsets.only(left: 30),
                             labelText: Constants.mobileNumber,
                             labelStyle:
                                 TextStyle(color: Colors.black, fontSize: 15),
@@ -89,41 +105,49 @@ class LoginScreen extends StatelessWidget {
                                   BorderSide(color: Colors.black, width: 2),
                             ),
                           ),
+                          controller: viewModel.mobileNumber,
                         ),
                       ),
                     ],
                   ),
                 ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.end,
-                  children: const [
-                    Text(Constants.forgotPassword),
-                    SizedBox(width: 25),
-                  ],
+                const SizedBox(height: 30),
+                AppTextField(
+                  labelText: Constants.enterPassword,
+                  isIcon: true,
+                  controller: viewModel.password,
+                ),
+                const SizedBox(height: 10),
+                GestureDetector(
+                  onTap: () =>
+                      AppRoutes.goto(context, MobileScreen()),
+                  child: const Center(
+                    child: Text(
+                      Constants.forgotYourPassword,
+                      style: TextStyle(color: Colors.black, fontSize: 15),
+                    ),
+                  ),
                 ),
                 const SizedBox(height: 40),
                 CustomButton(
                   title: Constants.Continue,
                   callback: () {
-                    Future.delayed(const Duration(microseconds: 500),
-                        () => viewModel.loginWithOTP(context));
+                    viewModel.loginWithPassword(context);
                   },
+                  // callback: () => AppRoutes.goto(context, SignUpScreen()),
                 ),
                 const SizedBox(height: 20),
-                InkWell(
-                  onTap: () => AppRoutes.goto(context, const RegisterScreen()),
-                  child: Padding(
-                    padding: const EdgeInsets.only(left: 10, right: 10),
-                    child: RichText(
-                      text: const TextSpan(
-                        text: Constants.buCreatingAnAccount,
-                        style: TextStyle(color: Colors.black, fontSize: 16),
-                        children: <TextSpan>[
-                          TextSpan(
-                              text: Constants.privacyPolicy,
-                              style: TextStyle(fontWeight: FontWeight.bold)),
-                        ],
-                      ),
+                Padding(
+                  padding: const EdgeInsets.only(left: 15, right: 15),
+                  child: RichText(
+                    text: const TextSpan(
+                      text: Constants.buCreatingAnAccount,
+                      style: TextStyle(color: Colors.black, fontSize: 16),
+                      children: <TextSpan>[
+                        TextSpan(
+                            text: Constants.privacyPolicy,
+                            style: TextStyle(fontWeight: FontWeight.bold)),
+                      ],
                     ),
                   ),
                 )

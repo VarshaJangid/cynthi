@@ -1,21 +1,17 @@
-import 'package:cynthi/ui/register/register_view_model.dart';
 import 'package:stacked/stacked.dart';
-
-import '/ui/reset_password/reset_password_screen.dart';
-import '/ui/component/app_text_field.dart';
 import '/ui/component/custom_button.dart';
-import '/ui/sign_up/sign_up_screen.dart';
 import 'package:flutter/material.dart';
 import '/utils/app_constant.dart';
 import '/utils/app_route.dart';
+import 'mobile_view_model.dart';
 
-class RegisterScreen extends StatelessWidget {
-  const RegisterScreen({Key? key}) : super(key: key);
+class MobileScreen extends StatelessWidget {
+  const MobileScreen({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return ViewModelBuilder<RegisterViewModel>.reactive(
-      viewModelBuilder: () => RegisterViewModel(),
+    return ViewModelBuilder<MobileViewModel>.reactive(
+      viewModelBuilder: () => MobileViewModel(),
       onModelReady: (viewModel) => viewModel.init(context),
       builder: (context, viewModel, child) {
         return Scaffold(
@@ -24,11 +20,14 @@ class RegisterScreen extends StatelessWidget {
             backgroundColor: Colors.transparent,
             leading: IconButton(
               onPressed: () => AppRoutes.dismiss(context),
-              icon: const Icon(Icons.arrow_back_ios, color: Colors.black),
+              icon: const Icon(
+                Icons.arrow_back_ios,
+                color: Colors.black,
+              ),
             ),
           ),
           body: SingleChildScrollView(
-            padding: const EdgeInsets.fromLTRB(20, 10, 20, 0),
+            padding: const EdgeInsets.fromLTRB(30, 70, 30, 20),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
@@ -38,24 +37,15 @@ class RegisterScreen extends StatelessWidget {
                 ),
                 const SizedBox(height: 15),
                 const Text(
-                  Constants.logBack,
+                  Constants.enterContactNumber,
                   style: TextStyle(fontWeight: FontWeight.bold, fontSize: 25),
                 ),
-                const SizedBox(height: 15),
-                const Text(
-                  Constants.youAreAlreadyRegistered,
-                  style: TextStyle(fontSize: 23, color: Colors.grey),
-                ),
-                const SizedBox(height: 10),
-                const Text(
-                  Constants.logBackInToContinue,
-                  style: TextStyle(fontSize: 23, color: Colors.grey),
-                ),
-                const SizedBox(height: 40),
+                const SizedBox(height: 60),
                 SizedBox(
                   height: 50,
                   width: 315,
                   child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       const SizedBox(
                         width: 55,
@@ -83,11 +73,11 @@ class RegisterScreen extends StatelessWidget {
                         ),
                       ),
                       SizedBox(
-                        width: 260,
+                        width: 240,
                         child: TextField(
                           autocorrect: true,
+                          controller: viewModel.mobileNumber,
                           decoration: const InputDecoration(
-                            contentPadding: EdgeInsets.only(left: 30),
                             labelText: Constants.mobileNumber,
                             labelStyle:
                                 TextStyle(color: Colors.black, fontSize: 15),
@@ -106,41 +96,22 @@ class RegisterScreen extends StatelessWidget {
                                   BorderSide(color: Colors.black, width: 2),
                             ),
                           ),
-                          controller: viewModel.mobileNumber,
                         ),
                       ),
                     ],
-                  ),
-                ),
-                const SizedBox(height: 30),
-                AppTextField(
-                  labelText: Constants.enterPassword,
-                  isIcon: true,
-                  controller: viewModel.password,
-                ),
-                const SizedBox(height: 10),
-                GestureDetector(
-                  onTap: () =>
-                      AppRoutes.goto(context, const ResetPasswordScreen()),
-                  child: const Center(
-                    child: Text(
-                      Constants.forgotYourPassword,
-                      style: TextStyle(color: Colors.black, fontSize: 15),
-                    ),
                   ),
                 ),
                 const SizedBox(height: 40),
                 CustomButton(
                   title: Constants.Continue,
                   callback: () {
-                    print("Clciked");
-                    viewModel.loginWithPassword(context);
+                    Future.delayed(const Duration(microseconds: 500),
+                        () => viewModel.loginWithOTP(context));
                   },
-                  // callback: () => AppRoutes.goto(context, SignUpScreen()),
                 ),
                 const SizedBox(height: 20),
                 Padding(
-                  padding: const EdgeInsets.only(left: 15, right: 15),
+                  padding: const EdgeInsets.only(left: 10, right: 10),
                   child: RichText(
                     text: const TextSpan(
                       text: Constants.buCreatingAnAccount,

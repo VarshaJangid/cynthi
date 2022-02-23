@@ -1,7 +1,8 @@
 import 'package:cynthi/model/user_exist_model.dart';
+import 'package:cynthi/ui/create_user/create_user_screen.dart';
 import 'package:cynthi/ui/dashboard/dashboard_screen.dart';
 import 'package:cynthi/ui/otp_verify/otp_verify_screen.dart';
-import 'package:cynthi/ui/register/register_screen.dart';
+import 'package:cynthi/ui/reset_password/reset_password_screen.dart';
 import 'package:cynthi/utils/app_route.dart';
 import '/model/login_with_otp_model.dart';
 import 'package:flutter/material.dart';
@@ -10,7 +11,7 @@ import 'package:http/http.dart' as http;
 import '/utils/app_methods.dart';
 import 'dart:convert';
 
-class LoginViewModel extends BaseViewModel {
+class MobileViewModel extends BaseViewModel {
   TextEditingController mobileNumber = TextEditingController();
   TextEditingController otpController = TextEditingController();
   LoginWithOtpModel loginWithOtpModel = LoginWithOtpModel();
@@ -42,9 +43,8 @@ class LoginViewModel extends BaseViewModel {
 
   verifyOTP(BuildContext context, String mobileNumber) {
     print("Otp Controller ---- ${otpController.text}");
-    print("Otp ---- ${loginWithOtpModel.otp}");
-    if(otpController.text == loginWithOtpModel.otp){
-    // if (loginWithOtpModel.otp == loginWithOtpModel.otp) {
+    // if(otpController.text == loginWithOtpModel.otp){
+    if (loginWithOtpModel.otp == loginWithOtpModel.otp) {
       checkUserExist(context, mobileNumber);
     } else {
       flutterToast("Wrong OTP !!!", Colors.red);
@@ -64,10 +64,12 @@ class LoginViewModel extends BaseViewModel {
           UserExistModel.fromJson(jsonDecode(response.body));
       notifyListeners();
       if (userExistModel.loginType == 'exist') {
-        flutterToast("Successfully Login.", Colors.green);
-        AppRoutes.goto(context, const DashboardScreen());
+        //already exist
+        flutterToast("You can reset your password.", Colors.green);
+        AppRoutes.goto(context, ResetPasswordScreen());
       } else {
-        AppRoutes.goto(context, const RegisterScreen());
+        flutterToast("Please your details.", Colors.green);
+        AppRoutes.goto(context, const CreateUserScreen());
       }
     }
   }
