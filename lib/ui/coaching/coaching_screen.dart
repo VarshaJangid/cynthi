@@ -1,3 +1,5 @@
+import 'package:cynthi/utils/app_constant.dart';
+
 import '/utils/app_assets.dart';
 import 'package:flutter/material.dart';
 
@@ -29,6 +31,24 @@ class CoachingScreen extends StatelessWidget {
             child: SingleChildScrollView(
               child: Column(
                 children: [
+                  Row(
+                    children: [
+
+                      const Spacer(),
+                      const Text(
+                        "Sort By",
+                        style: TextStyle(
+                            color: Colors.white, fontWeight: FontWeight.w500),
+                      ),
+                      IconButton(
+                        onPressed: () {},
+                        icon: const Icon(
+                          Icons.arrow_drop_down,
+                          color: Colors.white,
+                        ),
+                      ),
+                    ],
+                  ),
                   coachingWidget(),
                   coachingWidget(),
                   coachingWidget(),
@@ -44,10 +64,9 @@ class CoachingScreen extends StatelessWidget {
   Widget coachingWidget() => Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          const SizedBox(height: 20),
           Container(
-            margin: const EdgeInsets.fromLTRB(12, 0, 12, 0),
-            padding: const EdgeInsets.all(10),
+            margin: const EdgeInsets.fromLTRB(15, 0, 12, 0),
+            padding: const EdgeInsets.fromLTRB(15, 10, 15, 10),
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(20),
               color: const Color(0XFFeaf2f6),
@@ -76,7 +95,7 @@ class CoachingScreen extends StatelessWidget {
                 ),
                 const SizedBox(width: 30),
                 Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
+                  // crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     const Text(
                       "01:30 PM - 02:30 PM",
@@ -92,23 +111,28 @@ class CoachingScreen extends StatelessWidget {
                           fontSize: 16),
                     ),
                     const SizedBox(height: 10),
-                    Container(
-                      padding: const EdgeInsets.fromLTRB(20, 8, 20, 8),
-                      decoration: BoxDecoration(
-                          color: Colors.blue,
-                          borderRadius: BorderRadius.circular(30)),
-                      child: const Text(
-                        "Start Now",
-                        style: TextStyle(
-                            color: Colors.white, fontWeight: FontWeight.w500),
-                      ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.end,
+                      children: [
+                        Container(
+                          padding: const EdgeInsets.fromLTRB(20, 8, 20, 8),
+                          decoration: BoxDecoration(
+                              color: Colors.blue,
+                              borderRadius: BorderRadius.circular(30)),
+                          child: const Text(
+                            Constants.startNow,
+                            style: TextStyle(
+                                color: Colors.white, fontWeight: FontWeight.w500),
+                          ),
+                        ),
+                      ],
                     ),
                   ],
                 )
               ],
             ),
           ),
-          const SizedBox(height: 10),
+          const SizedBox(height: 25),
         ],
       );
 }
