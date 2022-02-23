@@ -109,8 +109,8 @@ class AddPhotoScreen extends StatelessWidget {
                             primary: const Color(0XFF828687),
                             padding: const EdgeInsets.fromLTRB(30, 12, 30, 12)),
                         onPressed: () {
-                          Future.delayed(Duration(milliseconds: 500), () => viewModel.registerUser());
-                          // AppRoutes.goto(context, WelcomeScreen());
+                          Future.delayed(const Duration(milliseconds: 500),
+                              () => viewModel.registerUser(context));
                         },
                         child: Text(Constants.create.toUpperCase()),
                       )

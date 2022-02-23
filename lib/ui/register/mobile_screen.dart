@@ -1,3 +1,4 @@
+import 'package:cynthi/ui/component/login_text_field.dart';
 import 'package:stacked/stacked.dart';
 import '/ui/component/custom_button.dart';
 import 'package:flutter/material.dart';
@@ -40,67 +41,8 @@ class MobileScreen extends StatelessWidget {
                   Constants.enterContactNumber,
                   style: TextStyle(fontWeight: FontWeight.bold, fontSize: 25),
                 ),
-                const SizedBox(height: 60),
-                SizedBox(
-                  height: 50,
-                  width: 315,
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      const SizedBox(
-                        width: 55,
-                        child: TextField(
-                          autocorrect: true,
-                          decoration: InputDecoration(
-                            labelText: '+91',
-                            labelStyle:
-                                TextStyle(color: Colors.black, fontSize: 15),
-                            filled: true,
-                            fillColor: Colors.white70,
-                            enabledBorder: OutlineInputBorder(
-                              borderRadius: BorderRadius.only(
-                                  topLeft: Radius.circular(15),
-                                  bottomLeft: Radius.circular(15)),
-                            ),
-                            focusedBorder: OutlineInputBorder(
-                              borderRadius: BorderRadius.only(
-                                  bottomLeft: Radius.circular(15.0),
-                                  topLeft: Radius.circular(15.0)),
-                              borderSide:
-                                  BorderSide(color: Colors.black, width: 2),
-                            ),
-                          ),
-                        ),
-                      ),
-                      SizedBox(
-                        width: 240,
-                        child: TextField(
-                          autocorrect: true,
-                          controller: viewModel.mobileNumber,
-                          decoration: const InputDecoration(
-                            labelText: Constants.mobileNumber,
-                            labelStyle:
-                                TextStyle(color: Colors.black, fontSize: 15),
-                            filled: true,
-                            fillColor: Colors.white70,
-                            enabledBorder: OutlineInputBorder(
-                              borderRadius: BorderRadius.only(
-                                  topRight: Radius.circular(15),
-                                  bottomRight: Radius.circular(15)),
-                            ),
-                            focusedBorder: OutlineInputBorder(
-                              borderRadius: BorderRadius.only(
-                                  bottomRight: Radius.circular(15.0),
-                                  topRight: Radius.circular(15.0)),
-                              borderSide:
-                                  BorderSide(color: Colors.black, width: 2),
-                            ),
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
+                const SizedBox(height: 40),
+                LoginTextField(controller: viewModel.mobileNumber),
                 const SizedBox(height: 40),
                 CustomButton(
                   title: Constants.Continue,

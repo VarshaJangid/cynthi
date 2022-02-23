@@ -1,5 +1,6 @@
 import 'package:cynthi/model/register_model.dart';
 import 'package:cynthi/ui/welcome/welcome_screen.dart';
+import 'package:cynthi/utils/app_route.dart';
 import 'package:image_picker/image_picker.dart';
 
 import '/model/login_with_otp_model.dart';
@@ -52,7 +53,7 @@ class AddPhotoViewModel extends BaseViewModel {
   }
 
   // Register User
-  registerUser() async {
+  registerUser(BuildContext context) async {
     Map<String, String> params = {
       'mobile': '7619782948',
       'fname': fname,
@@ -71,12 +72,10 @@ class AddPhotoViewModel extends BaseViewModel {
     if (response.statusCode == 200) {
       RegisterModel registerModel =
           RegisterModel.fromJson(jsonDecode(response.body));
-      // 7619782948 I/flutter (16838): {"status":"success","message":"Password saved successfully","token":"xPn0uZ5cNpabOzoH"}
-      print("Token is ---- ${registerModel.token}");
       if (registerModel.message == "Password saved successfully") {
         flutterToast("Password saved successfully.", Colors.green);
         flutterToast("User Registered successfully.", Colors.green);
-        Future.delayed(const Duration(milliseconds: 500), () => const WelcomeScreen());
+        AppRoutes.goto(context, WelcomeScreen());
       } else {
         Exception("Exception in Register API.");
       }
