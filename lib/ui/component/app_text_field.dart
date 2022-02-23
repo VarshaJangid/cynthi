@@ -3,8 +3,9 @@ import 'package:flutter/material.dart';
 class AppTextField extends StatelessWidget {
   final String? labelText;
   bool? isIcon;
+  TextEditingController? controller;
 
-  AppTextField({required this.labelText, this.isIcon = false});
+  AppTextField({required this.labelText, this.isIcon = false, this.controller});
 
   @override
   Widget build(BuildContext context) {
@@ -12,6 +13,7 @@ class AppTextField extends StatelessWidget {
       height: 50,
       width: MediaQuery.of(context).size.width,
       child: TextField(
+        controller: controller,
         autocorrect: true,
         cursorColor: Colors.black,
         decoration: InputDecoration(
