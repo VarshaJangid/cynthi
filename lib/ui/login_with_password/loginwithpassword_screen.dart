@@ -43,12 +43,12 @@ class LoginWithPasswordScreen extends StatelessWidget {
                 const SizedBox(height: 15),
                 const Text(
                   Constants.youAreAlreadyRegistered,
-                  style: TextStyle(fontSize: 23, color: Colors.grey),
+                  style: TextStyle(fontSize: 21, color: Colors.grey),
                 ),
                 const SizedBox(height: 10),
                 const Text(
                   Constants.logBackInToContinue,
-                  style: TextStyle(fontSize: 23, color: Colors.grey),
+                  style: TextStyle(fontSize: 21, color: Colors.grey),
                 ),
                 const SizedBox(height: 40),
                 LoginTextField(controller: viewModel.mobileNumber),

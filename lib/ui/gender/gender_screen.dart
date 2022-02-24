@@ -10,11 +10,13 @@ class GenderScreen extends StatefulWidget {
   GenderScreen(
       {required this.firstName,
       required this.lastName,
+      required this.mobile,
       required this.password});
 
   final String firstName;
   final String lastName;
   final String password;
+  final String mobile;
 
   @override
   _GenderState createState() => _GenderState();
@@ -60,12 +62,12 @@ class _GenderState extends State<GenderScreen> {
         onPressed: () => AppRoutes.goto(
             context,
             AddPhotoScreen(
-              firstName: widget.firstName,
-              lastName: widget.lastName,
-              datePicked: datePicked!,
-              gender: gender,
-              password: widget.password,
-            )),
+                firstName: widget.firstName,
+                lastName: widget.lastName,
+                datePicked: datePicked!,
+                gender: gender,
+                password: widget.password,
+                mobile: widget.mobile)),
         backgroundColor: Colors.grey,
         child: const Icon(Icons.arrow_forward_ios),
       ),

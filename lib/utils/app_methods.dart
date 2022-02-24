@@ -1,6 +1,8 @@
+import '/ui/login_with_password/loginwithpassword_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'app_route.dart';
 import 'loading.dart';
 
 flutterToast(String message, Color color) {
@@ -16,7 +18,7 @@ flutterToast(String message, Color color) {
 
 final loadingDialog = WillPopScope(
     onWillPop: () async {
-      return false;
+      return true;
     },
     child: Dialog(
       shape: RoundedRectangleBorder(
@@ -34,7 +36,8 @@ void showLoadingDialog(BuildContext context) {
   );
 }
 
-logoutAlert() async {
+logoutAlert(BuildContext context) async {
   SharedPreferences prefs = await SharedPreferences.getInstance();
   prefs.remove('token');
+  AppRoutes.makeFirst(context, const LoginWithPasswordScreen());
 }

@@ -12,6 +12,7 @@ class AddPhotoScreen extends StatelessWidget {
   final String password;
   final DateTime datePicked;
   final String gender;
+  final String mobile;
 
   AddPhotoScreen({
     Key? key,
@@ -20,6 +21,7 @@ class AddPhotoScreen extends StatelessWidget {
     required this.password,
     required this.gender,
     required this.datePicked,
+    required this.mobile,
   }) : super(key: key);
 
   @override
@@ -27,7 +29,7 @@ class AddPhotoScreen extends StatelessWidget {
     return ViewModelBuilder<AddPhotoViewModel>.reactive(
       viewModelBuilder: () => AddPhotoViewModel(),
       onModelReady: (viewModel) => viewModel.init(
-          context, firstName, lastName, gender, datePicked, password),
+          context, firstName, lastName, gender, datePicked, password, mobile),
       builder: (context, viewModel, child) {
         return Scaffold(
           appBar: AppBar(

@@ -19,6 +19,15 @@ class MobileViewModel extends BaseViewModel {
     mobileNumber.addListener(() => notifyListeners());
   }
 
+  validation(BuildContext context) {
+    if (mobileNumber.text.isEmpty || mobileNumber.text.length != 10) {
+      flutterToast("Number is not valid !!", Colors.red);
+    } else {
+      Future.delayed(
+          const Duration(microseconds: 500), () => loginWithOTP(context));
+    }
+  }
+
   // Login With OTP
   loginWithOTP(BuildContext context) async {
     Map<String, String> params = {
@@ -52,7 +61,6 @@ class MobileViewModel extends BaseViewModel {
     print("Otp Controller ---- ${otpController.text}");
     // if(otpController.text == loginWithOtpModel.otp){
     if (loginWithOtpModel.otp == loginWithOtpModel.otp) {
-      print("Go foe check ");
       checkUserExist(context, mobileNumber);
     } else {
       flutterToast("Wrong OTP !!!", Colors.red);
@@ -83,7 +91,7 @@ class MobileViewModel extends BaseViewModel {
         } else {
           AppRoutes.dismiss(context);
           flutterToast("Please fill your details.", Colors.green);
-          AppRoutes.goto(context, const CreateUserScreen());
+          AppRoutes.goto(context, CreateUserScreen(mobile: mobileNumber));
         }
       }
     } catch (e) {

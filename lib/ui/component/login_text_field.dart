@@ -11,9 +11,10 @@ class LoginTextField extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Row(
-      mainAxisSize: MainAxisSize.max,
+      // mainAxisSize: MainAxisSize.max,
       children: [
         Container(
+          width: MediaQuery.of(context).size.width/5.5,
           height: 51.8,
           padding: const EdgeInsets.all(7),
           margin: const EdgeInsets.only(top: 16),
@@ -32,7 +33,7 @@ class LoginTextField extends StatelessWidget {
           ),
         ),
         Container(
-          width: MediaQuery.of(context).size.width - 120,
+          width: MediaQuery.of(context).size.width/1.5,
           height: 51.8,
           margin: const EdgeInsets.only(top: 16),
           decoration: BoxDecoration(

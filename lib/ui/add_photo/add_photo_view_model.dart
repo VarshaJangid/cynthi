@@ -16,14 +16,16 @@ class AddPhotoViewModel extends BaseViewModel {
   String password = '';
   DateTime student_dob = DateTime.now();
   String gender = '';
+  String mobile = '';
 
   init(BuildContext context, String _fname, String _lname, String _password,
-      DateTime _student_dob, String _gender) async {
+      DateTime _student_dob, String _gender, String _mobile) async {
     fname = _fname;
     lname = _lname;
     password = _password;
     student_dob = _student_dob;
     gender = _gender;
+    mobile = _mobile;
   }
 
   getFromGallery() async {
@@ -53,30 +55,33 @@ class AddPhotoViewModel extends BaseViewModel {
   // Register User
   registerUser(BuildContext context) async {
     Map<String, String> params = {
-      'mobile': '7619782948',
+      'mobile': mobile,
       'fname': fname,
       'lname': lname,
       'password': password,
-      'source_id': '2',
+      'source_id': '1',
       'student_dob': "$student_dob",
       'gender': gender,
       'profilepicurl': 'profilePicUrl',
       'file_name': 'fileNAme',
     };
-    final response = await http.post(
-        Uri.parse(
-            "https://api.cynthians.com/index.php/api/save_newstudentPassword"),
-        body: params);
-    if (response.statusCode == 200) {
-      RegisterModel registerModel =
-          RegisterModel.fromJson(jsonDecode(response.body));
-      if (registerModel.message == "Password saved successfully") {
-        flutterToast("Password saved successfully.", Colors.green);
-        flutterToast("User Registered successfully.", Colors.green);
-        AppRoutes.goto(context, const WelcomeScreen());
-      } else {
-        Exception("Exception in Register API.");
+    try {
+      final response = await http.post(
+          Uri.parse(
+              "https://api.cynthians.com/index.php/api/save_newstudentPassword"),
+          body: params);
+      if (response.statusCode == 200) {
+        RegisterModel registerModel =
+            RegisterModel.fromJson(jsonDecode(response.body));
+        if (registerModel.message == "Password saved successfully") {
+          flutterToast(registerModel.message, Colors.green);
+          AppRoutes.goto(context, const WelcomeScreen());
+        } else {
+          Exception("Exception in Register API.");
+        }
       }
+    } catch (e) {
+      Exception("Exception in registerUser API ---- $e");
     }
   }
 }

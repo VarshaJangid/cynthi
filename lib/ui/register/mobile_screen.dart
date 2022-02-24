@@ -47,8 +47,7 @@ class MobileScreen extends StatelessWidget {
                 CustomButton(
                   title: Constants.Continue,
                   callback: () {
-                    Future.delayed(const Duration(microseconds: 500),
-                        () => viewModel.loginWithOTP(context));
+                    viewModel.validation(context);
                   },
                 ),
                 const SizedBox(height: 20),

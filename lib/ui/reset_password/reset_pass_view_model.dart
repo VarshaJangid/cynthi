@@ -16,6 +16,17 @@ class ResetPassViewModel extends BaseViewModel {
     confirmPass.addListener(() => notifyListeners());
   }
 
+  validation(BuildContext context, String mobileNumber) {
+    if (pass.text.isEmpty ||
+        confirmPass.text.isEmpty ||
+        pass.text != confirmPass.text) {
+      flutterToast("Enter valid/ similar password !!", Colors.red);
+    } else {
+      Future.delayed(const Duration(milliseconds: 600),
+          () => resetPassword(context, mobileNumber));
+    }
+  }
+
   //Reset User Password
   resetPassword(BuildContext context, String mobileNumber) async {
     Map<String, String> params = {
@@ -24,20 +35,28 @@ class ResetPassViewModel extends BaseViewModel {
       'action': 'reset',
       "source_id": '1'
     };
-    final response = await http.post(
-        Uri.parse(
-            "https://api.cynthians.com/index.php/api/save_studentPassword"),
-        body: params);
-    if (response.statusCode == 200) {
-      ResetPassModel resetPassModel =
-          ResetPassModel.fromJson(jsonDecode(response.body));
-      notifyListeners();
-      if (resetPassModel.message == 'Reset Password Successfully') {
-        flutterToast(resetPassModel.message, Colors.green);
-        AppRoutes.goto(context, const LoginWithPasswordScreen());
-      } else {
-        flutterToast(resetPassModel.message, Colors.red);
+    try {
+      showLoadingDialog(context);
+      final response = await http.post(
+          Uri.parse(
+              "https://api.cynthians.com/index.php/api/save_studentPassword"),
+          body: params);
+      if (response.statusCode == 200) {
+        ResetPassModel resetPassModel =
+            ResetPassModel.fromJson(jsonDecode(response.body));
+        notifyListeners();
+        print(resetPassModel.message);
+        if (resetPassModel.message == 'Reset Password Successfully') {
+          flutterToast(resetPassModel.message, Colors.green);
+          AppRoutes.dismiss(context);
+          AppRoutes.goto(context, const LoginWithPasswordScreen());
+        } else {
+          flutterToast(resetPassModel.message, Colors.red);
+          AppRoutes.dismiss(context);
+        }
       }
+    } catch (e) {
+      Exception("Exception is ---- $e");
     }
   }
 }

@@ -111,7 +111,7 @@ class Settings extends StatelessWidget {
                   context: context,
                   subTitle: "subTitle",
                   image: Assets.logo);
-              },
+            },
             child: const Text(
               "Logout",
               style: TextStyle(
@@ -166,19 +166,21 @@ void logOutPopup({
                                 child: const Text(
                                   "Cancel",
                                   style: TextStyle(
-                                      fontSize: 15, fontWeight: FontWeight.w500),
+                                      fontSize: 15,
+                                      fontWeight: FontWeight.w500),
                                 ),
                               ),
                               const Spacer(),
                               GestureDetector(
-                                onTap: () => logoutAlert(),
+                                onTap: () => logoutAlert(context),
                                 child: const Text(
                                   "Yes",
                                   style: TextStyle(
-                                      fontSize: 15, fontWeight: FontWeight.w500),
+                                      fontSize: 15,
+                                      fontWeight: FontWeight.w500),
                                 ),
                               ),
-                              SizedBox(width: 15),
+                              const SizedBox(width: 15),
                             ],
                           ),
                         ],

@@ -1,7 +1,6 @@
-import 'package:cynthi/utils/app_constant.dart';
-
-import '/utils/app_assets.dart';
 import 'package:flutter/material.dart';
+import '/utils/app_constant.dart';
+import '/utils/app_assets.dart';
 
 class CoachingScreen extends StatelessWidget {
   const CoachingScreen({Key? key}) : super(key: key);
@@ -33,7 +32,6 @@ class CoachingScreen extends StatelessWidget {
                 children: [
                   Row(
                     children: [
-
                       const Spacer(),
                       const Text(
                         "Sort By",
@@ -89,7 +87,7 @@ class CoachingScreen extends StatelessWidget {
                     const Text(
                       "IAS, Ketki Sharma\nBatch 1999,\nKanpur",
                       style: TextStyle(
-                          color: Colors.black, fontWeight: FontWeight.w500),
+                          color: Colors.black, fontWeight: FontWeight.w500, fontSize: 11),
                     ),
                   ],
                 ),
@@ -100,7 +98,7 @@ class CoachingScreen extends StatelessWidget {
                     const Text(
                       "01:30 PM - 02:30 PM",
                       style: TextStyle(
-                          color: Colors.grey, fontWeight: FontWeight.w500),
+                          color: Colors.grey, fontWeight: FontWeight.w500, fontSize: 10),
                     ),
                     const SizedBox(height: 10),
                     const Text(
@@ -108,7 +106,7 @@ class CoachingScreen extends StatelessWidget {
                       style: TextStyle(
                           color: Color(0XFF446481),
                           fontWeight: FontWeight.bold,
-                          fontSize: 16),
+                          fontSize: 15),
                     ),
                     const SizedBox(height: 10),
                     Row(
@@ -122,7 +120,7 @@ class CoachingScreen extends StatelessWidget {
                           child: const Text(
                             Constants.startNow,
                             style: TextStyle(
-                                color: Colors.white, fontWeight: FontWeight.w500),
+                                color: Colors.white, fontWeight: FontWeight.w500, fontSize: 10),
                           ),
                         ),
                       ],

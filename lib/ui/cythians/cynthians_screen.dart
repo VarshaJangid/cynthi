@@ -58,53 +58,48 @@ class CythiansScreen extends StatelessWidget {
             ),
           ),
         ),
-        Container(
-          width: MediaQuery.of(context).size.width,
-          color: const Color(0XFF08263d),
-          child: Column(
-            children: [
-              Row(
+        Expanded(
+          child: Container(
+            color: const Color(0XFF08263d),
+            child: SingleChildScrollView(
+              padding: const EdgeInsets.only(left: 10, right: 10),
+              child: Column(
                 children: [
-                  const SizedBox(width: 10),
-                  const Text(
-                    "Today",
-                    style: TextStyle(
-                        color: Colors.white, fontWeight: FontWeight.w500),
-                  ),
-                  const Spacer(),
-                  const Text(
-                    "Sort By",
-                    style: TextStyle(
-                        color: Colors.white, fontWeight: FontWeight.w500),
-                  ),
-                  IconButton(
-                    onPressed: () {},
-                    icon: const Icon(
-                      Icons.arrow_drop_down,
-                      color: Colors.white,
-                    ),
-                  ),
-                ],
-              ),
-              SizedBox(
-                height: 360,
-                child: SingleChildScrollView(
-                  padding: const EdgeInsets.only(left: 10, right: 10),
-                  child: Column(
+                  Row(
                     children: [
-                      cythiansWidget(context),
-                      cythiansWidget(context),
-                      cythiansWidget(context),
+                      const SizedBox(width: 10),
+                      const Text(
+                        "Today",
+                        style: TextStyle(
+                            color: Colors.white, fontWeight: FontWeight.w500),
+                      ),
+                      const Spacer(),
+                      const Text(
+                        "Sort By",
+                        style: TextStyle(
+                            color: Colors.white, fontWeight: FontWeight.w500),
+                      ),
+                      IconButton(
+                        onPressed: () {},
+                        icon: const Icon(
+                          Icons.arrow_drop_down,
+                          color: Colors.white,
+                        ),
+                      ),
                     ],
                   ),
-                ),
+                  cythiansWidget(context),
+                  cythiansWidget(context),
+                  cythiansWidget(context),
+                ],
               ),
-            ],
+            ),
           ),
         ),
       ],
     );
   }
+
 
   Widget cythiansWidget(BuildContext context) => Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -133,10 +128,12 @@ class CythiansScreen extends StatelessWidget {
                           ),
                         ),
                         const SizedBox(height: 10),
-                        const Text(
-                          "IAS, Ketki Sharma\nBatch 1999,\nKanpur",
-                          style: TextStyle(
-                              color: Colors.black, fontWeight: FontWeight.w500),
+                        Center(
+                          child: const Text(
+                            "IAS, Ketki Sharma\nBatch 1999,\nKanpur",
+                            style: TextStyle(
+                                color: Colors.black, fontWeight: FontWeight.w500, fontSize: 11),
+                          ),
                         ),
                       ],
                     ),
@@ -147,7 +144,7 @@ class CythiansScreen extends StatelessWidget {
                         const Text(
                           "01:30 PM - 02:30 PM",
                           style: TextStyle(
-                              color: Colors.grey, fontWeight: FontWeight.w500),
+                              color: Colors.grey, fontWeight: FontWeight.w500, fontSize: 10),
                         ),
                         const SizedBox(height: 10),
                         const Text(
@@ -155,7 +152,7 @@ class CythiansScreen extends StatelessWidget {
                           style: TextStyle(
                               color: Color(0XFF446481),
                               fontWeight: FontWeight.bold,
-                              fontSize: 16),
+                              fontSize: 15),
                         ),
                         const SizedBox(height: 10),
                         Row(
@@ -165,12 +162,12 @@ class CythiansScreen extends StatelessWidget {
                               style: TextStyle(
                                   color: Colors.black,
                                   fontWeight: FontWeight.bold,
-                                  fontSize: 14),
+                                  fontSize: 10),
                             ),
                             SizedBox(width: 5),
                             Icon(
                               Icons.info_outline,
-                              size: 19,
+                              size: 16,
                             )
                           ],
                         )
@@ -182,9 +179,9 @@ class CythiansScreen extends StatelessWidget {
               Positioned(
                 left: 120,
                 right: 110,
-                bottom: -10 * 2,
+                bottom: -12 * 2,
                 child: Container(
-                  padding: const EdgeInsets.fromLTRB(20, 10, 20, 10),
+                  padding: const EdgeInsets.all(10),
                   decoration: BoxDecoration(
                       color: Colors.blue,
                       borderRadius: BorderRadius.circular(25)),
@@ -192,8 +189,8 @@ class CythiansScreen extends StatelessWidget {
                     child: Text(
                       Constants.bookNow,
                       style: TextStyle(
-                          fontWeight: FontWeight.bold,
-                          fontSize: 19,
+                          fontWeight: FontWeight.w500,
+                          fontSize: 13,
                           color: Colors.white),
                     ),
                   ),

@@ -59,7 +59,7 @@ class ResetPasswordScreen extends StatelessWidget {
                 CustomButton(
                   title: Constants.resetPassword.toUpperCase(),
                   callback: () =>
-                      viewModel.resetPassword(context, mobileNumber),
+                      viewModel.validation(context, mobileNumber),
                 ),
               ],
             ),
