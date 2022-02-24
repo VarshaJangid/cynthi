@@ -1,4 +1,6 @@
 import 'package:cynthi/ui/knowlwdge_hub/knowledge_hub_screen.dart';
+import 'package:cynthi/utils/app_methods.dart';
+import 'package:cynthi/utils/app_route.dart';
 import 'package:cynthi/utils/dimensions.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -103,16 +105,13 @@ class Settings extends StatelessWidget {
     return Scaffold(
       body: Center(
         child: GestureDetector(
-            onTap: () async {
-              print("Hi");
+            onTap: () {
               logOutPopup(
                   title: "title",
                   context: context,
                   subTitle: "subTitle",
                   image: Assets.logo);
-              // SharedPreferences prefs = await SharedPreferences.getInstance();
-              // prefs.remove('token');
-            },
+              },
             child: const Text(
               "Logout",
               style: TextStyle(
@@ -160,18 +159,24 @@ void logOutPopup({
                                   fontSize: 17, fontWeight: FontWeight.w500)),
                           const SizedBox(height: 40),
                           Row(
-                            children: const [
-                              SizedBox(width: 15),
-                              Text(
-                                "Cancel",
-                                style: TextStyle(
-                                    fontSize: 15, fontWeight: FontWeight.w500),
+                            children: [
+                              const SizedBox(width: 15),
+                              GestureDetector(
+                                onTap: () => AppRoutes.dismiss(context),
+                                child: const Text(
+                                  "Cancel",
+                                  style: TextStyle(
+                                      fontSize: 15, fontWeight: FontWeight.w500),
+                                ),
                               ),
-                              Spacer(),
-                              Text(
-                                "Yes",
-                                style: TextStyle(
-                                    fontSize: 15, fontWeight: FontWeight.w500),
+                              const Spacer(),
+                              GestureDetector(
+                                onTap: () => logoutAlert(),
+                                child: const Text(
+                                  "Yes",
+                                  style: TextStyle(
+                                      fontSize: 15, fontWeight: FontWeight.w500),
+                                ),
                               ),
                               SizedBox(width: 15),
                             ],

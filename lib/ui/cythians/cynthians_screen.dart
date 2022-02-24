@@ -180,7 +180,8 @@ class CythiansScreen extends StatelessWidget {
                 ),
               ),
               Positioned(
-                left: 100,
+                left: 120,
+                right: 110,
                 bottom: -10 * 2,
                 child: Container(
                   padding: const EdgeInsets.fromLTRB(20, 10, 20, 10),

@@ -104,6 +104,7 @@ class _BodyState extends State<Body> {
                 ),
               ),
             ),
+           Spacer(),
             // SizedBox(height: size.height * 0.03),
             TextButton(
               onPressed: () =>
@@ -123,7 +124,8 @@ class _BodyState extends State<Body> {
                   ],
                 ),
               ),
-            )
+            ),
+            const SizedBox(height: 10),
           ],
         ),
       ),
@@ -148,6 +150,7 @@ class Content extends StatelessWidget {
       color: const Color(0XFF08263d),
       child: Column(
         children: [
+          Spacer(),
           // const SizedBox(height: 30),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -200,6 +203,7 @@ class Content extends StatelessWidget {
             textAlign: TextAlign.center,
             style: TextStyle(fontSize: 18, color: Colors.white),
           ),
+          const SizedBox(height: 10),
         ],
       ),
     );

@@ -18,23 +18,28 @@ class LoginWithPassViewModel extends BaseViewModel {
     password.addListener(() => notifyListeners());
   }
 
-  // login
+  // Login With Password
   loginWithPassword(BuildContext context) async {
     Map<String, String> params = {
       'mobile': mobileNumber.text,
       'password': password.text,
       'source_id': '1',
     };
-    final response = await http.post(
-        Uri.parse("https://api.cynthians.com/index.php/api/studentlogin"),
-        body: params);
-    if (response.statusCode == 200) {
-      loginPassModel = LoginPassModel.fromJson(jsonDecode(response.body));
-      notifyListeners();
-      getAndSaveToken(context);
-
-      flutterToast("Successfully Logged In !!!", Colors.green);
-      AppRoutes.goto(context, const DashboardScreen());
+    try {
+      showLoadingDialog(context);
+      final response = await http.post(
+          Uri.parse("https://api.cynthians.com/index.php/api/studentlogin"),
+          body: params);
+      if (response.statusCode == 200) {
+        loginPassModel = LoginPassModel.fromJson(jsonDecode(response.body));
+        notifyListeners();
+        getAndSaveToken(context);
+        flutterToast(loginPassModel.message, Colors.green);
+        AppRoutes.dismiss(context);
+        AppRoutes.goto(context, const DashboardScreen());
+      }
+    } catch (e) {
+      print("Exception in Login API $e");
     }
   }
 
