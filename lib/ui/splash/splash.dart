@@ -1,3 +1,5 @@
+import 'package:shared_preferences/shared_preferences.dart';
+
 import '/ui/onboarding_screens/onboarding.dart';
 import '/ui/dashboard/dashboard_screen.dart';
 import 'package:flutter/material.dart';
@@ -22,9 +24,9 @@ class _SplashScreenState extends State<SplashScreen> {
 
   callScreen() async {
     try {
-      await auth.setUserFromPreference();
-      print('Mobile Number ------  ${auth.currentUser!.mobileNo}');
-      if (auth.currentUser!.mobileNo!.isEmpty) {
+      SharedPreferences prefs = await SharedPreferences.getInstance();
+      print("Token is ------ ${prefs.getString("token")}");
+      if (prefs.getString("token")!.isNotEmpty) {
         AppRoutes.makeFirst(context, const DashboardScreen());
       } else {
         AppRoutes.makeFirst(context, OnBoardingScreen());

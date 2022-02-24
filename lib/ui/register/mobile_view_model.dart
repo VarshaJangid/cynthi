@@ -68,7 +68,7 @@ class MobileViewModel extends BaseViewModel {
         AppRoutes.goto(
             context, ResetPasswordScreen(mobileNumber: mobileNumber));
       } else {
-        flutterToast("Please your details.", Colors.green);
+        flutterToast("Please fill your details.", Colors.green);
         AppRoutes.goto(context, const CreateUserScreen());
       }
     }

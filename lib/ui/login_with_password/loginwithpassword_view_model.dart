@@ -1,4 +1,4 @@
-import '/utils/auth.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import '/ui/dashboard/dashboard_screen.dart';
 import 'package:http/http.dart' as http;
 import 'package:flutter/material.dart';
@@ -31,33 +31,17 @@ class LoginWithPassViewModel extends BaseViewModel {
     if (response.statusCode == 200) {
       loginPassModel = LoginPassModel.fromJson(jsonDecode(response.body));
       notifyListeners();
-
-      auth.setUser(
-        studentId: loginPassModel.studentId,
-        firstName: "",
-        lastName: "",
-        mobileNo: loginPassModel.mobile,
-        gender: "",
-        token: loginPassModel.token,
-      );
-
-      auth.updateUserInSharedPrefs(
-        loginPassModel.studentId,
-        "",
-        "",
-        loginPassModel.mobile,
-        "",
-        loginPassModel.token,
-      );
-
-      auth.setUserFromPreference();
-      print("Student Id ==========>>> ${auth.currentUser!.studentId}");
-      print("Mobile ==========>>> ${auth.currentUser!.mobileNo}");
-      print("Token ==========>>> ${auth.currentUser!.token}");
+      getAndSaveToken(context);
 
       flutterToast("Successfully Logged In !!!", Colors.green);
-      //set auth
       AppRoutes.goto(context, const DashboardScreen());
     }
+  }
+
+  // Set Token on Login
+  getAndSaveToken(BuildContext context) async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    await prefs.setString('token', loginPassModel.token);
+    print("Shared Preference Token ------ ${prefs.getString("token")}");
   }
 }

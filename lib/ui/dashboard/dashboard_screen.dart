@@ -1,5 +1,7 @@
 import 'package:cynthi/ui/knowlwdge_hub/knowledge_hub_screen.dart';
+import 'package:cynthi/utils/dimensions.dart';
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import '/utils/app_constant.dart';
 import '/utils/app_assets.dart';
 
@@ -12,17 +14,15 @@ class DashboardScreen extends StatefulWidget {
 
 class _DashboardState extends State<DashboardScreen> {
   int _currentIndex = 0;
-  static const List<Widget> _widgetOptions = <Widget>[
-    TabBarDemo(),
-    Text(
+  static final List<Widget> _widgetOptions = <Widget>[
+    const TabBarDemo(),
+    const Text(
       'Index 1: Planner',
     ),
-    Text(
+    const Text(
       'Index 2: Cyntest',
     ),
-    Text(
-      'Index 3: Setting',
-    ),
+    Settings(),
   ];
 
   void _onItemTapped(int index) {
@@ -30,6 +30,8 @@ class _DashboardState extends State<DashboardScreen> {
       _currentIndex = index;
     });
   }
+
+  popup() {}
 
   @override
   Widget build(BuildContext context) {
@@ -93,4 +95,110 @@ class _DashboardState extends State<DashboardScreen> {
       ),
     );
   }
+}
+
+class Settings extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: Center(
+        child: GestureDetector(
+            onTap: () async {
+              print("Hi");
+              logOutPopup(
+                  title: "title",
+                  context: context,
+                  subTitle: "subTitle",
+                  image: Assets.logo);
+              // SharedPreferences prefs = await SharedPreferences.getInstance();
+              // prefs.remove('token');
+            },
+            child: const Text(
+              "Logout",
+              style: TextStyle(
+                  color: Colors.black,
+                  fontWeight: FontWeight.bold,
+                  fontSize: 20),
+            )),
+      ),
+    );
+  }
+}
+
+void logOutPopup({
+  required String title,
+  required BuildContext context,
+  required String subTitle,
+  required String image,
+}) {
+  showDialog(
+    context: context,
+    builder: (_) {
+      return AlertDialog(
+        title: SizedBox(
+          child: Stack(
+            overflow: Overflow.visible,
+            children: [
+              Padding(
+                padding: const EdgeInsets.only(top: Dimensions.paddingXL * 2),
+                child: Container(
+                  decoration: BoxDecoration(
+                      color: Colors.white,
+                      borderRadius:
+                          BorderRadius.circular(Dimensions.paddingXL)),
+                  child: Padding(
+                    padding: const EdgeInsets.all(
+                      Dimensions.paddingL,
+                    ),
+                    child: Center(
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          const SizedBox(height: 20),
+                          const Text("Are you sure you want logout ?",
+                              style: TextStyle(
+                                  fontSize: 17, fontWeight: FontWeight.w500)),
+                          const SizedBox(height: 40),
+                          Row(
+                            children: const [
+                              SizedBox(width: 15),
+                              Text(
+                                "Cancel",
+                                style: TextStyle(
+                                    fontSize: 15, fontWeight: FontWeight.w500),
+                              ),
+                              Spacer(),
+                              Text(
+                                "Yes",
+                                style: TextStyle(
+                                    fontSize: 15, fontWeight: FontWeight.w500),
+                              ),
+                              SizedBox(width: 15),
+                            ],
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.all(0),
+                child: Center(
+                  child: Image.asset(
+                    image,
+                    height: Dimensions.paddingXXL * 1.4,
+                  ),
+                ),
+              ),
+            ],
+          ),
+        ),
+        titlePadding: const EdgeInsets.all(0),
+        elevation: 0,
+        backgroundColor: Colors.transparent,
+      );
+    },
+    barrierDismissible: false,
+  );
 }
