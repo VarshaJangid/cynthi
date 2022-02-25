@@ -11,15 +11,42 @@ class CoachingScreen extends StatelessWidget {
       children: [
         Center(
           child: Container(
+            height: 72,
+            width: 300,
             decoration: BoxDecoration(
               color: Colors.blue,
               borderRadius: BorderRadius.circular(30),
             ),
-            padding: const EdgeInsets.fromLTRB(20, 15, 20, 15),
+            padding: const EdgeInsets.fromLTRB(20, 11, 20, 11),
             margin: const EdgeInsets.fromLTRB(40, 10, 40, 10),
-            // height: 50,
-            child: Row(
-              children: const [],
+            child: DefaultTabController(
+              length: 3,
+              child: Scaffold(
+                appBar: AppBar(
+                  elevation: 0,
+                  backgroundColor: Colors.blue,
+                  bottom: const TabBar(
+                    // padding: EdgeInsets.only(left: 10, right: 10),
+                    // indicatorSize: TabBarIndicatorSize.label,
+                    indicatorWeight: 3,
+                    labelColor: Colors.white,
+                    indicatorColor: Colors.white,
+                    unselectedLabelColor: Colors.grey,
+                    tabs: [
+                      Tab(text: Constants.cynthians),
+                      Tab(text: Constants.coaching),
+                      Tab(text: Constants.schoolCollege),
+                    ],
+                  ),
+                ),
+                // body: TabBarView(
+                //   children: [
+                //     Text("fghducijxklmnvfbhvdjiklm"),
+                //     Text("fghducijxklmnvfbhvdjiklm"),
+                //     Icon(Icons.directions_bike),
+                //   ],
+                // ),
+              ),
             ),
           ),
         ),
