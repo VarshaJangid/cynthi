@@ -1,3 +1,4 @@
+import 'package:cynthi/utils/app_methods.dart';
 import 'package:pin_code_fields/pin_code_fields.dart';
 import '/ui/register/mobile_view_model.dart';
 import 'package:flutter/material.dart';
@@ -6,9 +7,10 @@ import '/utils/app_constant.dart';
 import '/utils/app_route.dart';
 
 class OtpVerifyScreen extends StatelessWidget {
-  const OtpVerifyScreen({Key? key, required this.mobileNumber})
+  const OtpVerifyScreen({Key? key, required this.mobileNumber,required this.otp})
       : super(key: key);
   final String mobileNumber;
+  final String otp;
 
   @override
   Widget build(BuildContext context) {
@@ -31,7 +33,16 @@ class OtpVerifyScreen extends StatelessWidget {
           floatingActionButton: FloatingActionButton(
             elevation: 0,
             onPressed: () {
-              viewModel.verifyOTP(context, mobileNumber);
+              print(viewModel.loginWithOtpModel.otp);
+              // verifyOTP(BuildContext context, String mobileNumber) {
+              //   print("Otp Controller ---- ${otpController.text } otp$otpSet");
+                if(viewModel.otpController.text == otp){
+                  // if (loginWithOtpModel.otp == loginWithOtpModel.otp) {
+                  viewModel.checkUserExist(context, mobileNumber);
+                } else {
+                  flutterToast("Wrong OTP !!!", Colors.red);
+                }
+              // }
             },
             backgroundColor: Colors.grey,
             child: const Icon(Icons.arrow_forward_ios),
