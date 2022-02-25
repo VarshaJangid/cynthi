@@ -1,12 +1,10 @@
 import 'package:shared_preferences/shared_preferences.dart';
-
 import '/ui/onboarding_screens/onboarding.dart';
 import '/ui/dashboard/dashboard_screen.dart';
 import 'package:flutter/material.dart';
 import '/utils/app_constant.dart';
 import '/utils/app_assets.dart';
 import '/utils/app_route.dart';
-import '/utils/auth.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({Key? key}) : super(key: key);
@@ -25,14 +23,13 @@ class _SplashScreenState extends State<SplashScreen> {
   callScreen() async {
     try {
       SharedPreferences prefs = await SharedPreferences.getInstance();
-      print("Token is ------ ${prefs.getString("token")}");
       if (prefs.getString("token")!.isNotEmpty) {
         AppRoutes.makeFirst(context, const DashboardScreen());
       } else {
         AppRoutes.makeFirst(context, OnBoardingScreen());
       }
     } catch (e) {
-      print('In Exception--$e');
+      Exception('In Exception--$e');
       AppRoutes.makeFirst(context, OnBoardingScreen());
     }
   }

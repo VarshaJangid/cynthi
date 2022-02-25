@@ -107,6 +107,10 @@ class Constants {
   static const String topicsCovered = "Topics Covered";
 
   static const String startNow = "Start Now";
+
+  static const String letsGetStarted = "LET'S GET STARTED";
+
+  static const String placeToLearn = "This is a place to learn, plan & grow.";
 }
 
 class AuthConstants{

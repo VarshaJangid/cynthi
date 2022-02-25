@@ -15,7 +15,6 @@ class MobileViewModel extends BaseViewModel {
   TextEditingController otpController = TextEditingController();
   LoginWithOtpModel loginWithOtpModel = LoginWithOtpModel();
   String otpSet = "";
-
   init(BuildContext context) async {
     mobileNumber.addListener(() => notifyListeners());
   }
@@ -45,15 +44,14 @@ class MobileViewModel extends BaseViewModel {
         notifyListeners();
         otpSet = "${loginWithOtpModel.otp}";
         notifyListeners();
+        print("value otp $otpSet");
+
         AppRoutes.dismiss(context);
         if (loginWithOtpModel.message == "OTP send  successfully.") {
           flutterToast(loginWithOtpModel.message, Colors.green);
           AppRoutes.dismiss(context);
           AppRoutes.goto(
-              context,
-              OtpVerifyScreen(
-                  mobileNumber: mobileNumber.text,
-                  otp: "${loginWithOtpModel.otp}"));
+              context, OtpVerifyScreen(mobileNumber: mobileNumber.text,otp: "${loginWithOtpModel.otp}",));
         }
       } else {
         throw Exception('Exception in Login With OTP API');
@@ -62,6 +60,8 @@ class MobileViewModel extends BaseViewModel {
       Exception("Exception in loginWithOTP API ----- $e");
     }
   }
+
+
 
   checkUserExist(BuildContext context, String mobileNumber) async {
     Map<String, String> params = {

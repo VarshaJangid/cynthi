@@ -5,7 +5,7 @@ class AppTextField extends StatelessWidget {
   bool? isIcon;
   TextEditingController? controller;
 
-  AppTextField({required this.labelText, this.isIcon = false, this.controller});
+  AppTextField({Key? key, required this.labelText, this.isIcon = false, this.controller}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

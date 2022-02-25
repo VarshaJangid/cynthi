@@ -7,6 +7,8 @@ import '/utils/app_route.dart';
 import 'dart:async';
 
 class OnBoardingScreen extends StatelessWidget {
+  const OnBoardingScreen({Key? key}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -17,6 +19,8 @@ class OnBoardingScreen extends StatelessWidget {
 }
 
 class Body extends StatefulWidget {
+  const Body({Key? key}) : super(key: key);
+
   @override
   _BodyState createState() => _BodyState();
 }
@@ -44,20 +48,28 @@ class _BodyState extends State<Body> {
 
   List<Map<String, String>> onBoardingData = [
     {
-      "image": "assets/images/image1.png",
-      "title": "Think about your idea",
+      "image": Assets.logo,
+      "onBoarding": Assets.onboarding,
+      "title": Constants.cynthians,
+      "welcomeText": Constants.welcomeText,
     },
     {
-      "image": "assets/images/image2.png",
-      "title": "Share your thoughts",
+      "image": Assets.logo,
+      "onBoarding": Assets.onboarding,
+      "title": Constants.cynthians,
+      "welcomeText": Constants.welcomeText,
     },
     {
-      "image": "assets/images/image3.png",
-      "title": "Realize your project",
+      "image": Assets.logo,
+      "onBoarding": Assets.onboarding,
+      "title": Constants.cynthians,
+      "welcomeText": Constants.welcomeText,
     },
     {
-      "image": "assets/images/image3.png",
-      "title": "Realize your project",
+      "image": Assets.logo,
+      "onBoarding": Assets.onboarding,
+      "title": Constants.cynthians,
+      "welcomeText": Constants.welcomeText,
     },
   ];
 
@@ -82,7 +94,8 @@ class _BodyState extends State<Body> {
                 itemBuilder: (context, index) => Content(
                   size: size,
                   image: onBoardingData[index]["image"]!,
-                  // text: onBoardingData[index]["text"]!,
+                  onBoarding: onBoardingData[index]["onBoarding"]!,
+                  welcomeText: onBoardingData[index]["welcomeText"]!,
                   title: onBoardingData[index]["title"]!,
                 ),
               ),
@@ -104,7 +117,7 @@ class _BodyState extends State<Body> {
                 ),
               ),
             ),
-           Spacer(),
+            Spacer(),
             // SizedBox(height: size.height * 0.03),
             TextButton(
               onPressed: () =>
@@ -136,13 +149,14 @@ class _BodyState extends State<Body> {
 class Content extends StatelessWidget {
   const Content({
     required this.size,
-    this.text = '',
+    this.welcomeText = '',
     this.image = '',
     this.title = '',
+    this.onBoarding = '',
   });
 
   final Size size;
-  final String text, image, title;
+  final String welcomeText, image, title, onBoarding;
 
   @override
   Widget build(BuildContext context) {
@@ -150,35 +164,21 @@ class Content extends StatelessWidget {
       color: const Color(0XFF08263d),
       child: Column(
         children: [
-          Spacer(),
-          // const SizedBox(height: 30),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Text(
-                text,
-                style: const TextStyle(
-                  color: Colors.black,
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
-            ],
-          ),
+          const Spacer(),
           const SizedBox(height: 10),
-          Image.asset(Assets.logo, width: 100, height: 100, fit: BoxFit.fill),
+          Image.asset(image, width: 100, height: 100, fit: BoxFit.fill),
           const SizedBox(height: 20),
-          const Text(
-            "Cynthi’ans",
-            style: TextStyle(
+          Text(
+            title,
+            style: const TextStyle(
                 color: Colors.white, fontSize: 33, fontWeight: FontWeight.w500),
           ),
           const SizedBox(height: 30),
-          Image.asset(Assets.onboarding,
-              width: 120, height: 120, fit: BoxFit.fill),
+          Image.asset(onBoarding, width: 120, height: 120, fit: BoxFit.fill),
           const SizedBox(height: 10),
-          const Text(
-            Constants.welcomeText,
-            style: TextStyle(
+          Text(
+            welcomeText,
+            style: const TextStyle(
                 color: Colors.white, fontSize: 18, fontWeight: FontWeight.w500),
             textAlign: TextAlign.center,
           ),
@@ -191,7 +191,7 @@ class Content extends StatelessWidget {
               height: 50,
               child: const Center(
                 child: Text(
-                  "LET'S GET STARTED",
+                  Constants.letsGetStarted,
                   style: TextStyle(color: Color(0XFF08263d)),
                 ),
               ),
@@ -199,7 +199,7 @@ class Content extends StatelessWidget {
           ),
           SizedBox(height: size.height * 0.03),
           const Text(
-            "This is a place to learn, plan & grow.",
+            Constants.placeToLearn,
             textAlign: TextAlign.center,
             style: TextStyle(fontSize: 18, color: Colors.white),
           ),
