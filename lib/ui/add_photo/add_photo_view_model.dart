@@ -1,4 +1,5 @@
 import 'package:image_picker/image_picker.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import '/ui/welcome/welcome_screen.dart';
 import 'package:http/http.dart' as http;
 import 'package:flutter/material.dart';
@@ -20,12 +21,20 @@ class AddPhotoViewModel extends BaseViewModel {
 
   init(BuildContext context, String _fname, String _lname, String _password,
       DateTime _student_dob, String _gender, String _mobile) async {
+    print("Add Photo Screen");
     fname = _fname;
     lname = _lname;
     password = _password;
     student_dob = _student_dob;
     gender = _gender;
     mobile = _mobile;
+    print("In Add Photo");
+    print(fname);
+    print(lname);
+    print(password);
+    print(student_dob);
+    print(gender);
+    print(mobile);
   }
 
   getFromGallery() async {
@@ -49,11 +58,13 @@ class AddPhotoViewModel extends BaseViewModel {
     if (pickedFile != null) {
       imageFile = File(pickedFile.path);
       notifyListeners();
+      print("image ---- $imageFile");
     }
   }
 
   // Register User
   registerUser(BuildContext context) async {
+    print("Clicked");
     Map<String, String> params = {
       'mobile': mobile,
       'fname': fname,
@@ -63,7 +74,7 @@ class AddPhotoViewModel extends BaseViewModel {
       'student_dob': "$student_dob",
       'gender': gender,
       'profilepicurl': 'profilePicUrl',
-      'file_name': 'fileNAme',
+      'file_name': 'fileName',
     };
     try {
       final response = await http.post(
@@ -71,11 +82,13 @@ class AddPhotoViewModel extends BaseViewModel {
               "https://api.cynthians.com/index.php/api/save_newstudentPassword"),
           body: params);
       if (response.statusCode == 200) {
+        print("Respions =----- ${response.body}");
         RegisterModel registerModel =
             RegisterModel.fromJson(jsonDecode(response.body));
+        print("res ----- ${registerModel.message}");
         if (registerModel.message == "Password saved successfully") {
           flutterToast(registerModel.message, Colors.green);
-          AppRoutes.goto(context, const WelcomeScreen());
+          getAndSaveToken(context, registerModel.token);
         } else {
           Exception("Exception in Register API.");
         }
@@ -83,5 +96,11 @@ class AddPhotoViewModel extends BaseViewModel {
     } catch (e) {
       Exception("Exception in registerUser API ---- $e");
     }
+  }
+
+  getAndSaveToken(BuildContext context, String token) async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    await prefs.setString('token', token);
+    print("Shared Preference Token ------ ${prefs.getString("token")}");
   }
 }

@@ -1,3 +1,5 @@
+import 'package:cynthi/utils/app_methods.dart';
+
 import '/ui/component/custom_button.dart';
 import 'package:flutter/material.dart';
 import '/ui/gender/gender_screen.dart';
@@ -49,32 +51,41 @@ class CreateUserScreen extends StatelessWidget {
                   children: [
                     SizedBox(
                       width: 150,
-                      child: textField(context, Constants.firstName),
+                      child: textField(
+                          context, Constants.firstName, viewModel.firstName),
                     ),
                     const Spacer(),
                     SizedBox(
                       width: 150,
-                      child: textField(context, Constants.lastName),
+                      child: textField(
+                          context, Constants.lastName, viewModel.lastName),
                     ),
                   ],
                 ),
                 const SizedBox(height: 40),
-                textField(context, Constants.createPassword),
+                textField(
+                    context, Constants.createPassword, viewModel.password),
                 const SizedBox(height: 40),
-                textField(context, Constants.confirmPassword),
+                textField(context, Constants.confirmPassword,
+                    viewModel.confirmPassword),
                 const SizedBox(height: 40),
                 CustomButton(
-                  title: Constants.next,
-                  callback: () => AppRoutes.goto(
-                    context,
-                    GenderScreen(
-                      firstName: viewModel.firstName.text,
-                      lastName: viewModel.lastName.text,
-                      password: viewModel.password.text,
-                      mobile: mobile,
-                    ),
-                  ),
-                ),
+                    title: Constants.next,
+                    callback: () {
+                     if (viewModel.password.text == viewModel.confirmPassword.text) {
+                        AppRoutes.goto(
+                          context,
+                          GenderScreen(
+                            firstName: viewModel.firstName.text,
+                            lastName: viewModel.lastName.text,
+                            password: viewModel.password.text,
+                            mobile: mobile,
+                          ),
+                        );
+                      } else {
+                        flutterToast("Password does not match !!!", Colors.red);
+                      }
+                    }),
                 Padding(
                   padding: const EdgeInsets.fromLTRB(15, 20, 15, 0),
                   child: RichText(
@@ -97,10 +108,13 @@ class CreateUserScreen extends StatelessWidget {
     );
   }
 
-  Widget textField(BuildContext context, String title) => SizedBox(
+  Widget textField(BuildContext context, String title,
+          TextEditingController controller) =>
+      SizedBox(
         width: MediaQuery.of(context).size.width,
         height: MediaQuery.of(context).size.height * .08,
         child: TextField(
+          controller: controller,
           cursorColor: Colors.black,
           autocorrect: true,
           decoration: InputDecoration(

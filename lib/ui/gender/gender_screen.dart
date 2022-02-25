@@ -31,7 +31,7 @@ class _GenderState extends State<GenderScreen> {
   @override
   void initState() {
     listGender = [
-      GenderModel(true, "Male"),
+      GenderModel(false, "Male"),
       GenderModel(false, "Female"),
       GenderModel(false, "Non-binary"),
       GenderModel(false, "Rather not say"),
@@ -49,13 +49,16 @@ class _GenderState extends State<GenderScreen> {
       } else {
         setState(() {
           e.isSelected = false;
+          print(e.isSelected);
         });
       }
     }).toList();
+
   }
 
   @override
   Widget build(BuildContext context) {
+    print("First Name ${widget.firstName}${widget.lastName}${widget.password}");
     return Scaffold(
       floatingActionButton: FloatingActionButton(
         elevation: 0,
