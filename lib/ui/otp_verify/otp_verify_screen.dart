@@ -7,7 +7,8 @@ import '/utils/app_constant.dart';
 import '/utils/app_route.dart';
 
 class OtpVerifyScreen extends StatelessWidget {
-  const OtpVerifyScreen({Key? key, required this.mobileNumber,required this.otp})
+  const OtpVerifyScreen(
+      {Key? key, required this.mobileNumber, required this.otp})
       : super(key: key);
   final String mobileNumber;
   final String otp;
@@ -33,16 +34,12 @@ class OtpVerifyScreen extends StatelessWidget {
           floatingActionButton: FloatingActionButton(
             elevation: 0,
             onPressed: () {
-              print(viewModel.loginWithOtpModel.otp);
-              // verifyOTP(BuildContext context, String mobileNumber) {
-              //   print("Otp Controller ---- ${otpController.text } otp$otpSet");
-                if(viewModel.otpController.text == otp){
-                  // if (loginWithOtpModel.otp == loginWithOtpModel.otp) {
-                  viewModel.checkUserExist(context, mobileNumber);
-                } else {
-                  flutterToast("Wrong OTP !!!", Colors.red);
-                }
-              // }
+              print("Otp is ------ ${viewModel.loginWithOtpModel.otp}");
+              if (viewModel.otpController.text == otp) {
+                viewModel.checkUserExist(context, mobileNumber);
+              } else {
+                flutterToast("Wrong OTP !!!", Colors.red);
+              }
             },
             backgroundColor: Colors.grey,
             child: const Icon(Icons.arrow_forward_ios),
@@ -102,38 +99,25 @@ class OtpVerifyScreen extends StatelessWidget {
                         blurRadius: 10,
                       )
                     ],
-                    onCompleted: (v) {
-                      print("Completed");
-                      print(v);
-                      // viewModel.verifyOTP(context);
-                    },
-                    onChanged: (value) {
-                      print(value);
-                      // setState(() {
-                      //   currentText = value;
-                      // });
-                    },
+                    onCompleted: (v) {},
+                    onChanged: (value) {},
                     beforeTextPaste: (text) {
-                      print("Allowing to paste $text");
                       return true;
                     },
                   ),
                 ),
                 const SizedBox(height: 100),
-                InkWell(
-                  onTap: () {},
-                  child: Padding(
-                    padding: const EdgeInsets.only(left: 10, right: 10),
-                    child: RichText(
-                      text: const TextSpan(
-                        text: Constants.otpShouldArrive,
-                        style: TextStyle(color: Colors.black, fontSize: 16),
-                        children: <TextSpan>[
-                          TextSpan(
-                              text: Constants.resendOTP,
-                              style: TextStyle(fontWeight: FontWeight.bold)),
-                        ],
-                      ),
+                Padding(
+                  padding: const EdgeInsets.only(left: 10, right: 10),
+                  child: RichText(
+                    text: const TextSpan(
+                      text: Constants.otpShouldArrive,
+                      style: TextStyle(color: Colors.black, fontSize: 16),
+                      children: <TextSpan>[
+                        TextSpan(
+                            text: Constants.resendOTP,
+                            style: TextStyle(fontWeight: FontWeight.bold)),
+                      ],
                     ),
                   ),
                 )
