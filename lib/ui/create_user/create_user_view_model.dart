@@ -13,4 +13,14 @@ class CreateUserViewModel extends BaseViewModel {
     password.addListener(() => notifyListeners());
     confirmPassword.addListener(() => notifyListeners());
   }
+
+
+  bool _showPassword = false;
+  bool get showPassword => _showPassword;
+
+  //show Password
+  togglePassVisibility() {
+    _showPassword = !_showPassword;
+    notifyListeners();
+  }
 }

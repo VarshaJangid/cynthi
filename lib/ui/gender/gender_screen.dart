@@ -1,3 +1,5 @@
+import 'package:cynthi/utils/app_methods.dart';
+import 'package:cynthi/utils/app_text_style.dart';
 import 'package:flutter_holo_date_picker/flutter_holo_date_picker.dart';
 import '/ui/add_photo/add_photo_screen.dart';
 import '/ui/gender/widget/gender_widget.dart';
@@ -53,7 +55,6 @@ class _GenderState extends State<GenderScreen> {
         });
       }
     }).toList();
-
   }
 
   @override
@@ -62,15 +63,21 @@ class _GenderState extends State<GenderScreen> {
     return Scaffold(
       floatingActionButton: FloatingActionButton(
         elevation: 0,
-        onPressed: () => AppRoutes.goto(
-            context,
-            AddPhotoScreen(
-                firstName: widget.firstName,
-                lastName: widget.lastName,
-                datePicked: datePicked!,
-                gender: gender,
-                password: widget.password,
-                mobile: widget.mobile)),
+        onPressed: () {
+          if (gender.isEmpty || datePicked == null) {
+            flutterToast("Please Select Gender/ Date", Colors.red);
+          } else {
+            AppRoutes.goto(
+                context,
+                AddPhotoScreen(
+                    firstName: widget.firstName,
+                    lastName: widget.lastName,
+                    datePicked: datePicked!,
+                    gender: gender,
+                    password: widget.password,
+                    mobile: widget.mobile));
+          }
+        },
         backgroundColor: Colors.grey,
         child: const Icon(Icons.arrow_forward_ios),
       ),
@@ -83,7 +90,7 @@ class _GenderState extends State<GenderScreen> {
         ),
       ),
       body: Padding(
-        padding: const EdgeInsets.fromLTRB(20, 0, 20, 20),
+        padding: const EdgeInsets.fromLTRB(15, 0, 15, 20),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -93,9 +100,11 @@ class _GenderState extends State<GenderScreen> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: [
-                  const Text(
+                  Text(
                     Constants.pleaseSelectYourGender,
-                    style: TextStyle(fontWeight: FontWeight.bold, fontSize: 25),
+                    style: AppTextStyle.getStyle()
+                        .openSansSemiBold!
+                        .copyWith(fontSize: 24, color: Colors.black),
                   ),
                   const SizedBox(height: 30),
                   Wrap(
@@ -115,9 +124,11 @@ class _GenderState extends State<GenderScreen> {
                     }).toList(),
                   ),
                   const SizedBox(height: 50),
-                  const Text(
+                  Text(
                     Constants.enterYourBirthDate,
-                    style: TextStyle(fontWeight: FontWeight.bold, fontSize: 25),
+                    style: AppTextStyle.getStyle()
+                        .openSansSemiBold!
+                        .copyWith(fontSize: 24, color: Colors.black),
                   ),
                   const SizedBox(height: 30),
                   GestureDetector(
@@ -172,8 +183,9 @@ class _GenderState extends State<GenderScreen> {
         child: Center(
           child: Text(
             title,
-            style: const TextStyle(
-                fontWeight: FontWeight.w400, fontSize: 18, color: Colors.black),
+            style: AppTextStyle.getStyle()
+                .openSansSemiBold!
+                .copyWith(color: Colors.black, fontSize: 17),
           ),
         ),
       );

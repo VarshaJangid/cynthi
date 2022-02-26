@@ -76,7 +76,7 @@ class Constants {
 
   static const String begin = "BEGIN";
 
-  static const String welcomeAbroad = "Welcome abroad\nPayal!";
+  static const String welcomeAbroad = "Welcome abroad";
 
   static const String knowledgeHub = "Knowledge hub";
 
@@ -92,7 +92,7 @@ class Constants {
 
   static const String verifyYourNumber = "Verify Your Number";
 
-  static const String otpShouldArrive = "OTP should arrive within 60s. ";
+  static const String otpShouldArrive = "OTP should arrive within ";
 
   static const String resendOTP = "Resend OTP";
 

@@ -1,3 +1,4 @@
+import 'package:cynthi/utils/app_text_style.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import '/ui/onboarding_screens/onboarding.dart';
 import '/ui/dashboard/dashboard_screen.dart';
@@ -47,23 +48,25 @@ class _SplashScreenState extends State<SplashScreen> {
             children: [
               Image.asset(Assets.logo, width: 120),
               const SizedBox(height: 20),
-              const Text(
+              Text(
                 Constants.cynthians,
-                style: TextStyle(
-                    color: Colors.white,
-                    fontSize: 32,
-                    fontWeight: FontWeight.w500),
+                style: AppTextStyle.getStyle().openSansBold!.copyWith(
+                      fontSize: 30,
+                    ),
               ),
               RichText(
-                text: const TextSpan(
+                text: TextSpan(
                   text: 'App for ',
-                  style: TextStyle(color: Colors.white, fontSize: 22),
-                  children: <TextSpan>[
+                  style: AppTextStyle.getStyle().openSansSemiBold!.copyWith(
+                        fontSize: 22,
+                      ),
+                  children: [
                     TextSpan(
-                        text: 'Knowledge',
-                        style: TextStyle(
-                            fontWeight: FontWeight.bold,
-                            color: Color(0XFFf26d1e))),
+                      text: 'Knowledge',
+                      style: AppTextStyle.getStyle()
+                          .openSansSemiBold!
+                          .copyWith(fontSize: 22, color: const Color(0XFFf26d1e)),
+                    ),
                   ],
                 ),
               ),

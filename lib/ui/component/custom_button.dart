@@ -1,3 +1,4 @@
+import 'package:cynthi/utils/app_text_style.dart';
 import 'package:flutter/material.dart';
 
 class CustomButton extends StatelessWidget {
@@ -16,7 +17,7 @@ class CustomButton extends StatelessWidget {
         onPressed: callback,
         child: Text(
           title,
-          style: const TextStyle(color: Colors.white),
+          style: AppTextStyle.getStyle().openSansSemiBold,
         ),
       ),
     );

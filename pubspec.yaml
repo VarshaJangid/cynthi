@@ -49,22 +49,52 @@ flutter:
   uses-material-design: true
   assets:
     - assets/images/
-  # To add assets to your application, add an assets section, like this:
-  # assets:
-  #   - images/a_dot_burr.jpeg
-  #   - images/a_dot_ham.jpeg
 
-  # An image asset can refer to one or more resolution-specific "variants", see
-  # https://flutter.dev/assets-and-images/#resolution-aware.
+  fonts:
+    - family: OpenSans-Bold
+      fonts:
+        - asset: assets/fonts/OpenSans-Bold.ttf
 
-  # For details regarding adding assets from package dependencies, see
-  # https://flutter.dev/assets-and-images/#from-packages
+    - family: OpenSans-BoldItalic
+      fonts:
+        - asset: assets/fonts/OpenSans-BoldItalic.ttf
 
-  # To add custom fonts to your application, add a fonts section here,
-  # in this "flutter" section. Each entry in this list should have a
-  # "family" key with the font family name, and a "fonts" key with a
-  # list giving the asset and other descriptors for the font. For
-  # example:
+    - family: OpenSans-ExtraBold
+      fonts:
+        - asset: assets/fonts/OpenSans-ExtraBold.ttf
+
+    - family: OpenSans-ExtraBoldItalic
+      fonts:
+        - asset: assets/fonts/OpenSans-ExtraBoldItalic.ttf
+
+    - family: OpenSans-Italic
+      fonts:
+        - asset: assets/fonts/OpenSans-Italic.ttf
+
+    - family: OpenSans-Light
+      fonts:
+        - asset: assets/fonts/OpenSans-Light.ttf
+
+    - family: OpenSans-LightItalic
+      fonts:
+        - asset: assets/fonts/OpenSans-LightItalic.ttf
+
+    - family: OpenSans-Regular
+      fonts:
+        - asset: assets/fonts/OpenSans-Regular.ttf
+
+    - family: OpenSans-Semibold
+      fonts:
+        - asset: assets/fonts/OpenSans-Semibold.ttf
+
+    - family: OpenSans-SemiboldItalic
+      fonts:
+        - asset: assets/fonts/OpenSans-SemiboldItalic.ttf
+
+    - family: Comfortaa-Bold
+      fonts:
+        - asset: assets/fonts/Comfortaa-Bold.ttf
+
   # fonts:
   #   - family: Schyler
   #     fonts:

@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import '/ui/reset_password/reset_password_screen.dart';
 import '/ui/create_user/create_user_screen.dart';
 import '/ui/otp_verify/otp_verify_screen.dart';
@@ -15,8 +17,12 @@ class MobileViewModel extends BaseViewModel {
   TextEditingController otpController = TextEditingController();
   LoginWithOtpModel loginWithOtpModel = LoginWithOtpModel();
   String otpSet = "";
+
   init(BuildContext context) async {
     mobileNumber.addListener(() => notifyListeners());
+
+    reset();
+    startTimer();
   }
 
   validation(BuildContext context) {
@@ -51,7 +57,11 @@ class MobileViewModel extends BaseViewModel {
           flutterToast(loginWithOtpModel.message, Colors.green);
           AppRoutes.dismiss(context);
           AppRoutes.goto(
-              context, OtpVerifyScreen(mobileNumber: mobileNumber.text,otp: "${loginWithOtpModel.otp}",));
+              context,
+              OtpVerifyScreen(
+                mobileNumber: mobileNumber.text,
+                otp: "${loginWithOtpModel.otp}",
+              ));
         }
       } else {
         throw Exception('Exception in Login With OTP API');
@@ -60,8 +70,6 @@ class MobileViewModel extends BaseViewModel {
       Exception("Exception in loginWithOTP API ----- $e");
     }
   }
-
-
 
   checkUserExist(BuildContext context, String mobileNumber) async {
     Map<String, String> params = {
@@ -93,5 +101,37 @@ class MobileViewModel extends BaseViewModel {
     } catch (e) {
       Exception("Exception in checkUserExist API --- $e");
     }
+  }
+
+  static const countdownDuration = Duration(seconds: 60);
+  Duration duration = const Duration();
+  Timer? timer;
+
+  bool countDown = true;
+
+  void reset() {
+    if (countDown) {
+      duration = countdownDuration;
+      notifyListeners();
+    } else {
+      duration = const Duration();
+      notifyListeners();
+    }
+  }
+
+  void startTimer() {
+    timer = Timer.periodic(const Duration(seconds: 1), (_) => addTime());
+  }
+
+  void addTime() {
+    final addSeconds = countDown ? -1 : 1;
+    notifyListeners();
+    final seconds = duration.inSeconds + addSeconds;
+    if (seconds < 0) {
+      timer?.cancel();
+    } else {
+      duration = Duration(seconds: seconds);
+    }
+    notifyListeners();
   }
 }

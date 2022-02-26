@@ -1,3 +1,5 @@
+import 'package:cynthi/utils/app_text_style.dart';
+
 import '/ui/component/login_text_field.dart';
 import '/ui/component/app_text_field.dart';
 import 'loginwithpassword_view_model.dart';
@@ -31,40 +33,52 @@ class LoginWithPasswordScreen extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                const Text(
+                Text(
                   Constants.cynthians,
-                  style: TextStyle(fontWeight: FontWeight.bold, fontSize: 25),
+                  style: AppTextStyle.getStyle()
+                      .comfortaaBold!
+                      .copyWith(fontSize: 24, color: Colors.black,),
                 ),
                 const SizedBox(height: 15),
-                const Text(
+                Text(
                   Constants.logBack,
-                  style: TextStyle(fontWeight: FontWeight.bold, fontSize: 25),
+                  style: AppTextStyle.getStyle()
+                      .openSansSemiBold!
+                      .copyWith(fontSize: 24, color: Colors.black),
                 ),
                 const SizedBox(height: 15),
-                const Text(
+                Text(
                   Constants.youAreAlreadyRegistered,
-                  style: TextStyle(fontSize: 21, color: Colors.grey),
+                  style: AppTextStyle.getStyle()
+                      .openSansRegular!
+                      .copyWith(fontSize: 20, color: Colors.grey),
                 ),
                 const SizedBox(height: 10),
-                const Text(
+                Text(
                   Constants.logBackInToContinue,
-                  style: TextStyle(fontSize: 21, color: Colors.grey),
+                  style: AppTextStyle.getStyle()
+                      .openSansRegular!
+                      .copyWith(fontSize: 20, color: Colors.grey),
                 ),
                 const SizedBox(height: 40),
                 LoginTextField(controller: viewModel.mobileNumber),
                 const SizedBox(height: 30),
                 AppTextField(
+                  obscureText: !viewModel.showPassword,
                   labelText: Constants.enterPassword,
                   isIcon: true,
                   controller: viewModel.password,
+                  iconPressed: () => viewModel.togglePassVisibility(),
                 ),
                 const SizedBox(height: 10),
                 GestureDetector(
                   onTap: () => AppRoutes.goto(context, const MobileScreen()),
-                  child: const Center(
+                  child: Center(
                     child: Text(
                       Constants.forgotYourPassword,
-                      style: TextStyle(color: Colors.black, fontSize: 15),
+                      style: AppTextStyle.getStyle()
+                          .openSansRegular!
+                          .copyWith(fontSize: 15, color: Colors.grey),
                     ),
                   ),
                 ),
@@ -75,19 +89,23 @@ class LoginWithPasswordScreen extends StatelessWidget {
                 ),
                 const SizedBox(height: 20),
                 Padding(
-                  padding: const EdgeInsets.only(left: 15, right: 15),
+                  padding: const EdgeInsets.fromLTRB(15, 0, 15, 0),
                   child: RichText(
-                    text: const TextSpan(
+                    text: TextSpan(
                       text: Constants.buCreatingAnAccount,
-                      style: TextStyle(color: Colors.black, fontSize: 16),
-                      children: <TextSpan>[
+                      style: AppTextStyle.getStyle()
+                          .openSansRegular!
+                          .copyWith(color: Colors.black),
+                      children: [
                         TextSpan(
                             text: Constants.privacyPolicy,
-                            style: TextStyle(fontWeight: FontWeight.bold)),
+                            style: AppTextStyle.getStyle()
+                                .openSansBold!
+                                .copyWith(color: Colors.black)),
                       ],
                     ),
                   ),
-                )
+                ),
               ],
             ),
           ),

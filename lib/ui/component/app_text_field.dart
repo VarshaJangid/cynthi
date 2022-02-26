@@ -3,9 +3,11 @@ import 'package:flutter/material.dart';
 class AppTextField extends StatelessWidget {
   final String? labelText;
   bool? isIcon;
+  bool obscureText;
   TextEditingController? controller;
+  GestureTapCallback? iconPressed;
 
-  AppTextField({Key? key, required this.labelText, this.isIcon = false, this.controller}) : super(key: key);
+  AppTextField({Key? key, required this.labelText, this.obscureText = false, this.isIcon = false, this.controller, this.iconPressed}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -13,6 +15,7 @@ class AppTextField extends StatelessWidget {
       height: 50,
       width: MediaQuery.of(context).size.width,
       child: TextField(
+        obscureText: obscureText,
         controller: controller,
         autocorrect: true,
         cursorColor: Colors.black,
@@ -25,10 +28,13 @@ class AppTextField extends StatelessWidget {
           enabledBorder: OutlineInputBorder(
             borderRadius: BorderRadius.circular(15),
           ),
-          suffixIcon: Icon(
-            Icons.visibility_off,
-            size: 20,
-            color: isIcon == true ? Colors.black : Colors.transparent,
+          suffixIcon: IconButton(
+            icon: Icon(
+              obscureText ? Icons.visibility_off :Icons.visibility_rounded,
+              size: 20,
+              color: isIcon == true ? Colors.black : Colors.transparent,
+            ),
+            onPressed: iconPressed,
           ),
           focusedBorder: OutlineInputBorder(
             borderRadius: BorderRadius.circular(15),

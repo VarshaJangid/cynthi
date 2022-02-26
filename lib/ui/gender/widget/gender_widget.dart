@@ -1,3 +1,5 @@
+import 'package:cynthi/utils/app_text_style.dart';
+
 import '/model/gender_model.dart';
 import 'package:flutter/material.dart';
 
@@ -28,7 +30,7 @@ class GenderButtonWidget extends StatelessWidget {
           child: Center(
             child: Text(
               "${genderModel.title}",
-              style: const TextStyle(fontWeight: FontWeight.w500),
+              style: AppTextStyle.getStyle().openSansSemiBold!.copyWith(color: Colors.black),
             ),
           ),
         ),

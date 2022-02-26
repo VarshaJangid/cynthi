@@ -1,4 +1,5 @@
 import 'package:cynthi/utils/app_methods.dart';
+import 'package:cynthi/utils/app_text_style.dart';
 
 import '/ui/component/custom_button.dart';
 import 'package:flutter/material.dart';
@@ -32,70 +33,89 @@ class CreateUserScreen extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                const Text(
+                Text(
                   Constants.cynthians,
-                  style: TextStyle(fontWeight: FontWeight.bold, fontSize: 25),
+                  style: AppTextStyle.getStyle()
+                      .comfortaaBold!
+                      .copyWith(fontSize: 24, color: Colors.black),
                 ),
                 const SizedBox(height: 8),
-                const Text(
+                Text(
                   Constants.createYourAccount,
-                  style: TextStyle(fontWeight: FontWeight.bold, fontSize: 25),
+                  style: AppTextStyle.getStyle()
+                      .openSansSemiBold!
+                      .copyWith(fontSize: 24, color: Colors.black),
                 ),
                 const SizedBox(height: 15),
-                const Text(
+                Text(
                   Constants.createAnAccountToGetStarted,
-                  style: TextStyle(fontSize: 18, color: Color(0XFF666666)),
+                  style: AppTextStyle.getStyle()
+                      .openSansRegular!
+                      .copyWith(color: Colors.black),
                 ),
                 const SizedBox(height: 35),
                 Row(
                   children: [
                     SizedBox(
                       width: 150,
-                      child: textField(
-                          context, Constants.firstName, viewModel.firstName),
+                      child: textField(context, Constants.firstName,
+                          viewModel.firstName, !viewModel.showPassword, viewModel, false),
                     ),
                     const Spacer(),
                     SizedBox(
                       width: 150,
-                      child: textField(
-                          context, Constants.lastName, viewModel.lastName),
+                      child: textField(context, Constants.lastName,
+                          viewModel.lastName, !viewModel.showPassword, viewModel, false),
                     ),
                   ],
                 ),
                 const SizedBox(height: 40),
-                textField(
-                    context, Constants.createPassword, viewModel.password),
+                textField(context, Constants.createPassword, viewModel.password,
+                    !viewModel.showPassword, viewModel, true),
                 const SizedBox(height: 40),
                 textField(context, Constants.confirmPassword,
-                    viewModel.confirmPassword),
+                    viewModel.confirmPassword, !viewModel.showPassword, viewModel, true),
                 const SizedBox(height: 40),
                 CustomButton(
                     title: Constants.next,
                     callback: () {
-                     if (viewModel.password.text == viewModel.confirmPassword.text) {
-                        AppRoutes.goto(
-                          context,
-                          GenderScreen(
-                            firstName: viewModel.firstName.text,
-                            lastName: viewModel.lastName.text,
-                            password: viewModel.password.text,
-                            mobile: mobile,
-                          ),
-                        );
+                      if (viewModel.firstName.text.isEmpty ||
+                          viewModel.lastName.text.isEmpty ||
+                          viewModel.password.text.isEmpty ||
+                          viewModel.confirmPassword.text.isEmpty) {
+                        flutterToast("Please enter valid data !! ", Colors.red);
                       } else {
-                        flutterToast("Password does not match !!!", Colors.red);
+                        if (viewModel.password.text ==
+                            viewModel.confirmPassword.text) {
+                          AppRoutes.goto(
+                            context,
+                            GenderScreen(
+                              firstName: viewModel.firstName.text,
+                              lastName: viewModel.lastName.text,
+                              password: viewModel.password.text,
+                              mobile: mobile,
+                            ),
+                          );
+                        } else {
+                          flutterToast(
+                              "Password does not match !!!", Colors.red);
+                        }
                       }
                     }),
                 Padding(
                   padding: const EdgeInsets.fromLTRB(15, 20, 15, 0),
                   child: RichText(
-                    text: const TextSpan(
+                    text: TextSpan(
                       text: Constants.buCreatingAnAccount,
-                      style: TextStyle(color: Colors.black, fontSize: 16),
+                      style: AppTextStyle.getStyle()
+                          .openSansRegular!
+                          .copyWith(color: Colors.black),
                       children: [
                         TextSpan(
                             text: Constants.privacyPolicy,
-                            style: TextStyle(fontWeight: FontWeight.bold)),
+                            style: AppTextStyle.getStyle()
+                                .openSansBold!
+                                .copyWith(color: Colors.black)),
                       ],
                     ),
                   ),
@@ -108,23 +128,37 @@ class CreateUserScreen extends StatelessWidget {
     );
   }
 
-  Widget textField(BuildContext context, String title,
-          TextEditingController controller) =>
+  Widget textField(
+          BuildContext context,
+          String title,
+          TextEditingController controller,
+          bool obscureText,
+          CreateUserViewModel model,
+      bool isIcon) =>
       SizedBox(
         width: MediaQuery.of(context).size.width,
         height: MediaQuery.of(context).size.height * .08,
         child: TextField(
+          obscureText: obscureText,
           controller: controller,
           cursorColor: Colors.black,
           autocorrect: true,
           decoration: InputDecoration(
-            contentPadding: const EdgeInsets.only(left: 40),
+            contentPadding: const EdgeInsets.only(left: 33),
             labelText: title,
             labelStyle: const TextStyle(color: Colors.grey, fontSize: 14),
             filled: true,
             fillColor: Colors.white70,
             enabledBorder: OutlineInputBorder(
               borderRadius: BorderRadius.circular(15),
+            ),
+            suffixIcon: IconButton(
+              icon: Icon(
+                obscureText ? Icons.visibility_off : Icons.visibility_rounded,
+                size: 20,
+                color: isIcon == true ? Colors.black : Colors.transparent,
+              ),
+              onPressed: () => model.togglePassVisibility(),
             ),
             focusedBorder: OutlineInputBorder(
               borderRadius: BorderRadius.circular(15),

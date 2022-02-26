@@ -1,4 +1,5 @@
 import 'package:cynthi/utils/app_methods.dart';
+import 'package:cynthi/utils/app_text_style.dart';
 import 'package:pin_code_fields/pin_code_fields.dart';
 import '/ui/register/mobile_view_model.dart';
 import 'package:flutter/material.dart';
@@ -19,6 +20,9 @@ class OtpVerifyScreen extends StatelessWidget {
       viewModelBuilder: () => MobileViewModel(),
       onModelReady: (viewModel) => viewModel.init(context),
       builder: (context, viewModel, child) {
+        String twoDigits(int n) => n.toString().padLeft(2, '0');
+        final seconds = twoDigits(viewModel.duration.inSeconds.remainder(60));
+        print("seconds --- $seconds");
         return Scaffold(
           appBar: AppBar(
             elevation: 0,
@@ -45,32 +49,39 @@ class OtpVerifyScreen extends StatelessWidget {
             child: const Icon(Icons.arrow_forward_ios),
           ),
           body: SingleChildScrollView(
-            padding: const EdgeInsets.fromLTRB(30, 70, 30, 20),
+            padding: const EdgeInsets.fromLTRB(30, 20, 30, 20),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                const SizedBox(height: 15),
-                const Text(
+                Text(
                   Constants.verifyYourNumber,
-                  style: TextStyle(fontWeight: FontWeight.bold, fontSize: 25),
+                  style: AppTextStyle.getStyle()
+                      .openSansSemiBold!
+                      .copyWith(fontSize: 22, color: Colors.black),
                 ),
-                const SizedBox(height: 100),
+                const SizedBox(height: 80),
                 Padding(
                   padding: const EdgeInsets.only(left: 20, right: 110),
                   child: PinCodeTextField(
+                    autoFocus: true,
+                    enablePinAutofill: true,
                     appContext: context,
                     pastedTextStyle: const TextStyle(
-                      color: Colors.white,
+                      color: Colors.grey,
                       fontWeight: FontWeight.bold,
                     ),
                     length: 4,
                     obscureText: true,
-                    obscuringCharacter: '*',
+                    textStyle: const TextStyle(
+                      color: Colors.grey,
+                      fontWeight: FontWeight.bold,
+                    ),
+                    obscuringCharacter: 'X',
                     blinkWhenObscuring: true,
                     animationType: AnimationType.fade,
                     validator: (v) {
                       if (v!.length < 3) {
-                        return "I'm from validator";
+                        return "Enter OTP";
                       } else {
                         return null;
                       }
@@ -78,8 +89,8 @@ class OtpVerifyScreen extends StatelessWidget {
                     pinTheme: PinTheme(
                       shape: PinCodeFieldShape.box,
                       borderRadius: BorderRadius.circular(5),
-                      fieldHeight: 45,
-                      fieldWidth: 40,
+                      fieldHeight: 35,
+                      fieldWidth: 35,
                       activeFillColor: Colors.white,
                       activeColor: Colors.white,
                       selectedColor: Colors.white,
@@ -110,13 +121,17 @@ class OtpVerifyScreen extends StatelessWidget {
                 Padding(
                   padding: const EdgeInsets.only(left: 10, right: 10),
                   child: RichText(
-                    text: const TextSpan(
-                      text: Constants.otpShouldArrive,
-                      style: TextStyle(color: Colors.black, fontSize: 16),
+                    text: TextSpan(
+                      text: Constants.otpShouldArrive + seconds + "s. ",
+                      style: AppTextStyle.getStyle()
+                          .openSansRegular!
+                          .copyWith(color: Colors.black),
                       children: <TextSpan>[
                         TextSpan(
                             text: Constants.resendOTP,
-                            style: TextStyle(fontWeight: FontWeight.bold)),
+                            style: AppTextStyle.getStyle()
+                                .openSansBold!
+                                .copyWith(color: Colors.black)),
                       ],
                     ),
                   ),

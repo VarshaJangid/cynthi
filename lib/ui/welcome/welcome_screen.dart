@@ -1,3 +1,5 @@
+import 'package:cynthi/utils/app_text_style.dart';
+
 import '/ui/dashboard/dashboard_screen.dart';
 import '/ui/component/custom_button.dart';
 import 'package:flutter/material.dart';
@@ -5,7 +7,8 @@ import '/utils/app_constant.dart';
 import '/utils/app_route.dart';
 
 class WelcomeScreen extends StatelessWidget {
-  const WelcomeScreen({Key? key}) : super(key: key);
+  const WelcomeScreen({Key? key, required this.name}) : super(key: key);
+  final String name;
 
   @override
   Widget build(BuildContext context) {
@@ -41,15 +44,19 @@ class WelcomeScreen extends StatelessWidget {
               ),
             ),
             const SizedBox(height: 30),
-            const Text(
-              Constants.welcomeAbroad,
-              style: TextStyle(fontWeight: FontWeight.w500, fontSize: 22),
+            Text(
+              Constants.welcomeAbroad + "\n$name!",
+              style: AppTextStyle.getStyle()
+                  .openSansSemiBold!
+                  .copyWith(color: Colors.black, fontSize: 22),
               textAlign: TextAlign.center,
             ),
             const SizedBox(height: 20),
-            const Text(
+            Text(
               Constants.weAreHappyToHaveYou,
-              style: TextStyle(fontWeight: FontWeight.w500, fontSize: 17),
+              style: AppTextStyle.getStyle()
+                  .openSansSemiBold!
+                  .copyWith(color: Colors.black, fontSize: 17),
             ),
             const Spacer(),
             CustomButton(

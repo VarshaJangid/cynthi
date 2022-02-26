@@ -1,3 +1,4 @@
+import 'package:cynthi/utils/app_text_style.dart';
 import 'package:flutter/material.dart';
 import '/utils/app_constant.dart';
 
@@ -6,16 +7,18 @@ class LoginTextField extends StatelessWidget {
 
   LoginTextField({Key? key, this.controller}) : super(key: key);
 
-  TextStyle style = const TextStyle(color: Colors.black, fontSize: 15);
+  TextStyle style = AppTextStyle.getStyle()
+      .openSansRegular!
+      .copyWith(color: Colors.black, fontSize: 15);
 
   @override
   Widget build(BuildContext context) {
     return Row(
       children: [
         Container(
-          width: MediaQuery.of(context).size.width/5.5,
+          width: 40,
           height: 51.8,
-          padding: const EdgeInsets.all(7),
+          // padding: const EdgeInsets.all(7),
           margin: const EdgeInsets.only(top: 16),
           decoration: BoxDecoration(
             border: Border.all(width: 1, color: Colors.black),
@@ -26,13 +29,13 @@ class LoginTextField extends StatelessWidget {
           ),
           child: Center(
             child: Text(
-              "   +91  ",
+              " +91 ",
               style: style,
             ),
           ),
         ),
         Container(
-          width: MediaQuery.of(context).size.width/1.6,
+          width: MediaQuery.of(context).size.width - 110,
           height: 51.8,
           margin: const EdgeInsets.only(top: 16),
           decoration: BoxDecoration(

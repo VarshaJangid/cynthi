@@ -1,3 +1,5 @@
+import 'dart:typed_data';
+
 import 'package:image_picker/image_picker.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import '/ui/welcome/welcome_screen.dart';
@@ -28,13 +30,6 @@ class AddPhotoViewModel extends BaseViewModel {
     student_dob = _student_dob;
     gender = _gender;
     mobile = _mobile;
-    print("In Add Photo");
-    print(fname);
-    print(lname);
-    print(password);
-    print(student_dob);
-    print(gender);
-    print(mobile);
   }
 
   getFromGallery() async {
@@ -64,7 +59,13 @@ class AddPhotoViewModel extends BaseViewModel {
 
   // Register User
   registerUser(BuildContext context) async {
-    print("Clicked");
+    // Convert Image to Base64
+    Uint8List imagebytes = await imageFile!.readAsBytes();
+    String base64string = base64.encode(imagebytes);
+
+    //File Name
+    String fileName = imageFile!.path.split('/').last.toString();
+
     Map<String, String> params = {
       'mobile': mobile,
       'fname': fname,
@@ -73,22 +74,25 @@ class AddPhotoViewModel extends BaseViewModel {
       'source_id': '1',
       'student_dob': "$student_dob",
       'gender': gender,
-      'profilepicurl': 'profilePicUrl',
-      'file_name': 'fileName',
+      'profilepicurl': base64string,
+      'file_name': fileName,
     };
     try {
+      showLoadingDialog(context);
       final response = await http.post(
           Uri.parse(
               "https://api.cynthians.com/index.php/api/save_newstudentPassword"),
           body: params);
       if (response.statusCode == 200) {
-        print("Respions =----- ${response.body}");
+        print("Response ----- ${response.body}");
         RegisterModel registerModel =
             RegisterModel.fromJson(jsonDecode(response.body));
-        print("res ----- ${registerModel.message}");
+        print("res msg----- ${registerModel.message}");
         if (registerModel.message == "Password saved successfully") {
           flutterToast(registerModel.message, Colors.green);
+          AppRoutes.dismiss(context);
           getAndSaveToken(context, registerModel.token);
+          AppRoutes.goto(context, WelcomeScreen(name: fname));
         } else {
           Exception("Exception in Register API.");
         }

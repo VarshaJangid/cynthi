@@ -16,6 +16,18 @@ class ResetPassViewModel extends BaseViewModel {
     confirmPass.addListener(() => notifyListeners());
   }
 
+
+  bool _showPassword = false;
+  bool get showPassword => _showPassword;
+
+  //show Password
+  void togglePassVisibility() {
+    _showPassword = !_showPassword;
+    notifyListeners();
+  }
+
+
+
   validation(BuildContext context, String mobileNumber) {
     if (pass.text.isEmpty ||
         confirmPass.text.isEmpty ||

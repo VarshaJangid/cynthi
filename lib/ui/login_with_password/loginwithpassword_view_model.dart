@@ -13,10 +13,21 @@ class LoginWithPassViewModel extends BaseViewModel {
   TextEditingController password = TextEditingController();
   LoginPassModel loginPassModel = LoginPassModel();
   String otpSet = "";
+
   init(BuildContext context) async {
     mobileNumber.addListener(() => notifyListeners());
     password.addListener(() => notifyListeners());
   }
+
+  bool _showPassword = false;
+  bool get showPassword => _showPassword;
+
+  //show Password
+  void togglePassVisibility() {
+    _showPassword = !_showPassword;
+    notifyListeners();
+  }
+
 
   // Login With Password
   loginWithPassword(BuildContext context) async {

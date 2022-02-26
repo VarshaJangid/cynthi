@@ -1,3 +1,5 @@
+import 'package:cynthi/utils/app_text_style.dart';
+
 import '/ui/add_photo/add_photo_view_model.dart';
 import 'package:stacked/stacked.dart';
 import '/ui/component/custom_button.dart';
@@ -50,11 +52,12 @@ class AddPhotoScreen extends StatelessWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  const Center(
+                  Center(
                     child: Text(
                       Constants.addPhotoOfYou,
-                      style:
-                          TextStyle(fontWeight: FontWeight.bold, fontSize: 25),
+                      style: AppTextStyle.getStyle()
+                          .openSansSemiBold!
+                          .copyWith(fontSize: 24, color: Colors.black),
                     ),
                   ),
                   const SizedBox(height: 30),
@@ -78,27 +81,35 @@ class AddPhotoScreen extends StatelessWidget {
                   ),
                   const SizedBox(height: 50),
                   CustomButton(
-                    callback: () => viewModel.getFromCamera(),
+                    callback: () => viewModel.getFromGallery(),
                     title: Constants.takePhoto.toUpperCase(),
                   ),
                   const SizedBox(height: 20),
                   CustomButton(
-                    callback: () => viewModel.getFromGallery(),
+                    callback: () => viewModel.getFromCamera(),
                     title: Constants.chooseFromCameraRoll.toUpperCase(),
                   ),
                   const SizedBox(height: 30),
-                  const Text(
+                  Text(
                     Constants.enterYourLocation,
-                    style: TextStyle(fontWeight: FontWeight.bold, fontSize: 25),
+                    style: AppTextStyle.getStyle()
+                        .openSansSemiBold!
+                        .copyWith(color: Colors.black, fontSize: 24),
                   ),
                   const SizedBox(height: 20),
-                  const TextField(
+                  TextField(
+                    cursorColor: Colors.black,
                     decoration: InputDecoration(
-                        contentPadding: EdgeInsets.only(top: 10),
-                        enabledBorder: UnderlineInputBorder(
+                        contentPadding: const EdgeInsets.only(top: 10),
+                        enabledBorder: const UnderlineInputBorder(
                             borderSide: BorderSide(color: Colors.black)),
-                        labelText: 'Bhiwadi, Thane',
-                        labelStyle: TextStyle(color: Colors.black)),
+                        focusedBorder: const UnderlineInputBorder(
+                          borderSide: BorderSide(color: Colors.black),
+                        ),
+                        hintText: 'Enter Location',
+                        hintStyle: AppTextStyle.getStyle()
+                            .openSansSemiBold!
+                            .copyWith(color: Colors.black)),
                   ),
                   const SizedBox(height: 30),
                   Row(

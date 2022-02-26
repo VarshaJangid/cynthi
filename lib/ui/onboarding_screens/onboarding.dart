@@ -1,3 +1,5 @@
+import 'package:cynthi/utils/app_text_style.dart';
+
 import '/ui/login_with_password/loginwithpassword_screen.dart';
 import '/ui/register/mobile_screen.dart';
 import 'package:flutter/material.dart';
@@ -11,7 +13,7 @@ class OnBoardingScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    return const Scaffold(
       backgroundColor: Colors.white,
       body: Body(),
     );
@@ -79,10 +81,23 @@ class _BodyState extends State<Body> {
     return SafeArea(
       child: Container(
         color: const Color(0XFF08263d),
+        padding: const EdgeInsets.only(top: 25),
         child: Column(
           children: [
+            const Spacer(),
+            Image.asset(Assets.logo, width: 100, height: 100, fit: BoxFit.fill),
+            const Spacer(),
+            Text(
+              Constants.cynthians,
+              style:
+                  AppTextStyle.getStyle().comfortaaBold!.copyWith(fontSize: 30),
+            ),
+            const Spacer(),
+            const SizedBox(height: 30),
+            Image.asset(Assets.onboarding,
+                width: 120, height: 120, fit: BoxFit.fill),
             SizedBox(
-              height: size.height * 0.8,
+              height: size.height * 0.1,
               child: PageView.builder(
                 controller: _pageController,
                 onPageChanged: (value) {
@@ -100,7 +115,12 @@ class _BodyState extends State<Body> {
                 ),
               ),
             ),
-            // SizedBox(height: size.height * 0.04),
+            Text(
+              Constants.placeToLearn,
+              textAlign: TextAlign.center,
+              style: AppTextStyle.getStyle().openSansSemiBold,
+            ),
+            const Spacer(),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: List.generate(
@@ -117,28 +137,42 @@ class _BodyState extends State<Body> {
                 ),
               ),
             ),
-            Spacer(),
-            // SizedBox(height: size.height * 0.03),
+            const Spacer(),
             TextButton(
-              onPressed: () =>
-                  AppRoutes.goto(context, const LoginWithPasswordScreen()),
-              child: RichText(
-                text: const TextSpan(
-                  text: Constants.alreadyHaveAccount,
-                  style: TextStyle(color: Colors.white, fontSize: 18),
-                  children: <TextSpan>[
-                    TextSpan(
-                      text: Constants.login,
-                      style: TextStyle(
-                        fontWeight: FontWeight.bold,
-                        decoration: TextDecoration.underline,
-                      ),
-                    ),
-                  ],
+              onPressed: () => AppRoutes.goto(context, const MobileScreen()),
+              child: Container(
+                width: MediaQuery.of(context).size.width * .8,
+                color: Colors.white,
+                height: 50,
+                child: Center(
+                  child: Text(
+                    Constants.letsGetStarted,
+                    style: AppTextStyle.getStyle().openSansBold!.copyWith(
+                          color: const Color(0XFF08263d),
+                        ),
+                  ),
                 ),
               ),
             ),
-            const SizedBox(height: 10),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Text(
+                  Constants.alreadyHaveAccount,
+                  style: AppTextStyle.getStyle().openSansSemiBold,
+                ),
+                TextButton(
+                  onPressed: () =>
+                      AppRoutes.goto(context, const LoginWithPasswordScreen()),
+                  child: Text(
+                    Constants.login,
+                    style: AppTextStyle.getStyle().openSansBold!.copyWith(
+                          decoration: AppTextStyle.underline,
+                        ),
+                  ),
+                ),
+              ],
+            ),
           ],
         ),
       ),
@@ -164,44 +198,12 @@ class Content extends StatelessWidget {
       color: const Color(0XFF08263d),
       child: Column(
         children: [
-          const Spacer(),
-          const SizedBox(height: 10),
-          Image.asset(image, width: 100, height: 100, fit: BoxFit.fill),
-          const SizedBox(height: 20),
-          Text(
-            title,
-            style: const TextStyle(
-                color: Colors.white, fontSize: 33, fontWeight: FontWeight.w500),
-          ),
-          const SizedBox(height: 30),
-          Image.asset(onBoarding, width: 120, height: 120, fit: BoxFit.fill),
           const SizedBox(height: 10),
           Text(
             welcomeText,
             style: const TextStyle(
                 color: Colors.white, fontSize: 18, fontWeight: FontWeight.w500),
             textAlign: TextAlign.center,
-          ),
-          const SizedBox(height: 10),
-          TextButton(
-            onPressed: () => AppRoutes.goto(context, const MobileScreen()),
-            child: Container(
-              width: MediaQuery.of(context).size.width * .8,
-              color: Colors.white,
-              height: 50,
-              child: const Center(
-                child: Text(
-                  Constants.letsGetStarted,
-                  style: TextStyle(color: Color(0XFF08263d)),
-                ),
-              ),
-            ),
-          ),
-          SizedBox(height: size.height * 0.03),
-          const Text(
-            Constants.placeToLearn,
-            textAlign: TextAlign.center,
-            style: TextStyle(fontSize: 18, color: Colors.white),
           ),
           const SizedBox(height: 10),
         ],

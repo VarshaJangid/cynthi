@@ -1,3 +1,5 @@
+import 'package:cynthi/utils/app_text_style.dart';
+
 import '/ui/reset_password/reset_pass_view_model.dart';
 import '/ui/component/app_text_field.dart';
 import '/ui/component/custom_button.dart';
@@ -34,20 +36,26 @@ class ResetPasswordScreen extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                const Text(
+                Text(
                   Constants.resetYourPassword,
-                  style: TextStyle(fontWeight: FontWeight.bold, fontSize: 25),
+                  style: AppTextStyle.getStyle()
+                      .openSansBold!
+                      .copyWith(fontSize: 24, color: Colors.black),
                 ),
                 const SizedBox(height: 10),
-                const Text(
+                Text(
                   Constants.yourNewPassword,
-                  style: TextStyle(fontSize: 20, color: Color(0XFF666666)),
+                  style: AppTextStyle.getStyle()
+                      .openSansRegular!
+                      .copyWith(fontSize: 20, color: const Color(0XFF666666)),
                 ),
                 const SizedBox(height: 60),
                 AppTextField(
+                  obscureText: !viewModel.showPassword,
                   controller: viewModel.pass,
                   labelText: Constants.createPassword,
                   isIcon: true,
+                  iconPressed: () => viewModel.togglePassVisibility(),
                 ),
                 const SizedBox(height: 30),
                 AppTextField(
@@ -58,8 +66,7 @@ class ResetPasswordScreen extends StatelessWidget {
                 const SizedBox(height: 40),
                 CustomButton(
                   title: Constants.resetPassword.toUpperCase(),
-                  callback: () =>
-                      viewModel.validation(context, mobileNumber),
+                  callback: () => viewModel.validation(context, mobileNumber),
                 ),
               ],
             ),

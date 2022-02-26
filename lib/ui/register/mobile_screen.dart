@@ -1,3 +1,5 @@
+import 'package:cynthi/utils/app_text_style.dart';
+
 import '/ui/component/login_text_field.dart';
 import '/ui/component/custom_button.dart';
 import 'package:flutter/material.dart';
@@ -28,18 +30,22 @@ class MobileScreen extends StatelessWidget {
             ),
           ),
           body: SingleChildScrollView(
-            padding: const EdgeInsets.fromLTRB(30, 70, 30, 20),
+            padding: const EdgeInsets.fromLTRB(30, 70, 30, 10),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                const Text(
+                Text(
                   Constants.cynthians,
-                  style: TextStyle(fontWeight: FontWeight.bold, fontSize: 25),
+                  style: AppTextStyle.getStyle()
+                      .comfortaaBold!
+                      .copyWith(fontSize: 23, color: Colors.black),
                 ),
                 const SizedBox(height: 15),
-                const Text(
+                Text(
                   Constants.enterContactNumber,
-                  style: TextStyle(fontWeight: FontWeight.bold, fontSize: 25),
+                  style: AppTextStyle.getStyle()
+                      .openSansSemiBold!
+                      .copyWith(fontSize: 22, color: Colors.black),
                 ),
                 const SizedBox(height: 40),
                 LoginTextField(controller: viewModel.mobileNumber),
@@ -54,17 +60,21 @@ class MobileScreen extends StatelessWidget {
                 Padding(
                   padding: const EdgeInsets.only(left: 10, right: 10),
                   child: RichText(
-                    text: const TextSpan(
+                    text: TextSpan(
                       text: Constants.buCreatingAnAccount,
-                      style: TextStyle(color: Colors.black, fontSize: 16),
-                      children: <TextSpan>[
+                      style: AppTextStyle.getStyle()
+                          .openSansRegular!
+                          .copyWith(color: Colors.black),
+                      children: [
                         TextSpan(
                             text: Constants.privacyPolicy,
-                            style: TextStyle(fontWeight: FontWeight.bold)),
+                            style: AppTextStyle.getStyle()
+                                .openSansBold!
+                                .copyWith(color: Colors.black)),
                       ],
                     ),
                   ),
-                )
+                ),
               ],
             ),
           ),
