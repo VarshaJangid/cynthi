@@ -17,4 +17,7 @@ class Assets {
 
   static const String share = "assets/images/share.png";
 
+  static const String backgroundImage = "assets/images/backgroundImage.png";
+
+  static const String wavvy = "assets/images/wavvy.png";
 }

@@ -1,3 +1,4 @@
+import 'package:cynthi/ui/component/background_widget.dart';
 import 'package:cynthi/utils/app_text_style.dart';
 
 import '/ui/component/login_text_field.dart';
@@ -29,53 +30,59 @@ class MobileScreen extends StatelessWidget {
               ),
             ),
           ),
-          body: SingleChildScrollView(
-            padding: const EdgeInsets.fromLTRB(30, 70, 30, 10),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  Constants.cynthians,
-                  style: AppTextStyle.getStyle()
-                      .comfortaaBold!
-                      .copyWith(fontSize: 23, color: Colors.black),
-                ),
-                const SizedBox(height: 15),
-                Text(
-                  Constants.enterContactNumber,
-                  style: AppTextStyle.getStyle()
-                      .openSansSemiBold!
-                      .copyWith(fontSize: 22, color: Colors.black),
-                ),
-                const SizedBox(height: 40),
-                LoginTextField(controller: viewModel.mobileNumber),
-                const SizedBox(height: 40),
-                CustomButton(
-                  title: Constants.Continue,
-                  callback: () {
-                    viewModel.validation(context);
-                  },
-                ),
-                const SizedBox(height: 20),
-                Padding(
-                  padding: const EdgeInsets.only(left: 10, right: 10),
-                  child: RichText(
-                    text: TextSpan(
-                      text: Constants.buCreatingAnAccount,
+          body: BackgroundWidget(
+            child: SingleChildScrollView(
+              padding: const EdgeInsets.fromLTRB(30, 70, 30, 10),
+              child: Container(
+                height: MediaQuery.of(context).size.height,
+                width: MediaQuery.of(context).size.width,
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      Constants.cynthians,
                       style: AppTextStyle.getStyle()
-                          .openSansRegular!
-                          .copyWith(color: Colors.black),
-                      children: [
-                        TextSpan(
-                            text: Constants.privacyPolicy,
-                            style: AppTextStyle.getStyle()
-                                .openSansBold!
-                                .copyWith(color: Colors.black)),
-                      ],
+                          .comfortaaBold!
+                          .copyWith(fontSize: 23, color: Colors.black),
                     ),
-                  ),
+                    const SizedBox(height: 15),
+                    Text(
+                      Constants.enterContactNumber,
+                      style: AppTextStyle.getStyle()
+                          .openSansSemiBold!
+                          .copyWith(fontSize: 22, color: Colors.black),
+                    ),
+                    const SizedBox(height: 40),
+                    LoginTextField(controller: viewModel.mobileNumber),
+                    const SizedBox(height: 40),
+                    CustomButton(
+                      title: Constants.Continue,
+                      callback: () {
+                        viewModel.validation(context);
+                      },
+                    ),
+                    const SizedBox(height: 20),
+                    Padding(
+                      padding: const EdgeInsets.only(left: 10, right: 10),
+                      child: RichText(
+                        text: TextSpan(
+                          text: Constants.buCreatingAnAccount,
+                          style: AppTextStyle.getStyle()
+                              .openSansRegular!
+                              .copyWith(color: Colors.black),
+                          children: [
+                            TextSpan(
+                                text: Constants.privacyPolicy,
+                                style: AppTextStyle.getStyle()
+                                    .openSansBold!
+                                    .copyWith(color: Colors.black)),
+                          ],
+                        ),
+                      ),
+                    ),
+                  ],
                 ),
-              ],
+              ),
             ),
           ),
         );

@@ -1,3 +1,4 @@
+import 'package:cynthi/ui/component/background_widget.dart';
 import 'package:cynthi/utils/app_methods.dart';
 import 'package:cynthi/utils/app_text_style.dart';
 import 'package:flutter_holo_date_picker/flutter_holo_date_picker.dart';
@@ -89,85 +90,87 @@ class _GenderState extends State<GenderScreen> {
           onPressed: () => AppRoutes.dismiss(context),
         ),
       ),
-      body: Padding(
-        padding: const EdgeInsets.fromLTRB(15, 0, 15, 20),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Padding(
-              padding: const EdgeInsets.all(10),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                mainAxisAlignment: MainAxisAlignment.start,
-                children: [
-                  Text(
-                    Constants.pleaseSelectYourGender,
-                    style: AppTextStyle.getStyle()
-                        .openSansSemiBold!
-                        .copyWith(fontSize: 24, color: Colors.black),
-                  ),
-                  const SizedBox(height: 30),
-                  Wrap(
-                    crossAxisAlignment: WrapCrossAlignment.center,
-                    spacing: 10,
-                    runSpacing: 20,
-                    children: listGender.map((e) {
-                      return GenderButtonWidget(
-                        genderModel: e,
-                        callback: () {
-                          updateGenderList(e);
-                          setState(() {
-                            gender = e.title!;
-                          });
-                        },
-                      );
-                    }).toList(),
-                  ),
-                  const SizedBox(height: 50),
-                  Text(
-                    Constants.enterYourBirthDate,
-                    style: AppTextStyle.getStyle()
-                        .openSansSemiBold!
-                        .copyWith(fontSize: 24, color: Colors.black),
-                  ),
-                  const SizedBox(height: 30),
-                  GestureDetector(
-                    child: Padding(
-                      padding: const EdgeInsets.only(right: 16.5),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                        children: [
-                          dateWidget(datePicked == null
-                              ? Constants.date
-                              : "${datePicked!.day}"),
-                          dateWidget(datePicked == null
-                              ? Constants.month
-                              : "${datePicked!.month}"),
-                          dateWidget(datePicked == null
-                              ? Constants.year
-                              : "${datePicked!.year}"),
-                        ],
-                      ),
+      body: BackgroundWidget(
+        child: Padding(
+          padding: const EdgeInsets.fromLTRB(15, 0, 15, 20),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Padding(
+                padding: const EdgeInsets.all(10),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  children: [
+                    Text(
+                      Constants.pleaseSelectYourGender,
+                      style: AppTextStyle.getStyle()
+                          .openSansSemiBold!
+                          .copyWith(fontSize: 24, color: Colors.black),
                     ),
-                    onTap: () async {
-                      final datePick = await DatePicker.showSimpleDatePicker(
-                        context,
-                        initialDate: DateTime(1994),
-                        firstDate: DateTime(1960),
-                        lastDate: DateTime(2012),
-                        dateFormat: "dd-MMMM-yyyy",
-                        locale: DateTimePickerLocale.en_us,
-                        looping: true,
-                      );
-                      setState(() {
-                        datePicked = datePick;
-                      });
-                    },
-                  ),
-                ],
+                    const SizedBox(height: 30),
+                    Wrap(
+                      crossAxisAlignment: WrapCrossAlignment.center,
+                      spacing: 10,
+                      runSpacing: 20,
+                      children: listGender.map((e) {
+                        return GenderButtonWidget(
+                          genderModel: e,
+                          callback: () {
+                            updateGenderList(e);
+                            setState(() {
+                              gender = e.title!;
+                            });
+                          },
+                        );
+                      }).toList(),
+                    ),
+                    const SizedBox(height: 50),
+                    Text(
+                      Constants.enterYourBirthDate,
+                      style: AppTextStyle.getStyle()
+                          .openSansSemiBold!
+                          .copyWith(fontSize: 24, color: Colors.black),
+                    ),
+                    const SizedBox(height: 30),
+                    GestureDetector(
+                      child: Padding(
+                        padding: const EdgeInsets.only(right: 16.5),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                          children: [
+                            dateWidget(datePicked == null
+                                ? Constants.date
+                                : "${datePicked!.day}"),
+                            dateWidget(datePicked == null
+                                ? Constants.month
+                                : "${datePicked!.month}"),
+                            dateWidget(datePicked == null
+                                ? Constants.year
+                                : "${datePicked!.year}"),
+                          ],
+                        ),
+                      ),
+                      onTap: () async {
+                        final datePick = await DatePicker.showSimpleDatePicker(
+                          context,
+                          initialDate: DateTime(1994),
+                          firstDate: DateTime(1960),
+                          lastDate: DateTime(2012),
+                          dateFormat: "dd-MMMM-yyyy",
+                          locale: DateTimePickerLocale.en_us,
+                          looping: true,
+                        );
+                        setState(() {
+                          datePicked = datePick;
+                        });
+                      },
+                    ),
+                  ],
+                ),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     );
