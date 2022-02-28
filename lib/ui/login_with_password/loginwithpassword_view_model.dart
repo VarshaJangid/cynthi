@@ -38,17 +38,19 @@ class LoginWithPassViewModel extends BaseViewModel {
     }
   }
 
-  String countryCode = "";
+  String countryCode = "+91";
 
   void onCountryChange(CountryCode countryCode) {
     this.countryCode = countryCode.toString();
+    notifyListeners();
     print("New Country selected: " + countryCode.toString());
   }
 
   // Login With Password
   loginWithPassword(BuildContext context) async {
+    print("Number is ----- ${countryCode + mobileNumber.text}");
     Map<String, String> params = {
-      'mobile': mobileNumber.text,
+      'mobile': countryCode.toString() + mobileNumber.text,
       'password': password.text,
       'source_id': '1',
     };
@@ -60,7 +62,6 @@ class LoginWithPassViewModel extends BaseViewModel {
       if (response.statusCode == 200) {
         loginPassModel = LoginPassModel.fromJson(jsonDecode(response.body));
         notifyListeners();
-        print("Message ----- ${loginPassModel.message}");
         AppRoutes.dismiss(context);
         if (loginPassModel.message == "Login Successfully.") {
           AppRoutes.dismiss(context);

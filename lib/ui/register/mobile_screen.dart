@@ -54,7 +54,10 @@ class MobileScreen extends StatelessWidget {
                           .copyWith(fontSize: 22, color: Colors.black),
                     ),
                     const SizedBox(height: 40),
-                    LoginTextField(controller: viewModel.mobileNumber),
+                    LoginTextField(
+                      controller: viewModel.mobileNumber,
+                      changedCountry: viewModel.onCountryChange,
+                    ),
                     const SizedBox(height: 40),
                     CustomButton(
                       title: Constants.Continue,

@@ -1,5 +1,7 @@
 import 'dart:async';
 
+import 'package:country_code_picker/country_code.dart';
+
 import '/ui/reset_password/reset_password_screen.dart';
 import '/ui/create_user/create_user_screen.dart';
 import '/ui/otp_verify/otp_verify_screen.dart';
@@ -34,10 +36,19 @@ class MobileViewModel extends BaseViewModel {
     }
   }
 
+  String countryCode = "+91";
+
+  void onCountryChange(CountryCode countryCode) {
+    this.countryCode = countryCode.toString();
+    notifyListeners();
+    print("New Country selected: " + countryCode.toString());
+  }
+
   // Login With OTP
   loginWithOTP(BuildContext context) async {
+    print("Mobile Number is ------ ${countryCode + mobileNumber.text}");
     Map<String, String> params = {
-      'mobile': mobileNumber.text,
+      'mobile': countryCode + mobileNumber.text,
     };
     try {
       showLoadingDialog(context);

@@ -31,8 +31,9 @@ class LoginTextField extends StatelessWidget {
           ),
           child: CountryCodePicker(
             onChanged: changedCountry,
-            favorite: ['+91'],
+            favorite: const ['+91'],
             flagWidth: 0,
+            initialSelection: '+91',
             showCountryOnly: false,
             showFlagMain:false,
             showOnlyCountryWhenClosed: false,

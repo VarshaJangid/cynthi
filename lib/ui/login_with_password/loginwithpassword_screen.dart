@@ -87,8 +87,8 @@ class LoginWithPasswordScreen extends StatelessWidget {
                         child: Text(
                           Constants.forgotYourPassword,
                           style: AppTextStyle.getStyle()
-                              .openSansRegular!
-                              .copyWith(fontSize: 15, color: Colors.grey),
+                              .openSansSemiBold!
+                              .copyWith(color: Colors.grey, fontSize: 10),
                         ),
                       ),
                     ),
