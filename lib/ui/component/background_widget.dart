@@ -17,7 +17,7 @@ class BackgroundWidget extends StatelessWidget {
             top: 250,
             left: 150,
             child: Container(
-              height: MediaQuery.of(context).size.height/1.7,
+              height: MediaQuery.of(context).size.height/1.5,
               width: MediaQuery.of(context).size.width,
               child: Image(
                 image: AssetImage(Assets.wavvy),

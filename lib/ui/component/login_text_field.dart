@@ -1,11 +1,13 @@
+import 'package:country_code_picker/country_code_picker.dart';
 import 'package:cynthi/utils/app_text_style.dart';
 import 'package:flutter/material.dart';
 import '/utils/app_constant.dart';
 
 class LoginTextField extends StatelessWidget {
   TextEditingController? controller;
+  Function(CountryCode)? changedCountry;
 
-  LoginTextField({Key? key, this.controller}) : super(key: key);
+  LoginTextField({Key? key, this.controller, this.changedCountry}) : super(key: key);
 
   TextStyle style = AppTextStyle.getStyle()
       .openSansRegular!
@@ -16,7 +18,7 @@ class LoginTextField extends StatelessWidget {
     return Row(
       children: [
         Container(
-          width: 40,
+          width: 70,
           height: 51.8,
           // padding: const EdgeInsets.all(7),
           margin: const EdgeInsets.only(top: 16),
@@ -27,15 +29,18 @@ class LoginTextField extends StatelessWidget {
               bottomLeft: Radius.circular(15),
             ),
           ),
-          child: Center(
-            child: Text(
-              " +91 ",
-              style: style,
-            ),
+          child: CountryCodePicker(
+            onChanged: changedCountry,
+            favorite: ['+91'],
+            flagWidth: 0,
+            showCountryOnly: false,
+            showFlagMain:false,
+            showOnlyCountryWhenClosed: false,
+            alignLeft: false,
           ),
         ),
         Container(
-          width: MediaQuery.of(context).size.width - 110,
+          width: MediaQuery.of(context).size.width - 130,
           height: 51.8,
           margin: const EdgeInsets.only(top: 16),
           decoration: BoxDecoration(

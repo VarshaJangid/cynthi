@@ -60,8 +60,8 @@ class _GenderState extends State<GenderScreen> {
 
   @override
   Widget build(BuildContext context) {
-    print("First Name ${widget.firstName}${widget.lastName}${widget.password}");
     return Scaffold(
+      backgroundColor: const Color(0XFFf6f2e7),
       floatingActionButton: FloatingActionButton(
         elevation: 0,
         onPressed: () {
@@ -91,7 +91,8 @@ class _GenderState extends State<GenderScreen> {
         ),
       ),
       body: BackgroundWidget(
-        child: Padding(
+        child: Container(
+          height: MediaQuery.of(context).size.height,
           padding: const EdgeInsets.fromLTRB(15, 0, 15, 20),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,

@@ -1,3 +1,4 @@
+import 'package:country_code_picker/country_code.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import '/ui/dashboard/dashboard_screen.dart';
 import 'package:http/http.dart' as http;
@@ -20,6 +21,7 @@ class LoginWithPassViewModel extends BaseViewModel {
   }
 
   bool _showPassword = false;
+
   bool get showPassword => _showPassword;
 
   //show Password
@@ -28,6 +30,20 @@ class LoginWithPassViewModel extends BaseViewModel {
     notifyListeners();
   }
 
+  validation(BuildContext context) {
+    if (mobileNumber.text.isEmpty || password.text.isEmpty) {
+      flutterToast("Enter Mobile Number/Password", Colors.red);
+    } else {
+      loginWithPassword(context);
+    }
+  }
+
+  String countryCode = "";
+
+  void onCountryChange(CountryCode countryCode) {
+    this.countryCode = countryCode.toString();
+    print("New Country selected: " + countryCode.toString());
+  }
 
   // Login With Password
   loginWithPassword(BuildContext context) async {
@@ -44,10 +60,14 @@ class LoginWithPassViewModel extends BaseViewModel {
       if (response.statusCode == 200) {
         loginPassModel = LoginPassModel.fromJson(jsonDecode(response.body));
         notifyListeners();
-        getAndSaveToken(context);
-        flutterToast(loginPassModel.message, Colors.green);
         AppRoutes.dismiss(context);
-        AppRoutes.goto(context, const DashboardScreen());
+        if (loginPassModel.message == 'Login Successfully.') {
+          getAndSaveToken(context);
+          flutterToast(loginPassModel.message, Colors.green);
+          AppRoutes.goto(context, const DashboardScreen());
+        } else {
+          flutterToast("Wrong Username Password.Please Try again.", Colors.red);
+        }
       }
     } catch (e) {
       print("Exception in Login API $e");

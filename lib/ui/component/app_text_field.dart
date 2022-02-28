@@ -24,7 +24,7 @@ class AppTextField extends StatelessWidget {
           contentPadding: const EdgeInsets.only(left: 50),
           labelStyle: const TextStyle(color: Colors.black, fontSize: 15),
           filled: true,
-          fillColor: Colors.white70,
+          fillColor: const Color(0XFFf6f2e7),
           enabledBorder: OutlineInputBorder(
             borderRadius: BorderRadius.circular(15),
           ),

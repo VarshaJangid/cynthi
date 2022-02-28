@@ -21,6 +21,7 @@ class CreateUserScreen extends StatelessWidget {
       onModelReady: (viewModel) => viewModel.init(context),
       builder: (context, viewModel, child) {
         return Scaffold(
+          backgroundColor: const Color(0XFFf6f2e7),
           appBar: AppBar(
             elevation: 0,
             backgroundColor: Colors.transparent,
@@ -30,99 +31,113 @@ class CreateUserScreen extends StatelessWidget {
             ),
           ),
           body: BackgroundWidget(
-            child: SingleChildScrollView(
-              padding: const EdgeInsets.all(20),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    Constants.cynthians,
-                    style: AppTextStyle.getStyle()
-                        .comfortaaBold!
-                        .copyWith(fontSize: 24, color: Colors.black),
-                  ),
-                  const SizedBox(height: 8),
-                  Text(
-                    Constants.createYourAccount,
-                    style: AppTextStyle.getStyle()
-                        .openSansSemiBold!
-                        .copyWith(fontSize: 24, color: Colors.black),
-                  ),
-                  const SizedBox(height: 15),
-                  Text(
-                    Constants.createAnAccountToGetStarted,
-                    style: AppTextStyle.getStyle()
-                        .openSansRegular!
-                        .copyWith(color: Colors.black),
-                  ),
-                  const SizedBox(height: 35),
-                  Row(
-                    children: [
-                      SizedBox(
-                        width: 150,
-                        child: textField(context, Constants.firstName,
-                            viewModel.firstName, !viewModel.showPassword, viewModel, false),
-                      ),
-                      const Spacer(),
-                      SizedBox(
-                        width: 150,
-                        child: textField(context, Constants.lastName,
-                            viewModel.lastName, !viewModel.showPassword, viewModel, false),
-                      ),
-                    ],
-                  ),
-                  const SizedBox(height: 40),
-                  textField(context, Constants.createPassword, viewModel.password,
-                      !viewModel.showPassword, viewModel, true),
-                  const SizedBox(height: 40),
-                  textField(context, Constants.confirmPassword,
-                      viewModel.confirmPassword, !viewModel.showPassword, viewModel, true),
-                  const SizedBox(height: 40),
-                  CustomButton(
-                      title: Constants.next,
-                      callback: () {
-                        if (viewModel.firstName.text.isEmpty ||
-                            viewModel.lastName.text.isEmpty ||
-                            viewModel.password.text.isEmpty ||
-                            viewModel.confirmPassword.text.isEmpty) {
-                          flutterToast("Please enter valid data !! ", Colors.red);
-                        } else {
-                          if (viewModel.password.text ==
-                              viewModel.confirmPassword.text) {
-                            AppRoutes.goto(
-                              context,
-                              GenderScreen(
-                                firstName: viewModel.firstName.text,
-                                lastName: viewModel.lastName.text,
-                                password: viewModel.password.text,
-                                mobile: mobile,
-                              ),
-                            );
-                          } else {
+            child: SizedBox(
+              height: MediaQuery.of(context).size.height,
+              child: SingleChildScrollView(
+                padding: const EdgeInsets.all(20),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      Constants.cynthians,
+                      style: AppTextStyle.getStyle()
+                          .comfortaaBold!
+                          .copyWith(fontSize: 24, color: Colors.black),
+                    ),
+                    const SizedBox(height: 8),
+                    Text(
+                      Constants.createYourAccount,
+                      style: AppTextStyle.getStyle()
+                          .openSansSemiBold!
+                          .copyWith(fontSize: 24, color: Colors.black),
+                    ),
+                    const SizedBox(height: 15),
+                    Text(
+                      Constants.createAnAccountToGetStarted,
+                      style: AppTextStyle.getStyle()
+                          .openSansRegular!
+                          .copyWith(color: Colors.black),
+                    ),
+                    const SizedBox(height: 35),
+                    Row(
+                      children: [
+                        SizedBox(
+                          width: 150,
+                          child: textField(context, Constants.firstName,
+                              viewModel.firstName, false, viewModel, false),
+                        ),
+                        const Spacer(),
+                        SizedBox(
+                          width: 150,
+                          child: textField(context, Constants.lastName,
+                              viewModel.lastName, false, viewModel, false),
+                        ),
+                      ],
+                    ),
+                    const SizedBox(height: 40),
+                    textField(
+                        context,
+                        Constants.createPassword,
+                        viewModel.password,
+                        !viewModel.showPassword,
+                        viewModel,
+                        true),
+                    const SizedBox(height: 40),
+                    textField(
+                        context,
+                        Constants.confirmPassword,
+                        viewModel.confirmPassword,
+                        !viewModel.showPassword,
+                        viewModel,
+                        true),
+                    const SizedBox(height: 40),
+                    CustomButton(
+                        title: Constants.next,
+                        callback: () {
+                          if (viewModel.firstName.text.isEmpty ||
+                              viewModel.lastName.text.isEmpty ||
+                              viewModel.password.text.isEmpty ||
+                              viewModel.confirmPassword.text.isEmpty) {
                             flutterToast(
-                                "Password does not match !!!", Colors.red);
+                                "Please enter valid data !! ", Colors.red);
+                          } else {
+                            if (viewModel.password.text ==
+                                viewModel.confirmPassword.text) {
+                              AppRoutes.goto(
+                                context,
+                                GenderScreen(
+                                  firstName: viewModel.firstName.text,
+                                  lastName: viewModel.lastName.text,
+                                  password: viewModel.password.text,
+                                  mobile: mobile,
+                                ),
+                              );
+                            } else {
+                              flutterToast(
+                                  "Password does not match !!!", Colors.red);
+                            }
                           }
-                        }
-                      }),
-                  Padding(
-                    padding: const EdgeInsets.fromLTRB(15, 20, 15, 0),
-                    child: RichText(
-                      text: TextSpan(
-                        text: Constants.buCreatingAnAccount,
-                        style: AppTextStyle.getStyle()
-                            .openSansRegular!
-                            .copyWith(color: Colors.black),
-                        children: [
-                          TextSpan(
-                              text: Constants.privacyPolicy,
-                              style: AppTextStyle.getStyle()
-                                  .openSansBold!
-                                  .copyWith(color: Colors.black)),
-                        ],
+                        }),
+                    Padding(
+                      padding: const EdgeInsets.fromLTRB(15, 20, 15, 0),
+                      child: RichText(
+                        text: TextSpan(
+                          text: Constants.buCreatingAnAccount,
+                          style: AppTextStyle.getStyle()
+                              .openSansRegular!
+                              .copyWith(color: Colors.black),
+                          children: [
+                            TextSpan(
+                                text: Constants.privacyPolicy,
+                                style: AppTextStyle.getStyle()
+                                    .openSansBold!
+                                    .copyWith(color: Colors.black)),
+                          ],
+                        ),
                       ),
                     ),
-                  ),
-                ],
+                  ],
+                ),
               ),
             ),
           ),
@@ -137,7 +152,7 @@ class CreateUserScreen extends StatelessWidget {
           TextEditingController controller,
           bool obscureText,
           CreateUserViewModel model,
-      bool isIcon) =>
+          bool isIcon) =>
       SizedBox(
         width: MediaQuery.of(context).size.width,
         height: MediaQuery.of(context).size.height * .08,
@@ -151,7 +166,7 @@ class CreateUserScreen extends StatelessWidget {
             labelText: title,
             labelStyle: const TextStyle(color: Colors.grey, fontSize: 14),
             filled: true,
-            fillColor: Colors.white70,
+            fillColor: const Color(0XFFf6f2e7),
             enabledBorder: OutlineInputBorder(
               borderRadius: BorderRadius.circular(15),
             ),

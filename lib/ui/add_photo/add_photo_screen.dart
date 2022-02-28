@@ -34,6 +34,7 @@ class AddPhotoScreen extends StatelessWidget {
           context, firstName, lastName, gender, datePicked, password, mobile),
       builder: (context, viewModel, child) {
         return Scaffold(
+          backgroundColor: const Color(0XFFf6f2e7),
           appBar: AppBar(
             elevation: 0,
             backgroundColor: Colors.transparent,

@@ -22,8 +22,8 @@ class OtpVerifyScreen extends StatelessWidget {
       builder: (context, viewModel, child) {
         String twoDigits(int n) => n.toString().padLeft(2, '0');
         final seconds = twoDigits(viewModel.duration.inSeconds.remainder(60));
-        print("seconds --- $seconds");
         return Scaffold(
+          backgroundColor: const Color(0XFFf6f2e7),
           appBar: AppBar(
             elevation: 0,
             backgroundColor: Colors.transparent,
