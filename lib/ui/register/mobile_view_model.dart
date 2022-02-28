@@ -51,9 +51,8 @@ class MobileViewModel extends BaseViewModel {
         otpSet = "${loginWithOtpModel.otp}";
         notifyListeners();
         print("value otp $otpSet");
-
         AppRoutes.dismiss(context);
-        if (loginWithOtpModel.message == "OTP send  successfully.") {
+        if (loginWithOtpModel.message == "OTP sent successfully.") {
           flutterToast(loginWithOtpModel.message, Colors.green);
           AppRoutes.dismiss(context);
           AppRoutes.goto(

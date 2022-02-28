@@ -60,13 +60,15 @@ class LoginWithPassViewModel extends BaseViewModel {
       if (response.statusCode == 200) {
         loginPassModel = LoginPassModel.fromJson(jsonDecode(response.body));
         notifyListeners();
+        print("Message ----- ${loginPassModel.message}");
         AppRoutes.dismiss(context);
-        if (loginPassModel.message == 'Login Successfully.') {
+        if (loginPassModel.message == "Login Successfully.") {
+          AppRoutes.dismiss(context);
           getAndSaveToken(context);
           flutterToast(loginPassModel.message, Colors.green);
           AppRoutes.goto(context, const DashboardScreen());
         } else {
-          flutterToast("Wrong Username Password.Please Try again.", Colors.red);
+          flutterToast(loginPassModel.message, Colors.red);
         }
       }
     } catch (e) {
