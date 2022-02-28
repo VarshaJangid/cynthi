@@ -1,4 +1,5 @@
 import 'package:cynthi/utils/app_text_style.dart';
+import 'package:flutter/cupertino.dart';
 
 import '/ui/login_with_password/loginwithpassword_screen.dart';
 import '/ui/register/mobile_screen.dart';
@@ -81,23 +82,21 @@ class _BodyState extends State<Body> {
     return SafeArea(
       child: Container(
         color: const Color(0XFF08263d),
-        padding: const EdgeInsets.only(top: 25),
+        padding:
+            const EdgeInsets.only(top: 25, left: 20, right: 20, bottom: 20),
         child: Column(
           children: [
             const Spacer(),
             Image.asset(Assets.logo, width: 100, height: 100, fit: BoxFit.fill),
-            const Spacer(),
+            const SizedBox(height: 30),
             Text(
               Constants.cynthians,
               style:
                   AppTextStyle.getStyle().comfortaaBold!.copyWith(fontSize: 30),
             ),
-            const Spacer(),
             const SizedBox(height: 30),
-            Image.asset(Assets.onboarding,
-                width: 120, height: 120, fit: BoxFit.fill),
             SizedBox(
-              height: size.height * 0.1,
+              height: size.height * 0.35,
               child: PageView.builder(
                 controller: _pageController,
                 onPageChanged: (value) {
@@ -115,12 +114,6 @@ class _BodyState extends State<Body> {
                 ),
               ),
             ),
-            Text(
-              Constants.placeToLearn,
-              textAlign: TextAlign.center,
-              style: AppTextStyle.getStyle().openSansSemiBold,
-            ),
-            const Spacer(),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: List.generate(
@@ -147,19 +140,22 @@ class _BodyState extends State<Body> {
                 child: Center(
                   child: Text(
                     Constants.letsGetStarted,
-                    style: AppTextStyle.getStyle().openSansBold!.copyWith(
-                          color: const Color(0XFF08263d),
-                        ),
+                    style: AppTextStyle.getStyle()
+                        .openSansBold!
+                        .copyWith(color: const Color(0XFF08263d), fontSize: 12),
                   ),
                 ),
               ),
             ),
+            Spacer(),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Text(
                   Constants.alreadyHaveAccount,
-                  style: AppTextStyle.getStyle().openSansSemiBold,
+                  style: AppTextStyle.getStyle()
+                      .openSansRegular!
+                      .copyWith(fontSize: 12),
                 ),
                 TextButton(
                   onPressed: () =>
@@ -167,8 +163,7 @@ class _BodyState extends State<Body> {
                   child: Text(
                     Constants.login,
                     style: AppTextStyle.getStyle().openSansBold!.copyWith(
-                          decoration: AppTextStyle.underline,
-                        ),
+                        decoration: AppTextStyle.underline, fontSize: 13),
                   ),
                 ),
               ],
@@ -199,13 +194,23 @@ class Content extends StatelessWidget {
       child: Column(
         children: [
           const SizedBox(height: 10),
+          Image.asset(Assets.onboarding,
+              width: 120, height: 120, fit: BoxFit.fill),
+          const SizedBox(height: 20),
           Text(
             welcomeText,
             style: const TextStyle(
-                color: Colors.white, fontSize: 18, fontWeight: FontWeight.w500),
+                color: Colors.white, fontSize: 16, fontWeight: FontWeight.w500),
             textAlign: TextAlign.center,
           ),
-          const SizedBox(height: 10),
+          const SizedBox(height: 25),
+          Text(
+            Constants.placeToLearn,
+            textAlign: TextAlign.center,
+            style: AppTextStyle.getStyle()
+                .openSansSemiBold!
+                .copyWith(fontSize: 12),
+          ),
         ],
       ),
     );
