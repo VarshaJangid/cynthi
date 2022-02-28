@@ -4,7 +4,8 @@
 
 import 'dart:convert';
 
-LoginPassModel loginPassModelFromJson(String str) => LoginPassModel.fromJson(json.decode(str));
+LoginPassModel loginPassModelFromJson(String str) =>
+    LoginPassModel.fromJson(json.decode(str));
 
 String loginPassModelToJson(LoginPassModel data) => json.encode(data.toJson());
 
@@ -24,18 +25,18 @@ class LoginPassModel {
   String message;
 
   factory LoginPassModel.fromJson(Map<String, dynamic> json) => LoginPassModel(
-    status: json["status"],
-    token: json["token"],
-    studentId: json["student_id"],
-    mobile: json["mobile"],
-    message: json["message"],
-  );
+        status: json["status"],
+        message: json["message"],
+        token: json["token"] ?? '',
+        studentId: json["student_id"] ?? '',
+        mobile: json["mobile"] ?? '',
+      );
 
   Map<String, dynamic> toJson() => {
-    "status": status,
-    "token": token,
-    "student_id": studentId,
-    "mobile": mobile,
-    "message": message,
-  };
+        "status": status,
+        "token": token,
+        "student_id": studentId,
+        "mobile": mobile,
+        "message": message,
+      };
 }
