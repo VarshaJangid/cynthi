@@ -14,20 +14,25 @@ import 'dart:io';
 
 class AddPhotoViewModel extends BaseViewModel {
   File? imageFile = File("");
-  String fname = '';
-  String lname = '';
+  String firstName = '';
+  String lastName = '';
   String password = '';
-  DateTime student_dob = DateTime.now();
+  DateTime datePicked = DateTime.now();
   String gender = '';
   String mobile = '';
 
-  init(BuildContext context, String _fname, String _lname, String _password,
-      DateTime _student_dob, String _gender, String _mobile) async {
-    print("Add Photo Screen");
-    fname = _fname;
-    lname = _lname;
+  init(
+      BuildContext context,
+      String _firstName,
+      String _lastName,
+      String _password,
+      DateTime _datePicked,
+      String _gender,
+      String _mobile) async {
+    firstName = _firstName;
+    lastName = _lastName;
     password = _password;
-    student_dob = _student_dob;
+    datePicked = _datePicked;
     gender = _gender;
     mobile = _mobile;
   }
@@ -57,22 +62,28 @@ class AddPhotoViewModel extends BaseViewModel {
     }
   }
 
-  // Register User
   registerUser(BuildContext context) async {
-    // Convert Image to Base64
     Uint8List imagebytes = await imageFile!.readAsBytes();
     String base64string = base64.encode(imagebytes);
 
     //File Name
     String fileName = imageFile!.path.split('/').last.toString();
+    print("First name ---- $firstName");
+    print("last name ---- $lastName");
+    print("mobile ---- $mobile");
+    print("password ---- $password");
+    print("datepicked ---- $datePicked");
+    print("gender ---- $gender");
+    print("base64string ---- $base64string");
+    print("fileName ---- $fileName");
 
     Map<String, String> params = {
       'mobile': mobile,
-      'fname': fname,
-      'lname': lname,
+      'fname': firstName,
+      'lname': lastName,
       'password': password,
       'source_id': '1',
-      'student_dob': "$student_dob",
+      'student_dob': datePicked.toString().substring(0, 10),
       'gender': gender,
       'profilepicurl': base64string,
       'file_name': fileName,
@@ -83,22 +94,21 @@ class AddPhotoViewModel extends BaseViewModel {
           Uri.parse(
               "https://api.cynthians.com/index.php/api/save_newstudentPassword"),
           body: params);
+      print("--------------------------------");
+      print(response.statusCode);
+      print(response.body);
       if (response.statusCode == 200) {
         print("Response ----- ${response.body}");
         RegisterModel registerModel =
             RegisterModel.fromJson(jsonDecode(response.body));
         print("res msg----- ${registerModel.message}");
-        if (registerModel.message == "Password saved successfully") {
-          flutterToast(registerModel.message, Colors.green);
-          AppRoutes.dismiss(context);
-          getAndSaveToken(context, registerModel.token);
-          AppRoutes.goto(context, WelcomeScreen(name: fname));
-        } else {
-          Exception("Exception in Register API.");
-        }
+        flutterToast(registerModel.message, Colors.green);
+        AppRoutes.dismiss(context);
+        getAndSaveToken(context, registerModel.token);
+        AppRoutes.goto(context, WelcomeScreen(name: firstName));
       }
     } catch (e) {
-      Exception("Exception in registerUser API ---- $e");
+      print("Exception in Login API $e");
     }
   }
 

@@ -73,9 +73,9 @@ class _GenderState extends State<GenderScreen> {
                 AddPhotoScreen(
                     firstName: widget.firstName,
                     lastName: widget.lastName,
+                    password: widget.password,
                     datePicked: datePicked!,
                     gender: gender,
-                    password: widget.password,
                     mobile: widget.mobile));
           }
         },

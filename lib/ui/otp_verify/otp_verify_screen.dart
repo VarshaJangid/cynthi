@@ -16,6 +16,7 @@ class OtpVerifyScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    print("Number $mobileNumber");
     return ViewModelBuilder<MobileViewModel>.reactive(
       viewModelBuilder: () => MobileViewModel(),
       onModelReady: (viewModel) => viewModel.init(context),
@@ -40,6 +41,7 @@ class OtpVerifyScreen extends StatelessWidget {
             onPressed: () {
               print("Otp is ------ ${viewModel.loginWithOtpModel.otp}");
               if (viewModel.otpController.text == otp) {
+                print("Mobile ---- $mobileNumber");
                 viewModel.checkUserExist(context, mobileNumber);
               } else {
                 flutterToast("Wrong OTP !!!", Colors.red);

@@ -65,13 +65,18 @@ class MobileViewModel extends BaseViewModel {
         AppRoutes.dismiss(context);
         if (loginWithOtpModel.message == "OTP sent successfully.") {
           flutterToast(loginWithOtpModel.message, Colors.green);
+          print("data");
+          print(countryCode + mobileNumber.text);
+          print(countryCode.toString() + mobileNumber.text);
           AppRoutes.dismiss(context);
           AppRoutes.goto(
               context,
               OtpVerifyScreen(
-                mobileNumber: mobileNumber.text,
+                mobileNumber: countryCode + mobileNumber.text,
                 otp: "${loginWithOtpModel.otp}",
               ));
+        } else {
+          flutterToast(loginWithOtpModel.message, Colors.red);
         }
       } else {
         throw Exception('Exception in Login With OTP API');

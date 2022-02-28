@@ -96,7 +96,7 @@ class _BodyState extends State<Body> {
             ),
             const SizedBox(height: 30),
             SizedBox(
-              height: size.height * 0.35,
+              height: size.height * 0.38,
               child: PageView.builder(
                 controller: _pageController,
                 onPageChanged: (value) {
@@ -155,7 +155,7 @@ class _BodyState extends State<Body> {
                   Constants.alreadyHaveAccount,
                   style: AppTextStyle.getStyle()
                       .openSansRegular!
-                      .copyWith(fontSize: 12),
+                      .copyWith(fontSize: 13),
                 ),
                 TextButton(
                   onPressed: () =>
@@ -163,7 +163,7 @@ class _BodyState extends State<Body> {
                   child: Text(
                     Constants.login,
                     style: AppTextStyle.getStyle().openSansBold!.copyWith(
-                        decoration: AppTextStyle.underline, fontSize: 13),
+                        decoration: AppTextStyle.underline, fontSize: 14),
                   ),
                 ),
               ],

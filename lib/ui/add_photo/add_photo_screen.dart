@@ -1,9 +1,8 @@
-import 'package:cynthi/utils/app_text_style.dart';
-
 import '/ui/add_photo/add_photo_view_model.dart';
-import 'package:stacked/stacked.dart';
 import '/ui/component/custom_button.dart';
 import 'package:flutter/material.dart';
+import 'package:stacked/stacked.dart';
+import '/utils/app_text_style.dart';
 import '/utils/app_constant.dart';
 import '/utils/app_route.dart';
 import 'dart:io';
@@ -18,11 +17,11 @@ class AddPhotoScreen extends StatelessWidget {
 
   AddPhotoScreen({
     Key? key,
-    required this.lastName,
     required this.firstName,
+    required this.lastName,
     required this.password,
-    required this.gender,
     required this.datePicked,
+    required this.gender,
     required this.mobile,
   }) : super(key: key);
 
@@ -31,7 +30,7 @@ class AddPhotoScreen extends StatelessWidget {
     return ViewModelBuilder<AddPhotoViewModel>.reactive(
       viewModelBuilder: () => AddPhotoViewModel(),
       onModelReady: (viewModel) => viewModel.init(
-          context, firstName, lastName, gender, datePicked, password, mobile),
+          context, firstName, lastName, password, datePicked, gender, mobile),
       builder: (context, viewModel, child) {
         return Scaffold(
           backgroundColor: const Color(0XFFf6f2e7),
@@ -82,12 +81,12 @@ class AddPhotoScreen extends StatelessWidget {
                   ),
                   const SizedBox(height: 50),
                   CustomButton(
-                    callback: () => viewModel.getFromGallery(),
+                    callback: () => viewModel.getFromCamera(),
                     title: Constants.takePhoto.toUpperCase(),
                   ),
                   const SizedBox(height: 20),
                   CustomButton(
-                    callback: () => viewModel.getFromCamera(),
+                    callback: () => viewModel.getFromGallery(),
                     title: Constants.chooseFromCameraRoll.toUpperCase(),
                   ),
                   const SizedBox(height: 30),
