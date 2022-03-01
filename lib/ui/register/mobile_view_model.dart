@@ -1,26 +1,26 @@
-import 'dart:async';
-import 'dart:io';
-import 'dart:typed_data';
-import 'package:country_code_picker/country_code.dart';
-import '/model/gender_model.dart';
-import '/model/register_model.dart';
-import '/ui/add_photo/add_photo_screen.dart';
-import '/ui/gender/gender_screen.dart';
-import '/ui/register/mobile_screen.dart';
-import '/ui/welcome/welcome_screen.dart';
-import 'package:image_picker/image_picker.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:country_code_picker/country_code.dart';
 import '/ui/reset_password/reset_password_screen.dart';
 import '/ui/create_user/create_user_screen.dart';
+import 'package:image_picker/image_picker.dart';
 import '/ui/otp_verify/otp_verify_screen.dart';
+import '/ui/add_photo/add_photo_screen.dart';
 import '/model/login_with_otp_model.dart';
+import '/ui/welcome/welcome_screen.dart';
+import '/ui/register/mobile_screen.dart';
 import 'package:http/http.dart' as http;
 import 'package:flutter/material.dart';
+import '/ui/gender/gender_screen.dart';
 import '/model/user_exist_model.dart';
 import 'package:stacked/stacked.dart';
+import '/model/register_model.dart';
+import '/model/gender_model.dart';
 import '/utils/app_methods.dart';
 import '/utils/app_route.dart';
+import 'dart:typed_data';
 import 'dart:convert';
+import 'dart:async';
+import 'dart:io';
 
 class MobileViewModel extends BaseViewModel {
   String countryCode = "+91";
@@ -97,7 +97,7 @@ class MobileViewModel extends BaseViewModel {
     print("New Country selected: " + countryCode.toString());
   }
 
-// Send OTP
+  // Send OTP
   sendOtp(BuildContext context) async {
     Map<String, String> params = {
       'mobile': countryCode + mobileNumber.text,
@@ -111,6 +111,7 @@ class MobileViewModel extends BaseViewModel {
         loginWithOtpModel =
             LoginWithOtpModel.fromJson(jsonDecode(response.body));
         notifyListeners();
+        print("otp -------- ${loginWithOtpModel.otp}");
         otpSet = "${loginWithOtpModel.otp}";
         notifyListeners();
         AppRoutes.dismiss(context);
@@ -202,6 +203,7 @@ class MobileViewModel extends BaseViewModel {
     }
   }
 
+  // Register Screen
   Widget registerFlow() {
     return currentIndex == 1
         ? MobileScreen(viewModel: this)
@@ -253,7 +255,7 @@ class MobileViewModel extends BaseViewModel {
     }
   }
 
-  //gender Model init
+  // Gender Screen
   updateGenderList(GenderModel gender) {
     listGender.map((e) {
       if (e == gender) {
@@ -262,12 +264,12 @@ class MobileViewModel extends BaseViewModel {
         notifyListeners();
       } else {
         e.isSelected = false;
-        print(e.isSelected);
         notifyListeners();
       }
     }).toList();
   }
 
+  // Move to Next Screen
   genderToNextScreen() {
     if (selectedGender.isEmpty || datePicked == null) {
       flutterToast("Please Select Gender/ Date", Colors.red);
@@ -277,6 +279,7 @@ class MobileViewModel extends BaseViewModel {
     }
   }
 
+  // Get Image From Gallery
   getFromGallery() async {
     final pickedFile = await ImagePicker().getImage(
       source: ImageSource.gallery,
@@ -289,6 +292,7 @@ class MobileViewModel extends BaseViewModel {
     }
   }
 
+  // Get Image From Gallery
   getFromCamera() async {
     final pickedFile = await ImagePicker().getImage(
       source: ImageSource.camera,
@@ -312,7 +316,7 @@ class MobileViewModel extends BaseViewModel {
     print("last name ---- ${lastName.text}");
     print("mobile ---- ${mobileNumber.text}");
     print("password ---- ${password.text}");
-    print("datepicked ---- $datePicked");
+    print("Date picked ---- $datePicked");
     print("gender ---- $selectedGender");
     print("base64string ---- $base64string");
     print("fileName ---- $fileName");
@@ -360,6 +364,12 @@ class MobileViewModel extends BaseViewModel {
 
   @override
   void dispose() {
+    mobileNumber.dispose();
+    firstName.dispose();
+    otpController.dispose();
+    lastName.dispose();
+    password.dispose();
+    confirmPassword.dispose();
     super.dispose();
   }
 }

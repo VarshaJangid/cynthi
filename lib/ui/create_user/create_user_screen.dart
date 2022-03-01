@@ -1,4 +1,3 @@
-import '/ui/component/background_widget.dart';
 import '/ui/register/mobile_view_model.dart';
 import '/ui/component/custom_button.dart';
 import 'package:flutter/material.dart';
@@ -11,88 +10,96 @@ class CreateUserScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BackgroundWidget(
-      child: SizedBox(
-        height: MediaQuery.of(context).size.height,
-        child: SingleChildScrollView(
-          padding: const EdgeInsets.all(20),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
+    return Padding(
+      padding: const EdgeInsets.fromLTRB(20, 0, 20, 20),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          IconButton(
+            onPressed: () {
+              viewModel.currentIndex = 1;
+              viewModel.notifyListeners();
+            },
+            icon: const Icon(
+              Icons.arrow_back_ios,
+              size: 30,
+              color: Colors.black,
+            ),
+          ),
+          const SizedBox(height: 10),
+          Text(
+            Constants.cynthians,
+            style: AppTextStyle.getStyle()
+                .comfortaaBold!
+                .copyWith(fontSize: 24, color: Colors.black),
+          ),
+          const SizedBox(height: 8),
+          Text(
+            Constants.createYourAccount,
+            style: AppTextStyle.getStyle()
+                .openSansSemiBold!
+                .copyWith(fontSize: 24, color: Colors.black),
+          ),
+          const SizedBox(height: 15),
+          Text(
+            Constants.createAnAccountToGetStarted,
+            style: AppTextStyle.getStyle()
+                .openSansRegular!
+                .copyWith(color: Colors.black),
+          ),
+          const SizedBox(height: 35),
+          Row(
             children: [
-              Text(
-                Constants.cynthians,
-                style: AppTextStyle.getStyle()
-                    .comfortaaBold!
-                    .copyWith(fontSize: 24, color: Colors.black),
+              SizedBox(
+                width: 150,
+                child: textField(context, Constants.firstName,
+                    viewModel.firstName, false, viewModel, false),
               ),
-              const SizedBox(height: 8),
-              Text(
-                Constants.createYourAccount,
-                style: AppTextStyle.getStyle()
-                    .openSansSemiBold!
-                    .copyWith(fontSize: 24, color: Colors.black),
-              ),
-              const SizedBox(height: 15),
-              Text(
-                Constants.createAnAccountToGetStarted,
-                style: AppTextStyle.getStyle()
-                    .openSansRegular!
-                    .copyWith(color: Colors.black),
-              ),
-              const SizedBox(height: 35),
-              Row(
-                children: [
-                  SizedBox(
-                    width: 150,
-                    child: textField(context, Constants.firstName,
-                        viewModel.firstName, false, viewModel, false),
-                  ),
-                  const Spacer(),
-                  SizedBox(
-                    width: 150,
-                    child: textField(context, Constants.lastName,
-                        viewModel.lastName, false, viewModel, false),
-                  ),
-                ],
-              ),
-              const SizedBox(height: 40),
-              textField(context, Constants.createPassword, viewModel.password,
-                  !viewModel.showPassword, viewModel, true),
-              const SizedBox(height: 40),
-              textField(
-                  context,
-                  Constants.confirmPassword,
-                  viewModel.confirmPassword,
-                  !viewModel.showPassword,
-                  viewModel,
-                  true),
-              const SizedBox(height: 40),
-              CustomButton(
-                  title: Constants.next,
-                  callback: () {
-                    viewModel.genderScreen(context);
-                  }),
-              Padding(
-                padding: const EdgeInsets.fromLTRB(15, 20, 15, 0),
-                child: RichText(
-                  text: TextSpan(
-                    text: Constants.buCreatingAnAccount,
-                    style: AppTextStyle.getStyle()
-                        .openSansRegular!
-                        .copyWith(color: Colors.black),
-                    children: [
-                      TextSpan(
-                          text: Constants.privacyPolicy,
-                          style: AppTextStyle.getStyle()
-                              .openSansBold!
-                              .copyWith(color: Colors.black)),
-                    ],
-                  ),
-                ),
+              const Spacer(),
+              SizedBox(
+                width: 150,
+                child: textField(context, Constants.lastName,
+                    viewModel.lastName, false, viewModel, false),
               ),
             ],
           ),
-        ),
+          const SizedBox(height: 40),
+          textField(context, Constants.createPassword, viewModel.password,
+              !viewModel.showPassword, viewModel, true),
+          const SizedBox(height: 40),
+          textField(
+              context,
+              Constants.confirmPassword,
+              viewModel.confirmPassword,
+              !viewModel.showPassword,
+              viewModel,
+              true),
+          const SizedBox(height: 40),
+          CustomButton(
+              title: Constants.next,
+              callback: () {
+                viewModel.genderScreen(context);
+              }),
+          Padding(
+            padding: const EdgeInsets.fromLTRB(15, 20, 15, 0),
+            child: RichText(
+              text: TextSpan(
+                text: Constants.buCreatingAnAccount,
+                style: AppTextStyle.getStyle().openSansRegular!.copyWith(
+                      color: Colors.black,
+                    ),
+                children: [
+                  TextSpan(
+                    text: Constants.privacyPolicy,
+                    style: AppTextStyle.getStyle().openSansBold!.copyWith(
+                          color: Colors.black,
+                        ),
+                  ),
+                ],
+              ),
+            ),
+          ),
+        ],
       ),
     );
   }

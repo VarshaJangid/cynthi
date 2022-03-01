@@ -1,12 +1,8 @@
-import 'package:cynthi/ui/register/mobile_view_model.dart';
-
-import '/ui/add_photo/add_photo_view_model.dart';
+import '/ui/register/mobile_view_model.dart';
 import '/ui/component/custom_button.dart';
 import 'package:flutter/material.dart';
-import 'package:stacked/stacked.dart';
 import '/utils/app_text_style.dart';
 import '/utils/app_constant.dart';
-import '/utils/app_route.dart';
 import 'dart:io';
 
 class AddPhotoScreen extends StatelessWidget {
@@ -31,21 +27,31 @@ class AddPhotoScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      width: MediaQuery.of(context).size.width,
-      padding: const EdgeInsets.fromLTRB(30, 20, 30, 10),
+    return SingleChildScrollView(
+      padding: const EdgeInsets.fromLTRB(20, 0, 20, 0),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
+          IconButton(
+            onPressed: () {
+              viewModel.currentIndex = 4;
+              viewModel.notifyListeners();
+            },
+            icon: const Icon(
+              Icons.arrow_back_ios,
+              size: 30,
+              color: Colors.black,
+            ),
+          ),
           Center(
             child: Text(
               Constants.addPhotoOfYou,
               style: AppTextStyle.getStyle()
                   .openSansSemiBold!
-                  .copyWith(fontSize: 24, color: Colors.black),
+                  .copyWith(fontSize: 22, color: Colors.black),
             ),
           ),
-          const SizedBox(height: 30),
+          const SizedBox(height: 20),
           Center(
             child: Container(
               height: 120,

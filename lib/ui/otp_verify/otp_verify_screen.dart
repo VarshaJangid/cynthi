@@ -15,10 +15,22 @@ class OtpVerifyScreen extends StatelessWidget {
     String twoDigits(int n) => n.toString().padLeft(2, '0');
     final seconds = twoDigits(viewModel.duration.inSeconds.remainder(60));
     return Padding(
-      padding: const EdgeInsets.all(15),
+      padding: const EdgeInsets.fromLTRB(20, 0, 30, 20),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
+          IconButton(
+            onPressed: () {
+              viewModel.currentIndex = 1;
+              viewModel.notifyListeners();
+            },
+            icon: const Icon(
+              Icons.arrow_back_ios,
+              size: 30,
+              color: Colors.black,
+            ),
+          ),
+          const SizedBox(height: 15),
           Text(
             Constants.verifyYourNumber,
             style: AppTextStyle.getStyle()
