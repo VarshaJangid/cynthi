@@ -12,8 +12,7 @@ import '/utils/app_constant.dart';
 import '/utils/app_route.dart';
 
 class CreateUserScreen extends StatelessWidget {
-  const CreateUserScreen({Key? key, required this.mobile, required this.viewModel}) : super(key: key);
-  final String mobile;
+  const CreateUserScreen({Key? key, required this.viewModel}) : super(key: key);
   final MobileViewModel viewModel;
 
   @override

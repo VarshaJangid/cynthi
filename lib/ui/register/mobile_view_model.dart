@@ -1,17 +1,15 @@
 import 'dart:async';
 import 'dart:io';
 import 'dart:typed_data';
-
 import 'package:country_code_picker/country_code.dart';
-import 'package:cynthi/model/gender_model.dart';
-import 'package:cynthi/model/register_model.dart';
-import 'package:cynthi/ui/add_photo/add_photo_screen.dart';
-import 'package:cynthi/ui/gender/gender_screen.dart';
-import 'package:cynthi/ui/register/mobile_screen.dart';
-import 'package:cynthi/ui/welcome/welcome_screen.dart';
+import '/model/gender_model.dart';
+import '/model/register_model.dart';
+import '/ui/add_photo/add_photo_screen.dart';
+import '/ui/gender/gender_screen.dart';
+import '/ui/register/mobile_screen.dart';
+import '/ui/welcome/welcome_screen.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-
 import '/ui/reset_password/reset_password_screen.dart';
 import '/ui/create_user/create_user_screen.dart';
 import '/ui/otp_verify/otp_verify_screen.dart';
@@ -123,13 +121,6 @@ class MobileViewModel extends BaseViewModel {
           print(countryCode.toString() + mobileNumber.text);
           currentIndex = 2;
           notifyListeners();
-          // AppRoutes.dismiss(context);
-          // AppRoutes.goto(
-          //     context,
-          //     OtpVerifyScreen(
-          //       mobileNumber: countryCode + mobileNumber.text,
-          //       otp: "${loginWithOtpModel.otp}",
-          //     ));
         } else {
           flutterToast(loginWithOtpModel.message, Colors.red);
         }
@@ -142,6 +133,7 @@ class MobileViewModel extends BaseViewModel {
   }
 
   checkUserExist(BuildContext context, String mobileNumber) async {
+    print("mobileNumber $mobileNumber");
     Map<String, String> params = {
       'mobile': mobileNumber,
     };
@@ -160,8 +152,8 @@ class MobileViewModel extends BaseViewModel {
           //already exist
           flutterToast("You can reset your password.", Colors.green);
           AppRoutes.dismiss(context);
-          AppRoutes.goto(
-              context, ResetPasswordScreen(mobileNumber: mobileNumber));
+          AppRoutes.goto(context,
+              ResetPasswordScreen(mobileNumber: countryCode + mobileNumber));
         } else {
           AppRoutes.dismiss(context);
           flutterToast("Please fill your details.", Colors.green);
@@ -209,10 +201,9 @@ class MobileViewModel extends BaseViewModel {
   otpVerify(
     BuildContext context,
   ) {
-    // print("Otp is ------ ${viewModel.loginWithOtpModel.otp}");
     if (otpController.text == otpSet) {
-      print("Mobile ---- $mobileNumber");
-      checkUserExist(context, mobileNumber.text);
+      print("Mobile ---- ${countryCode + mobileNumber.text}");
+      checkUserExist(context, countryCode + mobileNumber.text);
     } else {
       flutterToast("Wrong OTP !!!", Colors.red);
     }
@@ -231,7 +222,6 @@ class MobileViewModel extends BaseViewModel {
               )
             : currentIndex == 3
                 ? CreateUserScreen(
-                    mobile: mobileNumber.text,
                     viewModel: this,
                   )
                 : currentIndex == 4
@@ -239,7 +229,7 @@ class MobileViewModel extends BaseViewModel {
                         firstName: firstName.text,
                         lastName: lastName.text,
                         password: password.text,
-                        mobile: mobileNumber.text,
+                        mobile: countryCode + mobileNumber.text,
                         viewModel: this,
                       )
                     : currentIndex == 5
@@ -250,7 +240,7 @@ class MobileViewModel extends BaseViewModel {
                             password: password.text,
                             datePicked: datePicked!,
                             gender: selectedGender,
-                            mobile: mobileNumber.text)
+                            mobile: countryCode + mobileNumber.text)
                         : Text("$currentIndex");
   }
 
@@ -299,18 +289,8 @@ class MobileViewModel extends BaseViewModel {
     } else {
       currentIndex = 5;
       notifyListeners();
-      // AppRoutes.goto(
-      //     context,
-      //     AddPhotoScreen(
-      //         firstName: widget.firstName,
-      //         lastName: widget.lastName,
-      //         password: widget.password,
-      //         datePicked: datePicked!,
-      //         gender: gender,
-      //         mobile: widget.mobile));
     }
   }
-
 
   getFromGallery() async {
     final pickedFile = await ImagePicker().getImage(
@@ -343,7 +323,7 @@ class MobileViewModel extends BaseViewModel {
 
     //File Name
     String fileName = imageFile!.path.split('/').last.toString();
-    print("First name ---- ${firstName.text}");
+    print("First name ---- $countryCode${firstName.text}");
     print("last name ---- ${lastName.text}");
     print("mobile ---- ${mobileNumber.text}");
     print("password ---- ${password.text}");
@@ -353,7 +333,7 @@ class MobileViewModel extends BaseViewModel {
     print("fileName ---- $fileName");
 
     Map<String, String> params = {
-      'mobile': mobileNumber.text,
+      'mobile': countryCode + mobileNumber.text,
       'fname': firstName.text,
       'lname': lastName.text,
       'password': password.text,
@@ -375,7 +355,7 @@ class MobileViewModel extends BaseViewModel {
       if (response.statusCode == 200) {
         print("Response ----- ${response.body}");
         RegisterModel registerModel =
-        RegisterModel.fromJson(jsonDecode(response.body));
+            RegisterModel.fromJson(jsonDecode(response.body));
         print("res msg----- ${registerModel.message}");
         flutterToast(registerModel.message, Colors.green);
         AppRoutes.dismiss(context);
