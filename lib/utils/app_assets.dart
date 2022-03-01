@@ -20,4 +20,10 @@ class Assets {
   static const String backgroundImage = "assets/images/backgroundImage.png";
 
   static const String wavvy = "assets/images/wavvy.png";
+
+  static const String explore = "assets/images/explore.png";
+
+  static const String growth = "assets/images/growth.png";
+
+  static const String learning = "assets/images/learning.png";
 }

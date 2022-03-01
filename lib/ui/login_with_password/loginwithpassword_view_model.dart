@@ -50,7 +50,7 @@ class LoginWithPassViewModel extends BaseViewModel {
   loginWithPassword(BuildContext context) async {
     print("Number is ----- ${countryCode + mobileNumber.text}");
     Map<String, String> params = {
-      'mobile': countryCode.toString() + mobileNumber.text,
+      'mobile':  mobileNumber.text,
       'password': password.text,
       'source_id': '1',
     };

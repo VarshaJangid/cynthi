@@ -57,8 +57,8 @@ class MobileViewModel extends BaseViewModel {
   init(BuildContext context) async {
     //Mobile Screen
     mobileNumber.addListener(() => notifyListeners());
-    reset();
-    startTimer();
+    // reset();
+    // startTimer();
 
     // Create User Screens
     firstName.addListener(() => notifyListeners());
@@ -119,6 +119,8 @@ class MobileViewModel extends BaseViewModel {
           flutterToast(loginWithOtpModel.message, Colors.green);
           currentIndex = 2;
           notifyListeners();
+          reset();
+          startTimer();
         } else {
           flutterToast(loginWithOtpModel.message, Colors.red);
         }
@@ -165,7 +167,8 @@ class MobileViewModel extends BaseViewModel {
   // Verify OTP
   otpVerify(BuildContext context) {
     if (otpController.text == otpSet) {
-      checkUserExist(context, countryCode + mobileNumber.text);
+      // checkUserExist(context, countryCode + mobileNumber.text);
+      checkUserExist(context, mobileNumber.text);
     } else {
       flutterToast("Wrong OTP !!!", Colors.red);
     }
@@ -186,6 +189,8 @@ class MobileViewModel extends BaseViewModel {
         UserExistModel userExistModel =
             UserExistModel.fromJson(jsonDecode(response.body));
         notifyListeners();
+        print("User Datta ----- ${userExistModel.loginType}");
+        print("User Datta ----- ${userExistModel.status}");
         if (userExistModel.loginType == 'exist') {
           //already exist
           flutterToast("You can reset your password.", Colors.green);
@@ -312,9 +317,9 @@ class MobileViewModel extends BaseViewModel {
 
     //File Name
     String fileName = imageFile!.path.split('/').last.toString();
-    print("First name ---- $countryCode${firstName.text}");
+    print("First name ---- ${firstName.text}");
     print("last name ---- ${lastName.text}");
-    print("mobile ---- ${mobileNumber.text}");
+    print("mobile ----$countryCode${mobileNumber.text}");
     print("password ---- ${password.text}");
     print("Date picked ---- $datePicked");
     print("gender ---- $selectedGender");
@@ -322,12 +327,12 @@ class MobileViewModel extends BaseViewModel {
     print("fileName ---- $fileName");
 
     Map<String, String> params = {
-      'mobile': countryCode + mobileNumber.text,
+      'mobile': mobileNumber.text,
       'fname': firstName.text,
       'lname': lastName.text,
       'password': password.text,
       'source_id': '1',
-      'student_dob': datePicked.toString().substring(0, 10),
+      'student_dob': datePicked.toString().substring(0,10),
       'gender': selectedGender,
       'profilepicurl': base64string,
       'file_name': fileName,
@@ -338,20 +343,21 @@ class MobileViewModel extends BaseViewModel {
           Uri.parse(
               "https://api.cynthians.com/index.php/api/save_newstudentPassword"),
           body: params);
-      print("--------------------------------");
-      print(response.statusCode);
-      print(response.body);
       if (response.statusCode == 200) {
         print("Response ----- ${response.body}");
         RegisterModel registerModel =
             RegisterModel.fromJson(jsonDecode(response.body));
-        print("res msg----- ${registerModel.message}");
-        flutterToast(registerModel.message, Colors.green);
-        AppRoutes.dismiss(context);
-        getAndSaveToken(context, registerModel.token);
-        AppRoutes.goto(context, WelcomeScreen(name: firstName.text));
+        if (registerModel.message == 'Password saved successfully') {
+          flutterToast(registerModel.message, Colors.green);
+          AppRoutes.dismiss(context);
+          getAndSaveToken(context, registerModel.token);
+          AppRoutes.goto(context, WelcomeScreen(name: firstName.text));
+        } else {
+          flutterToast("Something went wrong !!!", Colors.red);
+        }
       }
     } catch (e) {
+      flutterToast("Something went wrong !!!\n or User already registered", Colors.red);
       print("Exception in Login API $e");
     }
   }

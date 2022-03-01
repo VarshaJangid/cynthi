@@ -65,15 +65,15 @@ class _BodyState extends State<Body> {
     },
     {
       "image": Assets.logo,
-      "onBoarding": Assets.onboarding,
+      "onBoarding": Assets.learning,
       "title": Constants.cynthians,
-      "welcomeText": Constants.welcomeText,
+      "welcomeText": "All in one learning\nplatform for all ages.",
     },
     {
       "image": Assets.logo,
-      "onBoarding": Assets.onboarding,
+      "onBoarding": Assets.growth,
       "title": Constants.cynthians,
-      "welcomeText": Constants.welcomeText,
+      "welcomeText": "Your partner\n for overall growth.",
     },
   ];
 
@@ -195,7 +195,7 @@ class Content extends StatelessWidget {
       child: Column(
         children: [
           const SizedBox(height: 10),
-          Image.asset(Assets.onboarding,
+          Image.asset(onBoarding,
               width: 120, height: 120, fit: BoxFit.fill),
           const SizedBox(height: 20),
           Text(
