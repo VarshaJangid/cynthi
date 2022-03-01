@@ -41,9 +41,9 @@ class LoginWithPassViewModel extends BaseViewModel {
   String countryCode = "+91";
 
   void onCountryChange(CountryCode countryCode) {
-    this.countryCode = countryCode.toString();
-    notifyListeners();
-    print("New Country selected: " + countryCode.toString());
+    // this.countryCode = countryCode.toString();
+    // notifyListeners();
+    // print("New Country selected: " + countryCode.toString());
   }
 
   // Login With Password

@@ -92,9 +92,9 @@ class MobileViewModel extends BaseViewModel {
 
   // Select County Code
   void onCountryChange(CountryCode countryCode) {
-    this.countryCode = countryCode.toString();
-    notifyListeners();
-    print("New Country selected: " + countryCode.toString());
+    // this.countryCode = countryCode.toString();
+    // notifyListeners();
+    // print("New Country selected: " + countryCode.toString());
   }
 
   // Send OTP
