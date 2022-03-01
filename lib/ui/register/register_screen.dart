@@ -5,6 +5,8 @@ import 'package:stacked/stacked.dart';
 import 'mobile_view_model.dart';
 
 class RegisterScreen extends StatelessWidget {
+  const RegisterScreen({Key? key}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     return ViewModelBuilder<MobileViewModel>.reactive(
@@ -28,15 +30,16 @@ class RegisterScreen extends StatelessWidget {
           backgroundColor: const Color(0XFFf6f2e7),
           body: BackgroundWidget(
             child: SingleChildScrollView(
-              // padding: const EdgeInsets.fromLTRB(30, 00, 30, 10),
+              padding: const EdgeInsets.only(top: 10),
               child: Column(
                 children: [
                   LinearPercentIndicator(
-                      padding: const EdgeInsets.all(01),
-                      width: MediaQuery.of(context).size.width,
-                      lineHeight: 12.0,
-                      percent: viewModel.getCompletionPercentage(),
-                      progressColor: const Color(0XFF08263d)),
+                    padding: const EdgeInsets.all(00),
+                    width: MediaQuery.of(context).size.width,
+                    lineHeight: 10,
+                    percent: viewModel.getCompletionPercentage(),
+                    progressColor: const Color(0XFF08263d),
+                  ),
                   const SizedBox(height: 20),
                   viewModel.registerFlow(),
                 ],

@@ -23,21 +23,30 @@ import '/utils/app_route.dart';
 import 'dart:convert';
 
 class MobileViewModel extends BaseViewModel {
+  String countryCode = "+91";
+
   //add photo
   File? imageFile = File("");
 
-  //mobile
+  //Mobile Screen
   TextEditingController mobileNumber = TextEditingController();
+  bool _showPassword = false;
+
+  bool get showPassword => _showPassword;
+
+  //  OTP Verify Screen
   TextEditingController otpController = TextEditingController();
+  String otpSet = "";
+
+  //send_otp_mobile Model
   LoginWithOtpModel loginWithOtpModel = LoginWithOtpModel();
 
-  //create User controller
+  // Create User Screens
   TextEditingController firstName = TextEditingController();
   TextEditingController lastName = TextEditingController();
   TextEditingController password = TextEditingController();
   TextEditingController confirmPassword = TextEditingController();
 
-  String otpSet = "";
   int currentIndex = 1;
 
   DateTime? datePicked;
@@ -46,19 +55,18 @@ class MobileViewModel extends BaseViewModel {
   List<GenderModel> listGender = [];
 
   init(BuildContext context) async {
+    //Mobile Screen
     mobileNumber.addListener(() => notifyListeners());
-
     reset();
     startTimer();
 
-//create User controller
+    // Create User Screens
     firstName.addListener(() => notifyListeners());
     lastName.addListener(() => notifyListeners());
     password.addListener(() => notifyListeners());
     confirmPassword.addListener(() => notifyListeners());
 
     //gender List
-
     listGender = [
       GenderModel(false, "Male"),
       GenderModel(false, "Female"),
@@ -67,10 +75,14 @@ class MobileViewModel extends BaseViewModel {
     ];
   }
 
-//create User
-  bool _showPassword = false;
-
-  bool get showPassword => _showPassword;
+  // Validation Mobile Screen Data
+  validation(BuildContext context) {
+    if (mobileNumber.text.isEmpty || mobileNumber.text.length != 10) {
+      flutterToast("Number is not valid !!", Colors.red);
+    } else {
+      Future.delayed(const Duration(microseconds: 500), () => sendOtp(context));
+    }
+  }
 
   //show Password
   togglePassVisibility() {
@@ -78,26 +90,15 @@ class MobileViewModel extends BaseViewModel {
     notifyListeners();
   }
 
-  validation(BuildContext context) {
-    if (mobileNumber.text.isEmpty || mobileNumber.text.length != 10) {
-      flutterToast("Number is not valid !!", Colors.red);
-    } else {
-      Future.delayed(
-          const Duration(microseconds: 500), () => loginWithOTP(context));
-    }
-  }
-
-  String countryCode = "+91";
-
+  // Select County Code
   void onCountryChange(CountryCode countryCode) {
     this.countryCode = countryCode.toString();
     notifyListeners();
     print("New Country selected: " + countryCode.toString());
   }
 
-  // Login With OTP
-  loginWithOTP(BuildContext context) async {
-    print("Mobile Number is ------ ${countryCode + mobileNumber.text}");
+// Send OTP
+  sendOtp(BuildContext context) async {
     Map<String, String> params = {
       'mobile': countryCode + mobileNumber.text,
     };
@@ -112,13 +113,9 @@ class MobileViewModel extends BaseViewModel {
         notifyListeners();
         otpSet = "${loginWithOtpModel.otp}";
         notifyListeners();
-        print("value otp $otpSet");
         AppRoutes.dismiss(context);
         if (loginWithOtpModel.message == "OTP sent successfully.") {
           flutterToast(loginWithOtpModel.message, Colors.green);
-          print("data");
-          print(countryCode + mobileNumber.text);
-          print(countryCode.toString() + mobileNumber.text);
           currentIndex = 2;
           notifyListeners();
         } else {
@@ -132,44 +129,10 @@ class MobileViewModel extends BaseViewModel {
     }
   }
 
-  checkUserExist(BuildContext context, String mobileNumber) async {
-    print("mobileNumber $mobileNumber");
-    Map<String, String> params = {
-      'mobile': mobileNumber,
-    };
-    showLoadingDialog(context);
-    try {
-      final response = await http.post(
-          Uri.parse(
-              "https://api.cynthians.com/index.php/api/check_newmobile_studlogin"),
-          body: params);
-      if (response.statusCode == 200) {
-        print(response.statusCode);
-        UserExistModel userExistModel =
-            UserExistModel.fromJson(jsonDecode(response.body));
-        notifyListeners();
-        if (userExistModel.loginType == 'exist') {
-          //already exist
-          flutterToast("You can reset your password.", Colors.green);
-          AppRoutes.dismiss(context);
-          AppRoutes.goto(context,
-              ResetPasswordScreen(mobileNumber: countryCode + mobileNumber));
-        } else {
-          AppRoutes.dismiss(context);
-          flutterToast("Please fill your details.", Colors.green);
-          currentIndex = 3;
-          // AppRoutes.goto(context, CreateUserScreen(mobile: mobileNumber));
-        }
-      }
-    } catch (e) {
-      Exception("Exception in checkUserExist API --- $e");
-    }
-  }
-
+  // Timer Functionality on OTP Verify Screen
   static const countdownDuration = Duration(seconds: 60);
   Duration duration = const Duration();
   Timer? timer;
-
   bool countDown = true;
 
   void reset() {
@@ -198,32 +161,54 @@ class MobileViewModel extends BaseViewModel {
     notifyListeners();
   }
 
-  otpVerify(
-    BuildContext context,
-  ) {
+  // Verify OTP
+  otpVerify(BuildContext context) {
     if (otpController.text == otpSet) {
-      print("Mobile ---- ${countryCode + mobileNumber.text}");
       checkUserExist(context, countryCode + mobileNumber.text);
     } else {
       flutterToast("Wrong OTP !!!", Colors.red);
     }
   }
 
+  // Check User
+  checkUserExist(BuildContext context, String mobileNumber) async {
+    Map<String, String> params = {
+      'mobile': mobileNumber,
+    };
+    showLoadingDialog(context);
+    try {
+      final response = await http.post(
+          Uri.parse(
+              "https://api.cynthians.com/index.php/api/check_newmobile_studlogin"),
+          body: params);
+      if (response.statusCode == 200) {
+        UserExistModel userExistModel =
+            UserExistModel.fromJson(jsonDecode(response.body));
+        notifyListeners();
+        if (userExistModel.loginType == 'exist') {
+          //already exist
+          flutterToast("You can reset your password.", Colors.green);
+          AppRoutes.dismiss(context);
+          AppRoutes.goto(context,
+              ResetPasswordScreen(mobileNumber: countryCode + mobileNumber));
+        } else {
+          AppRoutes.dismiss(context);
+          flutterToast("Please fill your details.", Colors.green);
+          currentIndex = 3;
+        }
+      }
+    } catch (e) {
+      Exception("Exception in checkUserExist API --- $e");
+    }
+  }
+
   Widget registerFlow() {
     return currentIndex == 1
-        ? MobileScreen(
-            viewModel: this,
-          )
+        ? MobileScreen(viewModel: this)
         : currentIndex == 2
-            ? OtpVerifyScreen(
-                mobileNumber: mobileNumber.text,
-                otp: otpSet,
-                viewModel: this,
-              )
+            ? OtpVerifyScreen(otp: otpSet, viewModel: this)
             : currentIndex == 3
-                ? CreateUserScreen(
-                    viewModel: this,
-                  )
+                ? CreateUserScreen(viewModel: this)
                 : currentIndex == 4
                     ? GenderScreen(
                         firstName: firstName.text,
@@ -371,5 +356,10 @@ class MobileViewModel extends BaseViewModel {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     await prefs.setString('token', token);
     print("Shared Preference Token ------ ${prefs.getString("token")}");
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
   }
 }

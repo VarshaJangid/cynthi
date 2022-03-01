@@ -1,15 +1,9 @@
-import 'package:cynthi/ui/component/background_widget.dart';
-import 'package:cynthi/ui/register/mobile_view_model.dart';
-import 'package:cynthi/utils/app_methods.dart';
-import 'package:cynthi/utils/app_text_style.dart';
-
+import '/ui/component/background_widget.dart';
+import '/ui/register/mobile_view_model.dart';
 import '/ui/component/custom_button.dart';
 import 'package:flutter/material.dart';
-import '/ui/gender/gender_screen.dart';
-import 'package:stacked/stacked.dart';
-import 'create_user_view_model.dart';
+import '/utils/app_text_style.dart';
 import '/utils/app_constant.dart';
-import '/utils/app_route.dart';
 
 class CreateUserScreen extends StatelessWidget {
   const CreateUserScreen({Key? key, required this.viewModel}) : super(key: key);
@@ -62,13 +56,8 @@ class CreateUserScreen extends StatelessWidget {
                 ],
               ),
               const SizedBox(height: 40),
-              textField(
-                  context,
-                  Constants.createPassword,
-                  viewModel.password,
-                  !viewModel.showPassword,
-                  viewModel,
-                  true),
+              textField(context, Constants.createPassword, viewModel.password,
+                  !viewModel.showPassword, viewModel, true),
               const SizedBox(height: 40),
               textField(
                   context,
