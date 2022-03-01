@@ -1,6 +1,16 @@
 import 'dart:async';
+import 'dart:io';
+import 'dart:typed_data';
 
 import 'package:country_code_picker/country_code.dart';
+import 'package:cynthi/model/gender_model.dart';
+import 'package:cynthi/model/register_model.dart';
+import 'package:cynthi/ui/add_photo/add_photo_screen.dart';
+import 'package:cynthi/ui/gender/gender_screen.dart';
+import 'package:cynthi/ui/register/mobile_screen.dart';
+import 'package:cynthi/ui/welcome/welcome_screen.dart';
+import 'package:image_picker/image_picker.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import '/ui/reset_password/reset_password_screen.dart';
 import '/ui/create_user/create_user_screen.dart';
@@ -15,16 +25,59 @@ import '/utils/app_route.dart';
 import 'dart:convert';
 
 class MobileViewModel extends BaseViewModel {
+  //add photo
+  File? imageFile = File("");
+
+  //mobile
   TextEditingController mobileNumber = TextEditingController();
   TextEditingController otpController = TextEditingController();
   LoginWithOtpModel loginWithOtpModel = LoginWithOtpModel();
+
+  //create User controller
+  TextEditingController firstName = TextEditingController();
+  TextEditingController lastName = TextEditingController();
+  TextEditingController password = TextEditingController();
+  TextEditingController confirmPassword = TextEditingController();
+
   String otpSet = "";
+  int currentIndex = 1;
+
+  DateTime? datePicked;
+
+  String selectedGender = "";
+  List<GenderModel> listGender = [];
 
   init(BuildContext context) async {
     mobileNumber.addListener(() => notifyListeners());
 
     reset();
     startTimer();
+
+//create User controller
+    firstName.addListener(() => notifyListeners());
+    lastName.addListener(() => notifyListeners());
+    password.addListener(() => notifyListeners());
+    confirmPassword.addListener(() => notifyListeners());
+
+    //gender List
+
+    listGender = [
+      GenderModel(false, "Male"),
+      GenderModel(false, "Female"),
+      GenderModel(false, "Non-binary"),
+      GenderModel(false, "Rather not say"),
+    ];
+  }
+
+//create User
+  bool _showPassword = false;
+
+  bool get showPassword => _showPassword;
+
+  //show Password
+  togglePassVisibility() {
+    _showPassword = !_showPassword;
+    notifyListeners();
   }
 
   validation(BuildContext context) {
@@ -68,13 +121,15 @@ class MobileViewModel extends BaseViewModel {
           print("data");
           print(countryCode + mobileNumber.text);
           print(countryCode.toString() + mobileNumber.text);
-          AppRoutes.dismiss(context);
-          AppRoutes.goto(
-              context,
-              OtpVerifyScreen(
-                mobileNumber: countryCode + mobileNumber.text,
-                otp: "${loginWithOtpModel.otp}",
-              ));
+          currentIndex = 2;
+          notifyListeners();
+          // AppRoutes.dismiss(context);
+          // AppRoutes.goto(
+          //     context,
+          //     OtpVerifyScreen(
+          //       mobileNumber: countryCode + mobileNumber.text,
+          //       otp: "${loginWithOtpModel.otp}",
+          //     ));
         } else {
           flutterToast(loginWithOtpModel.message, Colors.red);
         }
@@ -110,7 +165,8 @@ class MobileViewModel extends BaseViewModel {
         } else {
           AppRoutes.dismiss(context);
           flutterToast("Please fill your details.", Colors.green);
-          AppRoutes.goto(context, CreateUserScreen(mobile: mobileNumber));
+          currentIndex = 3;
+          // AppRoutes.goto(context, CreateUserScreen(mobile: mobileNumber));
         }
       }
     } catch (e) {
@@ -148,5 +204,192 @@ class MobileViewModel extends BaseViewModel {
       duration = Duration(seconds: seconds);
     }
     notifyListeners();
+  }
+
+  otpVerify(
+    BuildContext context,
+  ) {
+    // print("Otp is ------ ${viewModel.loginWithOtpModel.otp}");
+    if (otpController.text == otpSet) {
+      print("Mobile ---- $mobileNumber");
+      checkUserExist(context, mobileNumber.text);
+    } else {
+      flutterToast("Wrong OTP !!!", Colors.red);
+    }
+  }
+
+  Widget registerFlow() {
+    return currentIndex == 1
+        ? MobileScreen(
+            viewModel: this,
+          )
+        : currentIndex == 2
+            ? OtpVerifyScreen(
+                mobileNumber: mobileNumber.text,
+                otp: otpSet,
+                viewModel: this,
+              )
+            : currentIndex == 3
+                ? CreateUserScreen(
+                    mobile: mobileNumber.text,
+                    viewModel: this,
+                  )
+                : currentIndex == 4
+                    ? GenderScreen(
+                        firstName: firstName.text,
+                        lastName: lastName.text,
+                        password: password.text,
+                        mobile: mobileNumber.text,
+                        viewModel: this,
+                      )
+                    : currentIndex == 5
+                        ? AddPhotoScreen(
+                            viewModel: this,
+                            firstName: firstName.text,
+                            lastName: lastName.text,
+                            password: password.text,
+                            datePicked: datePicked!,
+                            gender: selectedGender,
+                            mobile: mobileNumber.text)
+                        : Text("$currentIndex");
+  }
+
+  double getCompletionPercentage() {
+    if (currentIndex == 0) {
+      return 0;
+    }
+    return currentIndex / 5;
+  }
+
+  //genderScreen Model
+  void genderScreen(BuildContext context) {
+    if (firstName.text.isEmpty ||
+        lastName.text.isEmpty ||
+        password.text.isEmpty ||
+        confirmPassword.text.isEmpty) {
+      flutterToast("Please enter valid data !! ", Colors.red);
+    } else {
+      if (password.text == confirmPassword.text) {
+        currentIndex = 4;
+        notifyListeners();
+      } else {
+        flutterToast("Password does not match !!!", Colors.red);
+      }
+    }
+  }
+
+  //gender Model init
+  updateGenderList(GenderModel gender) {
+    listGender.map((e) {
+      if (e == gender) {
+        e.isSelected = true;
+        selectedGender = "${e.title}";
+        notifyListeners();
+      } else {
+        e.isSelected = false;
+        print(e.isSelected);
+        notifyListeners();
+      }
+    }).toList();
+  }
+
+  genderToNextScreen() {
+    if (selectedGender.isEmpty || datePicked == null) {
+      flutterToast("Please Select Gender/ Date", Colors.red);
+    } else {
+      currentIndex = 5;
+      notifyListeners();
+      // AppRoutes.goto(
+      //     context,
+      //     AddPhotoScreen(
+      //         firstName: widget.firstName,
+      //         lastName: widget.lastName,
+      //         password: widget.password,
+      //         datePicked: datePicked!,
+      //         gender: gender,
+      //         mobile: widget.mobile));
+    }
+  }
+
+
+  getFromGallery() async {
+    final pickedFile = await ImagePicker().getImage(
+      source: ImageSource.gallery,
+      maxWidth: 1800,
+      maxHeight: 1800,
+    );
+    if (pickedFile != null) {
+      imageFile = File(pickedFile.path);
+      notifyListeners();
+    }
+  }
+
+  getFromCamera() async {
+    final pickedFile = await ImagePicker().getImage(
+      source: ImageSource.camera,
+      maxWidth: 1800,
+      maxHeight: 1800,
+    );
+    if (pickedFile != null) {
+      imageFile = File(pickedFile.path);
+      notifyListeners();
+      print("image ---- $imageFile");
+    }
+  }
+
+  registerUser(BuildContext context) async {
+    Uint8List imagebytes = await imageFile!.readAsBytes();
+    String base64string = base64.encode(imagebytes);
+
+    //File Name
+    String fileName = imageFile!.path.split('/').last.toString();
+    print("First name ---- ${firstName.text}");
+    print("last name ---- ${lastName.text}");
+    print("mobile ---- ${mobileNumber.text}");
+    print("password ---- ${password.text}");
+    print("datepicked ---- $datePicked");
+    print("gender ---- $selectedGender");
+    print("base64string ---- $base64string");
+    print("fileName ---- $fileName");
+
+    Map<String, String> params = {
+      'mobile': mobileNumber.text,
+      'fname': firstName.text,
+      'lname': lastName.text,
+      'password': password.text,
+      'source_id': '1',
+      'student_dob': datePicked.toString().substring(0, 10),
+      'gender': selectedGender,
+      'profilepicurl': base64string,
+      'file_name': fileName,
+    };
+    try {
+      showLoadingDialog(context);
+      final response = await http.post(
+          Uri.parse(
+              "https://api.cynthians.com/index.php/api/save_newstudentPassword"),
+          body: params);
+      print("--------------------------------");
+      print(response.statusCode);
+      print(response.body);
+      if (response.statusCode == 200) {
+        print("Response ----- ${response.body}");
+        RegisterModel registerModel =
+        RegisterModel.fromJson(jsonDecode(response.body));
+        print("res msg----- ${registerModel.message}");
+        flutterToast(registerModel.message, Colors.green);
+        AppRoutes.dismiss(context);
+        getAndSaveToken(context, registerModel.token);
+        AppRoutes.goto(context, WelcomeScreen(name: firstName.text));
+      }
+    } catch (e) {
+      print("Exception in Login API $e");
+    }
+  }
+
+  getAndSaveToken(BuildContext context, String token) async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    await prefs.setString('token', token);
+    print("Shared Preference Token ------ ${prefs.getString("token")}");
   }
 }

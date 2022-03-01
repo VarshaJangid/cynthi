@@ -1,3 +1,5 @@
+import 'package:cynthi/ui/register/mobile_view_model.dart';
+
 import '/ui/add_photo/add_photo_view_model.dart';
 import '/ui/component/custom_button.dart';
 import 'package:flutter/material.dart';
@@ -14,6 +16,7 @@ class AddPhotoScreen extends StatelessWidget {
   final DateTime datePicked;
   final String gender;
   final String mobile;
+  final MobileViewModel viewModel;
 
   AddPhotoScreen({
     Key? key,
@@ -23,116 +26,201 @@ class AddPhotoScreen extends StatelessWidget {
     required this.datePicked,
     required this.gender,
     required this.mobile,
+    required this.viewModel
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return ViewModelBuilder<AddPhotoViewModel>.reactive(
-      viewModelBuilder: () => AddPhotoViewModel(),
-      onModelReady: (viewModel) => viewModel.init(
-          context, firstName, lastName, password, datePicked, gender, mobile),
-      builder: (context, viewModel, child) {
-        return Scaffold(
-          backgroundColor: const Color(0XFFf6f2e7),
-          appBar: AppBar(
-            elevation: 0,
-            backgroundColor: Colors.transparent,
-            leading: IconButton(
-              onPressed: () => AppRoutes.dismiss(context),
-              icon: const Icon(
-                Icons.arrow_back_ios,
-                color: Colors.black,
-              ),
+    return Container(
+      width: MediaQuery.of(context).size.width,
+      padding: const EdgeInsets.fromLTRB(30, 20, 30, 10),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Center(
+            child: Text(
+              Constants.addPhotoOfYou,
+              style: AppTextStyle.getStyle()
+                  .openSansSemiBold!
+                  .copyWith(fontSize: 24, color: Colors.black),
             ),
           ),
-          body: SingleChildScrollView(
+          const SizedBox(height: 30),
+          Center(
             child: Container(
-              width: MediaQuery.of(context).size.width,
-              padding: const EdgeInsets.fromLTRB(30, 20, 30, 10),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Center(
-                    child: Text(
-                      Constants.addPhotoOfYou,
-                      style: AppTextStyle.getStyle()
-                          .openSansSemiBold!
-                          .copyWith(fontSize: 24, color: Colors.black),
-                    ),
+              height: 120,
+              width: 120,
+              padding: const EdgeInsets.all(10),
+              decoration: BoxDecoration(
+                color: Colors.white,
+                borderRadius: BorderRadius.circular(100),
+                border: Border.all(width: 2, color: Colors.black),
+                image: DecorationImage(
+                  image: FileImage(
+                    File(viewModel.imageFile!.path),
                   ),
-                  const SizedBox(height: 30),
-                  Center(
-                    child: Container(
-                      height: 120,
-                      width: 120,
-                      padding: const EdgeInsets.all(10),
-                      decoration: BoxDecoration(
-                        color: Colors.white,
-                        borderRadius: BorderRadius.circular(100),
-                        border: Border.all(width: 2, color: Colors.black),
-                        image: DecorationImage(
-                          image: FileImage(
-                            File(viewModel.imageFile!.path),
-                          ),
-                          fit: BoxFit.fill,
-                        ),
-                      ),
-                    ),
-                  ),
-                  const SizedBox(height: 50),
-                  CustomButton(
-                    callback: () => viewModel.getFromCamera(),
-                    title: Constants.takePhoto.toUpperCase(),
-                  ),
-                  const SizedBox(height: 20),
-                  CustomButton(
-                    callback: () => viewModel.getFromGallery(),
-                    title: Constants.chooseFromCameraRoll.toUpperCase(),
-                  ),
-                  const SizedBox(height: 30),
-                  Text(
-                    Constants.enterYourLocation,
-                    style: AppTextStyle.getStyle()
-                        .openSansSemiBold!
-                        .copyWith(color: Colors.black, fontSize: 24),
-                  ),
-                  const SizedBox(height: 20),
-                  TextField(
-                    cursorColor: Colors.black,
-                    decoration: InputDecoration(
-                        contentPadding: const EdgeInsets.only(top: 10),
-                        enabledBorder: const UnderlineInputBorder(
-                            borderSide: BorderSide(color: Colors.black)),
-                        focusedBorder: const UnderlineInputBorder(
-                          borderSide: BorderSide(color: Colors.black),
-                        ),
-                        hintText: 'Enter Location',
-                        hintStyle: AppTextStyle.getStyle()
-                            .openSansSemiBold!
-                            .copyWith(color: Colors.black)),
-                  ),
-                  const SizedBox(height: 30),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.end,
-                    children: [
-                      ElevatedButton(
-                        style: ElevatedButton.styleFrom(
-                            primary: const Color(0XFF828687),
-                            padding: const EdgeInsets.fromLTRB(30, 12, 30, 12)),
-                        onPressed: () {
-                          Future.delayed(const Duration(milliseconds: 500),
-                              () => viewModel.registerUser(context));
-                        },
-                        child: Text(Constants.create.toUpperCase()),
-                      )
-                    ],
-                  )
-                ],
+                  fit: BoxFit.fill,
+                ),
               ),
             ),
           ),
-        );
-      },
+          const SizedBox(height: 50),
+          CustomButton(
+            callback: () => viewModel.getFromCamera(),
+            title: Constants.takePhoto.toUpperCase(),
+          ),
+          const SizedBox(height: 20),
+          CustomButton(
+            callback: () => viewModel.getFromGallery(),
+            title: Constants.chooseFromCameraRoll.toUpperCase(),
+          ),
+          const SizedBox(height: 30),
+          Text(
+            Constants.enterYourLocation,
+            style: AppTextStyle.getStyle()
+                .openSansSemiBold!
+                .copyWith(color: Colors.black, fontSize: 24),
+          ),
+          const SizedBox(height: 20),
+          TextField(
+            cursorColor: Colors.black,
+            decoration: InputDecoration(
+                contentPadding: const EdgeInsets.only(top: 10),
+                enabledBorder: const UnderlineInputBorder(
+                    borderSide: BorderSide(color: Colors.black)),
+                focusedBorder: const UnderlineInputBorder(
+                  borderSide: BorderSide(color: Colors.black),
+                ),
+                hintText: 'Enter Location',
+                hintStyle: AppTextStyle.getStyle()
+                    .openSansSemiBold!
+                    .copyWith(color: Colors.black)),
+          ),
+          const SizedBox(height: 30),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.end,
+            children: [
+              ElevatedButton(
+                style: ElevatedButton.styleFrom(
+                    primary: const Color(0XFF828687),
+                    padding: const EdgeInsets.fromLTRB(30, 12, 30, 12)),
+                onPressed: () {
+                  Future.delayed(const Duration(milliseconds: 500),
+                          () => viewModel.registerUser(context));
+                },
+                child: Text(Constants.create.toUpperCase()),
+              )
+            ],
+          )
+        ],
+      ),
     );
+    // return ViewModelBuilder<AddPhotoViewModel>.reactive(
+    //   viewModelBuilder: () => AddPhotoViewModel(),
+    //   onModelReady: (viewModel) => viewModel.init(
+    //       context, firstName, lastName, password, datePicked, gender, mobile),
+    //   builder: (context, viewModel, child) {
+    //     return Scaffold(
+    //       backgroundColor: const Color(0XFFf6f2e7),
+    //       appBar: AppBar(
+    //         elevation: 0,
+    //         backgroundColor: Colors.transparent,
+    //         leading: IconButton(
+    //           onPressed: () => AppRoutes.dismiss(context),
+    //           icon: const Icon(
+    //             Icons.arrow_back_ios,
+    //             color: Colors.black,
+    //           ),
+    //         ),
+    //       ),
+    //       body: SingleChildScrollView(
+    //         child: Container(
+    //           width: MediaQuery.of(context).size.width,
+    //           padding: const EdgeInsets.fromLTRB(30, 20, 30, 10),
+    //           child: Column(
+    //             crossAxisAlignment: CrossAxisAlignment.start,
+    //             children: [
+    //               Center(
+    //                 child: Text(
+    //                   Constants.addPhotoOfYou,
+    //                   style: AppTextStyle.getStyle()
+    //                       .openSansSemiBold!
+    //                       .copyWith(fontSize: 24, color: Colors.black),
+    //                 ),
+    //               ),
+    //               const SizedBox(height: 30),
+    //               Center(
+    //                 child: Container(
+    //                   height: 120,
+    //                   width: 120,
+    //                   padding: const EdgeInsets.all(10),
+    //                   decoration: BoxDecoration(
+    //                     color: Colors.white,
+    //                     borderRadius: BorderRadius.circular(100),
+    //                     border: Border.all(width: 2, color: Colors.black),
+    //                     image: DecorationImage(
+    //                       image: FileImage(
+    //                         File(viewModel.imageFile!.path),
+    //                       ),
+    //                       fit: BoxFit.fill,
+    //                     ),
+    //                   ),
+    //                 ),
+    //               ),
+    //               const SizedBox(height: 50),
+    //               CustomButton(
+    //                 callback: () => viewModel.getFromCamera(),
+    //                 title: Constants.takePhoto.toUpperCase(),
+    //               ),
+    //               const SizedBox(height: 20),
+    //               CustomButton(
+    //                 callback: () => viewModel.getFromGallery(),
+    //                 title: Constants.chooseFromCameraRoll.toUpperCase(),
+    //               ),
+    //               const SizedBox(height: 30),
+    //               Text(
+    //                 Constants.enterYourLocation,
+    //                 style: AppTextStyle.getStyle()
+    //                     .openSansSemiBold!
+    //                     .copyWith(color: Colors.black, fontSize: 24),
+    //               ),
+    //               const SizedBox(height: 20),
+    //               TextField(
+    //                 cursorColor: Colors.black,
+    //                 decoration: InputDecoration(
+    //                     contentPadding: const EdgeInsets.only(top: 10),
+    //                     enabledBorder: const UnderlineInputBorder(
+    //                         borderSide: BorderSide(color: Colors.black)),
+    //                     focusedBorder: const UnderlineInputBorder(
+    //                       borderSide: BorderSide(color: Colors.black),
+    //                     ),
+    //                     hintText: 'Enter Location',
+    //                     hintStyle: AppTextStyle.getStyle()
+    //                         .openSansSemiBold!
+    //                         .copyWith(color: Colors.black)),
+    //               ),
+    //               const SizedBox(height: 30),
+    //               Row(
+    //                 mainAxisAlignment: MainAxisAlignment.end,
+    //                 children: [
+    //                   ElevatedButton(
+    //                     style: ElevatedButton.styleFrom(
+    //                         primary: const Color(0XFF828687),
+    //                         padding: const EdgeInsets.fromLTRB(30, 12, 30, 12)),
+    //                     onPressed: () {
+    //                       Future.delayed(const Duration(milliseconds: 500),
+    //                           () => viewModel.registerUser(context));
+    //                     },
+    //                     child: Text(Constants.create.toUpperCase()),
+    //                   )
+    //                 ],
+    //               )
+    //             ],
+    //           ),
+    //         ),
+    //       ),
+    //     );
+    //   },
+    // );
   }
 }

@@ -20,6 +20,7 @@ dependencies:
   fluttertoast: ^8.0.8
   shared_preferences:
   country_code_picker:
+  percent_indicator:
 
 
   # The following adds the Cupertino Icons font to your application.

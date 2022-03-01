@@ -1,3 +1,4 @@
+import 'package:cynthi/ui/register/register_screen.dart';
 import 'package:cynthi/utils/app_text_style.dart';
 import 'package:flutter/cupertino.dart';
 
@@ -132,7 +133,7 @@ class _BodyState extends State<Body> {
             ),
             const Spacer(),
             TextButton(
-              onPressed: () => AppRoutes.goto(context, const MobileScreen()),
+              onPressed: () => AppRoutes.goto(context, RegisterScreen()),
               child: Container(
                 width: MediaQuery.of(context).size.width * .8,
                 color: Colors.white,

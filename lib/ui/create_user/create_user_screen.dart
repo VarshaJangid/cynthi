@@ -1,4 +1,5 @@
 import 'package:cynthi/ui/component/background_widget.dart';
+import 'package:cynthi/ui/register/mobile_view_model.dart';
 import 'package:cynthi/utils/app_methods.dart';
 import 'package:cynthi/utils/app_text_style.dart';
 
@@ -11,138 +12,100 @@ import '/utils/app_constant.dart';
 import '/utils/app_route.dart';
 
 class CreateUserScreen extends StatelessWidget {
-  const CreateUserScreen({Key? key, required this.mobile}) : super(key: key);
+  const CreateUserScreen({Key? key, required this.mobile, required this.viewModel}) : super(key: key);
   final String mobile;
+  final MobileViewModel viewModel;
 
   @override
   Widget build(BuildContext context) {
-    return ViewModelBuilder<CreateUserViewModel>.reactive(
-      viewModelBuilder: () => CreateUserViewModel(),
-      onModelReady: (viewModel) => viewModel.init(context),
-      builder: (context, viewModel, child) {
-        return Scaffold(
-          backgroundColor: const Color(0XFFf6f2e7),
-          appBar: AppBar(
-            elevation: 0,
-            backgroundColor: Colors.transparent,
-            leading: IconButton(
-              onPressed: () => AppRoutes.dismiss(context),
-              icon: const Icon(Icons.arrow_back_ios, color: Colors.black),
-            ),
-          ),
-          body: BackgroundWidget(
-            child: SizedBox(
-              height: MediaQuery.of(context).size.height,
-              child: SingleChildScrollView(
-                padding: const EdgeInsets.all(20),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      Constants.cynthians,
-                      style: AppTextStyle.getStyle()
-                          .comfortaaBold!
-                          .copyWith(fontSize: 24, color: Colors.black),
-                    ),
-                    const SizedBox(height: 8),
-                    Text(
-                      Constants.createYourAccount,
-                      style: AppTextStyle.getStyle()
-                          .openSansSemiBold!
-                          .copyWith(fontSize: 24, color: Colors.black),
-                    ),
-                    const SizedBox(height: 15),
-                    Text(
-                      Constants.createAnAccountToGetStarted,
-                      style: AppTextStyle.getStyle()
-                          .openSansRegular!
-                          .copyWith(color: Colors.black),
-                    ),
-                    const SizedBox(height: 35),
-                    Row(
-                      children: [
-                        SizedBox(
-                          width: 150,
-                          child: textField(context, Constants.firstName,
-                              viewModel.firstName, false, viewModel, false),
-                        ),
-                        const Spacer(),
-                        SizedBox(
-                          width: 150,
-                          child: textField(context, Constants.lastName,
-                              viewModel.lastName, false, viewModel, false),
-                        ),
-                      ],
-                    ),
-                    const SizedBox(height: 40),
-                    textField(
-                        context,
-                        Constants.createPassword,
-                        viewModel.password,
-                        !viewModel.showPassword,
-                        viewModel,
-                        true),
-                    const SizedBox(height: 40),
-                    textField(
-                        context,
-                        Constants.confirmPassword,
-                        viewModel.confirmPassword,
-                        !viewModel.showPassword,
-                        viewModel,
-                        true),
-                    const SizedBox(height: 40),
-                    CustomButton(
-                        title: Constants.next,
-                        callback: () {
-                          if (viewModel.firstName.text.isEmpty ||
-                              viewModel.lastName.text.isEmpty ||
-                              viewModel.password.text.isEmpty ||
-                              viewModel.confirmPassword.text.isEmpty) {
-                            flutterToast(
-                                "Please enter valid data !! ", Colors.red);
-                          } else {
-                            if (viewModel.password.text ==
-                                viewModel.confirmPassword.text) {
-                              AppRoutes.goto(
-                                context,
-                                GenderScreen(
-                                  firstName: viewModel.firstName.text,
-                                  lastName: viewModel.lastName.text,
-                                  password: viewModel.password.text,
-                                  mobile: mobile,
-                                ),
-                              );
-                            } else {
-                              flutterToast(
-                                  "Password does not match !!!", Colors.red);
-                            }
-                          }
-                        }),
-                    Padding(
-                      padding: const EdgeInsets.fromLTRB(15, 20, 15, 0),
-                      child: RichText(
-                        text: TextSpan(
-                          text: Constants.buCreatingAnAccount,
+    return BackgroundWidget(
+      child: SizedBox(
+        height: MediaQuery.of(context).size.height,
+        child: SingleChildScrollView(
+          padding: const EdgeInsets.all(20),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(
+                Constants.cynthians,
+                style: AppTextStyle.getStyle()
+                    .comfortaaBold!
+                    .copyWith(fontSize: 24, color: Colors.black),
+              ),
+              const SizedBox(height: 8),
+              Text(
+                Constants.createYourAccount,
+                style: AppTextStyle.getStyle()
+                    .openSansSemiBold!
+                    .copyWith(fontSize: 24, color: Colors.black),
+              ),
+              const SizedBox(height: 15),
+              Text(
+                Constants.createAnAccountToGetStarted,
+                style: AppTextStyle.getStyle()
+                    .openSansRegular!
+                    .copyWith(color: Colors.black),
+              ),
+              const SizedBox(height: 35),
+              Row(
+                children: [
+                  SizedBox(
+                    width: 150,
+                    child: textField(context, Constants.firstName,
+                        viewModel.firstName, false, viewModel, false),
+                  ),
+                  const Spacer(),
+                  SizedBox(
+                    width: 150,
+                    child: textField(context, Constants.lastName,
+                        viewModel.lastName, false, viewModel, false),
+                  ),
+                ],
+              ),
+              const SizedBox(height: 40),
+              textField(
+                  context,
+                  Constants.createPassword,
+                  viewModel.password,
+                  !viewModel.showPassword,
+                  viewModel,
+                  true),
+              const SizedBox(height: 40),
+              textField(
+                  context,
+                  Constants.confirmPassword,
+                  viewModel.confirmPassword,
+                  !viewModel.showPassword,
+                  viewModel,
+                  true),
+              const SizedBox(height: 40),
+              CustomButton(
+                  title: Constants.next,
+                  callback: () {
+                    viewModel.genderScreen(context);
+                  }),
+              Padding(
+                padding: const EdgeInsets.fromLTRB(15, 20, 15, 0),
+                child: RichText(
+                  text: TextSpan(
+                    text: Constants.buCreatingAnAccount,
+                    style: AppTextStyle.getStyle()
+                        .openSansRegular!
+                        .copyWith(color: Colors.black),
+                    children: [
+                      TextSpan(
+                          text: Constants.privacyPolicy,
                           style: AppTextStyle.getStyle()
-                              .openSansRegular!
-                              .copyWith(color: Colors.black),
-                          children: [
-                            TextSpan(
-                                text: Constants.privacyPolicy,
-                                style: AppTextStyle.getStyle()
-                                    .openSansBold!
-                                    .copyWith(color: Colors.black)),
-                          ],
-                        ),
-                      ),
-                    ),
-                  ],
+                              .openSansBold!
+                              .copyWith(color: Colors.black)),
+                    ],
+                  ),
                 ),
               ),
-            ),
+            ],
           ),
-        );
-      },
+        ),
+      ),
     );
   }
 
@@ -151,7 +114,7 @@ class CreateUserScreen extends StatelessWidget {
           String title,
           TextEditingController controller,
           bool obscureText,
-          CreateUserViewModel model,
+          MobileViewModel model,
           bool isIcon) =>
       SizedBox(
         width: MediaQuery.of(context).size.width,
