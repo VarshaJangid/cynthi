@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:cynthi/utils/app_text_style.dart';
 
 import '/ui/dashboard/dashboard_screen.dart';
@@ -7,8 +9,9 @@ import '/utils/app_constant.dart';
 import '/utils/app_route.dart';
 
 class WelcomeScreen extends StatelessWidget {
-  const WelcomeScreen({Key? key, required this.name}) : super(key: key);
+  const WelcomeScreen({Key? key, required this.name, required this.imageFile}) : super(key: key);
   final String name;
+  final File imageFile;
 
   @override
   Widget build(BuildContext context) {
@@ -38,8 +41,10 @@ class WelcomeScreen extends StatelessWidget {
               decoration: BoxDecoration(
                 color: Colors.white,
                 borderRadius: BorderRadius.circular(100),
-                image: const DecorationImage(
-                  image: NetworkImage("https://picsum.photos/200/300"),
+                image: DecorationImage(
+                  image: FileImage(
+                    File(imageFile.path),
+                  ),
                   fit: BoxFit.fill,
                 ),
               ),

@@ -57,8 +57,6 @@ class MobileViewModel extends BaseViewModel {
   init(BuildContext context) async {
     //Mobile Screen
     mobileNumber.addListener(() => notifyListeners());
-    // reset();
-    // startTimer();
 
     // Create User Screens
     firstName.addListener(() => notifyListeners());
@@ -80,7 +78,8 @@ class MobileViewModel extends BaseViewModel {
     if (mobileNumber.text.isEmpty || mobileNumber.text.length != 10) {
       flutterToast("Number is not valid !!", Colors.red);
     } else {
-      Future.delayed(const Duration(microseconds: 500), () => sendOtp(context));
+      Future.delayed(const Duration(microseconds: 500),
+          () => checkUserExist(context, mobileNumber.text));
     }
   }
 
@@ -100,13 +99,14 @@ class MobileViewModel extends BaseViewModel {
   // Send OTP
   sendOtp(BuildContext context) async {
     Map<String, String> params = {
-      'mobile': countryCode + mobileNumber.text,
+      'mobile': mobileNumber.text,
     };
     try {
       showLoadingDialog(context);
       final response = await http.post(
           Uri.parse("https://api.cynthians.com/index.php/api/send_otp_mobile"),
           body: params);
+      print("otp -------- ${response.body}");
       if (response.statusCode == 200) {
         loginWithOtpModel =
             LoginWithOtpModel.fromJson(jsonDecode(response.body));
@@ -168,7 +168,9 @@ class MobileViewModel extends BaseViewModel {
   otpVerify(BuildContext context) {
     if (otpController.text == otpSet) {
       // checkUserExist(context, countryCode + mobileNumber.text);
-      checkUserExist(context, mobileNumber.text);
+      // checkUserExist(context, mobileNumber.text);
+      currentIndex = 3;
+      notifyListeners();
     } else {
       flutterToast("Wrong OTP !!!", Colors.red);
     }
@@ -193,14 +195,15 @@ class MobileViewModel extends BaseViewModel {
         print("User Datta ----- ${userExistModel.status}");
         if (userExistModel.loginType == 'exist') {
           //already exist
-          flutterToast("You can reset your password.", Colors.green);
+          flutterToast("Already Registered !!!", Colors.red);
           AppRoutes.dismiss(context);
-          AppRoutes.goto(context,
-              ResetPasswordScreen(mobileNumber: countryCode + mobileNumber));
+          // AppRoutes.goto(context,
+          //     ResetPasswordScreen(mobileNumber: countryCode + mobileNumber));
         } else {
           AppRoutes.dismiss(context);
-          flutterToast("Please fill your details.", Colors.green);
-          currentIndex = 3;
+          Future.delayed(
+              const Duration(microseconds: 500), () => sendOtp(context));
+          currentIndex = 1;
         }
       }
     } catch (e) {
@@ -332,7 +335,7 @@ class MobileViewModel extends BaseViewModel {
       'lname': lastName.text,
       'password': password.text,
       'source_id': '1',
-      'student_dob': datePicked.toString().substring(0,10),
+      'student_dob': datePicked.toString().substring(0, 10),
       'gender': selectedGender,
       'profilepicurl': base64string,
       'file_name': fileName,
@@ -351,13 +354,15 @@ class MobileViewModel extends BaseViewModel {
           flutterToast(registerModel.message, Colors.green);
           AppRoutes.dismiss(context);
           getAndSaveToken(context, registerModel.token);
-          AppRoutes.goto(context, WelcomeScreen(name: firstName.text));
+          AppRoutes.goto(context,
+              WelcomeScreen(name: firstName.text, imageFile: imageFile!));
         } else {
           flutterToast("Something went wrong !!!", Colors.red);
         }
       }
     } catch (e) {
-      flutterToast("Something went wrong !!!\n or User already registered", Colors.red);
+      flutterToast(
+          "Something went wrong !!!\n or User already registered", Colors.red);
       print("Exception in Login API $e");
     }
   }
