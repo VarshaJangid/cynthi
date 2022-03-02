@@ -198,7 +198,7 @@ class MobileViewModel extends BaseViewModel {
           flutterToast("Already Registered !!!", Colors.red);
           AppRoutes.dismiss(context);
           // AppRoutes.goto(context,
-          //     ResetPasswordScreen(mobileNumber: countryCode + mobileNumber));
+          //     ResetPasswordScreen(mobileNumber: mobileNumber));
         } else {
           AppRoutes.dismiss(context);
           Future.delayed(
