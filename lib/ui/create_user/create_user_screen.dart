@@ -20,11 +20,8 @@ class CreateUserScreen extends StatelessWidget {
               viewModel.currentIndex = 1;
               viewModel.notifyListeners();
             },
-            icon: const Icon(
-              Icons.arrow_back_ios,
-              size: 30,
-              color: Colors.black,
-            ),
+            icon:
+                const Icon(Icons.arrow_back_ios, size: 30, color: Colors.black),
           ),
           const SizedBox(height: 10),
           Text(

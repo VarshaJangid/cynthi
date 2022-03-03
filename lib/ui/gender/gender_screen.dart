@@ -53,9 +53,6 @@ class GenderScreen extends StatelessWidget {
                 genderModel: e,
                 callback: () {
                   viewModel.updateGenderList(e);
-                  // setState(() {
-                  //   gender = e.title!;
-                  // });
                 },
               );
             }).toList(),

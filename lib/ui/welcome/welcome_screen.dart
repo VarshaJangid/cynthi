@@ -1,15 +1,14 @@
-import 'dart:io';
-
-import 'package:cynthi/utils/app_text_style.dart';
-
 import '/ui/dashboard/dashboard_screen.dart';
 import '/ui/component/custom_button.dart';
 import 'package:flutter/material.dart';
+import '/utils/app_text_style.dart';
 import '/utils/app_constant.dart';
 import '/utils/app_route.dart';
+import 'dart:io';
 
 class WelcomeScreen extends StatelessWidget {
-  const WelcomeScreen({Key? key, required this.name, required this.imageFile}) : super(key: key);
+  const WelcomeScreen({Key? key, required this.name, required this.imageFile})
+      : super(key: key);
   final String name;
   final File imageFile;
 
@@ -20,13 +19,7 @@ class WelcomeScreen extends StatelessWidget {
       appBar: AppBar(
         elevation: 0,
         backgroundColor: Colors.transparent,
-        leading: IconButton(
-          onPressed: () => AppRoutes.dismiss(context),
-          icon: const Icon(
-            Icons.arrow_back_ios,
-            color: Colors.black,
-          ),
-        ),
+        leading: const Text(""),
       ),
       body: Container(
         padding: const EdgeInsets.all(25),

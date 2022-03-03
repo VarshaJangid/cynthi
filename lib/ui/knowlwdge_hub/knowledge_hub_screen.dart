@@ -65,7 +65,7 @@ class TabBarDemo extends StatelessWidget {
                   width: 45,
                   padding: const EdgeInsets.all(10),
                   decoration: BoxDecoration(
-                    border: Border.all(color: Colors.red, width: 2),
+                    border: Border.all(color: Colors.redAccent, width: 2),
                     borderRadius: BorderRadius.circular(100),
                     image: const DecorationImage(
                       image: NetworkImage("https://picsum.photos/200/300"),

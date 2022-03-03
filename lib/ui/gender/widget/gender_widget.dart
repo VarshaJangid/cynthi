@@ -1,5 +1,4 @@
-import 'package:cynthi/utils/app_text_style.dart';
-
+import '/utils/app_text_style.dart';
 import '/model/gender_model.dart';
 import 'package:flutter/material.dart';
 
@@ -7,7 +6,7 @@ class GenderButtonWidget extends StatelessWidget {
   final GestureTapCallback callback;
   final GenderModel genderModel;
 
-  GenderButtonWidget({required this.callback, required this.genderModel});
+  const GenderButtonWidget({required this.callback, required this.genderModel});
 
   @override
   Widget build(BuildContext context) {
@@ -30,7 +29,9 @@ class GenderButtonWidget extends StatelessWidget {
           child: Center(
             child: Text(
               "${genderModel.title}",
-              style: AppTextStyle.getStyle().openSansSemiBold!.copyWith(color: Colors.black),
+              style: AppTextStyle.getStyle()
+                  .openSansSemiBold!
+                  .copyWith(color: Colors.black),
             ),
           ),
         ),

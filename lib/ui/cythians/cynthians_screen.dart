@@ -39,7 +39,7 @@ class CythiansScreen extends StatelessWidget {
                         height: 10,
                         width: 10,
                         decoration: const BoxDecoration(
-                          color: Colors.red,
+                          color: Colors.redAccent,
                           shape: BoxShape.circle,
                         ),
                       ),
@@ -208,7 +208,7 @@ class CythiansScreen extends StatelessWidget {
                   children: const [
                     Icon(
                       Icons.favorite,
-                      color: Colors.red,
+                      color: Colors.redAccent,
                     ),
                     SizedBox(width: 5),
                     Text(

@@ -2,6 +2,7 @@ import 'package:pin_code_fields/pin_code_fields.dart';
 import '/ui/register/mobile_view_model.dart';
 import 'package:flutter/material.dart';
 import '/utils/app_text_style.dart';
+import '/utils/app_methods.dart';
 import '/utils/app_constant.dart';
 
 class OtpVerifyScreen extends StatelessWidget {
@@ -15,7 +16,7 @@ class OtpVerifyScreen extends StatelessWidget {
     String twoDigits(int n) => n.toString().padLeft(2, '0');
     final seconds = twoDigits(viewModel.duration.inSeconds.remainder(60));
     return Padding(
-      padding: const EdgeInsets.fromLTRB(20, 0, 30, 20),
+      padding: const EdgeInsets.fromLTRB(20, 0, 20, 20),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -24,11 +25,8 @@ class OtpVerifyScreen extends StatelessWidget {
               viewModel.currentIndex = 1;
               viewModel.notifyListeners();
             },
-            icon: const Icon(
-              Icons.arrow_back_ios,
-              size: 30,
-              color: Colors.black,
-            ),
+            icon:
+                const Icon(Icons.arrow_back_ios, size: 30, color: Colors.black),
           ),
           const SizedBox(height: 15),
           Text(
@@ -97,23 +95,33 @@ class OtpVerifyScreen extends StatelessWidget {
           ),
           const SizedBox(height: 100),
           Padding(
-            padding: const EdgeInsets.only(left: 10, right: 10),
-            child: RichText(
-              text: TextSpan(
-                text: Constants.otpShouldArrive + seconds + "s. ",
-                style: AppTextStyle.getStyle()
-                    .openSansRegular!
-                    .copyWith(color: Colors.black),
-                children: <TextSpan>[
-                  TextSpan(
-                      text: Constants.resendOTP,
-                      style: AppTextStyle.getStyle()
-                          .openSansBold!
-                          .copyWith(color: Colors.black)),
-                ],
-              ),
+            padding: const EdgeInsets.only(left: 0, right: 00),
+            child: Row(
+              children: [
+                Text(
+                  Constants.otpShouldArrive + seconds + "s. ",
+                  style: AppTextStyle.getStyle()
+                      .openSansRegular!
+                      .copyWith(color: Colors.black),
+                ),
+                TextButton(
+                  onPressed: () {
+                    if (seconds.toString() != "00") {
+                      flutterToast("Please wait ... ", Colors.redAccent);
+                    } else {
+                      viewModel.sendOtp(context);
+                    }
+                  },
+                  child: Text(
+                    Constants.resendOTP,
+                    style: AppTextStyle.getStyle()
+                        .openSansBold!
+                        .copyWith(color: Colors.black),
+                  ),
+                ),
+              ],
             ),
-          )
+          ),
         ],
       ),
     );

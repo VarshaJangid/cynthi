@@ -48,10 +48,7 @@ class MobileScreen extends StatelessWidget {
           const SizedBox(height: 40),
           CustomButton(
             title: Constants.Continue,
-            callback: () {
-              viewModel.validation(context);
-
-            },
+            callback: () => viewModel.validation(context),
           ),
           const SizedBox(height: 20),
           Padding(

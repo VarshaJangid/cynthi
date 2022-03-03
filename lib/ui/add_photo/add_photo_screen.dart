@@ -3,6 +3,7 @@ import '/ui/component/custom_button.dart';
 import 'package:flutter/material.dart';
 import '/utils/app_text_style.dart';
 import '/utils/app_constant.dart';
+import '/utils/app_methods.dart';
 import 'dart:io';
 
 class AddPhotoScreen extends StatelessWidget {
@@ -14,16 +15,16 @@ class AddPhotoScreen extends StatelessWidget {
   final String mobile;
   final MobileViewModel viewModel;
 
-  AddPhotoScreen({
-    Key? key,
-    required this.firstName,
-    required this.lastName,
-    required this.password,
-    required this.datePicked,
-    required this.gender,
-    required this.mobile,
-    required this.viewModel
-  }) : super(key: key);
+  AddPhotoScreen(
+      {Key? key,
+      required this.firstName,
+      required this.lastName,
+      required this.password,
+      required this.datePicked,
+      required this.gender,
+      required this.mobile,
+      required this.viewModel})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -37,11 +38,8 @@ class AddPhotoScreen extends StatelessWidget {
               viewModel.currentIndex = 4;
               viewModel.notifyListeners();
             },
-            icon: const Icon(
-              Icons.arrow_back_ios,
-              size: 30,
-              color: Colors.black,
-            ),
+            icon:
+                const Icon(Icons.arrow_back_ios, size: 30, color: Colors.black),
           ),
           Center(
             child: Text(
@@ -90,6 +88,7 @@ class AddPhotoScreen extends StatelessWidget {
           const SizedBox(height: 20),
           TextField(
             cursorColor: Colors.black,
+            controller: viewModel.locationController,
             decoration: InputDecoration(
                 contentPadding: const EdgeInsets.only(top: 10),
                 enabledBorder: const UnderlineInputBorder(
@@ -111,8 +110,14 @@ class AddPhotoScreen extends StatelessWidget {
                     primary: const Color(0XFF828687),
                     padding: const EdgeInsets.fromLTRB(30, 12, 30, 12)),
                 onPressed: () {
-                  Future.delayed(const Duration(milliseconds: 500),
-                          () => viewModel.registerUser(context));
+                  if (viewModel.imageFile!.path.isEmpty) {
+                    flutterToast("Image is required !!!", Colors.redAccent);
+                  } else if (viewModel.locationController.text.isEmpty) {
+                    flutterToast("Location is required !!!", Colors.redAccent);
+                  } else {
+                    Future.delayed(const Duration(milliseconds: 500),
+                        () => viewModel.registerUser(context));
+                  }
                 },
                 child: Text(Constants.create.toUpperCase()),
               )

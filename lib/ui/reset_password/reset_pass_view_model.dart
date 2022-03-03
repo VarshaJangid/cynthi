@@ -1,8 +1,7 @@
-import 'package:cynthi/model/login_with_otp_model.dart';
-import 'package:cynthi/model/user_exist_model.dart';
-import 'package:cynthi/ui/reset_password/reset_otp/reset_otp.dart';
-import 'package:cynthi/ui/reset_password/reset_password_screen.dart';
-
+import '/model/login_with_otp_model.dart';
+import '/model/user_exist_model.dart';
+import '/ui/reset_password/reset_otp/reset_otp.dart';
+import '/ui/reset_password/reset_password_screen.dart';
 import '/ui/login_with_password/loginwithpassword_screen.dart';
 import 'package:http/http.dart' as http;
 import '/model/reset_pass_model.dart';
@@ -39,7 +38,7 @@ class ResetPassViewModel extends BaseViewModel {
     if (pass.text.isEmpty ||
         confirmPass.text.isEmpty ||
         pass.text != confirmPass.text) {
-      flutterToast("Enter valid/ similar password !!", Colors.red);
+      flutterToast("Enter valid/ similar password !!", Colors.redAccent);
     } else {
       Future.delayed(const Duration(milliseconds: 600),
           () => resetPassword(context, mobileNumber));
@@ -53,7 +52,7 @@ class ResetPassViewModel extends BaseViewModel {
       AppRoutes.goto(context, ResetPasswordScreen(viewModel: this));
       notifyListeners();
     } else {
-      flutterToast("Wrong OTP !!!", Colors.red);
+      flutterToast("Wrong OTP !!!", Colors.redAccent);
     }
   }
 
@@ -71,8 +70,6 @@ class ResetPassViewModel extends BaseViewModel {
         UserExistModel userExistModel =
             UserExistModel.fromJson(jsonDecode(response.body));
         notifyListeners();
-        print("User Datta ----- ${userExistModel.loginType}");
-        print("User Datta ----- ${userExistModel.status}");
         if (userExistModel.loginType == 'exist') {
           //already exist
           Future.delayed(
@@ -82,7 +79,7 @@ class ResetPassViewModel extends BaseViewModel {
           //     ResetPasswordScreen(mobileNumber: mobileNumber));
         } else {
           AppRoutes.dismiss(context);
-          flutterToast("Not Registered", Colors.red);
+          flutterToast("Not Registered", Colors.redAccent);
         }
       }
     } catch (e) {
@@ -110,10 +107,9 @@ class ResetPassViewModel extends BaseViewModel {
         notifyListeners();
         if (loginWithOtpModel.message == "OTP sent successfully.") {
           AppRoutes.goto(context, ResetOtpScreen(viewModel: this));
-          // AppRoutes.goto(context, ResetPasswordScreen(viewModel: this));
           flutterToast(loginWithOtpModel.message, Colors.green);
         } else {
-          flutterToast(loginWithOtpModel.message, Colors.red);
+          flutterToast(loginWithOtpModel.message, Colors.redAccent);
         }
       } else {
         throw Exception('Exception in Login With OTP API');
@@ -147,12 +143,21 @@ class ResetPassViewModel extends BaseViewModel {
           AppRoutes.dismiss(context);
           AppRoutes.goto(context, const LoginWithPasswordScreen());
         } else {
-          flutterToast(resetPassModel.message, Colors.red);
+          flutterToast(resetPassModel.message, Colors.redAccent);
           AppRoutes.dismiss(context);
         }
       }
     } catch (e) {
       Exception("Exception is ---- $e");
     }
+  }
+
+  @override
+  void dispose() {
+    otpController.dispose();
+    mobileNumber.dispose();
+    confirmPass.dispose();
+    pass.dispose();
+    super.dispose();
   }
 }

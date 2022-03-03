@@ -13,7 +13,10 @@ class CustomButton extends StatelessWidget {
       width: MediaQuery.of(context).size.width,
       height: MediaQuery.of(context).size.height * .08,
       child: ElevatedButton(
-        style: ElevatedButton.styleFrom(primary: const Color(0XFF08263d)),
+        style: ElevatedButton.styleFrom(
+            primary: const Color(0XFF08263d),
+            shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(22))),
         onPressed: callback,
         child: Text(
           title,

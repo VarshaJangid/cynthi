@@ -1,5 +1,7 @@
 import 'dart:convert';
 
+import 'package:cynthi/ui/onboarding_screens/onboarding.dart';
+
 import '/ui/login_with_password/loginwithpassword_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
@@ -42,7 +44,7 @@ void showLoadingDialog(BuildContext context) {
 logoutAlert(BuildContext context) async {
   SharedPreferences prefs = await SharedPreferences.getInstance();
   prefs.remove('token');
-  AppRoutes.makeFirst(context, const LoginWithPasswordScreen());
+  AppRoutes.makeFirst(context, const OnBoardingScreen());
 }
 
 // Future<String> imageToBase64(File imageFile) async{

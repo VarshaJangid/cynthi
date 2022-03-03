@@ -32,7 +32,7 @@ class LoginWithPassViewModel extends BaseViewModel {
 
   validation(BuildContext context) {
     if (mobileNumber.text.isEmpty || password.text.isEmpty) {
-      flutterToast("Enter Mobile Number/Password", Colors.red);
+      flutterToast("Enter Mobile Number/Password", Colors.redAccent);
     } else {
       loginWithPassword(context);
     }
@@ -69,7 +69,7 @@ class LoginWithPassViewModel extends BaseViewModel {
           flutterToast(loginPassModel.message, Colors.green);
           AppRoutes.goto(context, const DashboardScreen());
         } else {
-          flutterToast(loginPassModel.message, Colors.red);
+          flutterToast(loginPassModel.message, Colors.redAccent);
         }
       }
     } catch (e) {

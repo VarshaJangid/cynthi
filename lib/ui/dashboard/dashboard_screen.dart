@@ -1,9 +1,8 @@
-import 'package:cynthi/ui/knowlwdge_hub/knowledge_hub_screen.dart';
-import 'package:cynthi/utils/app_methods.dart';
-import 'package:cynthi/utils/app_route.dart';
-import 'package:cynthi/utils/dimensions.dart';
+import '/ui/knowlwdge_hub/knowledge_hub_screen.dart';
+import '/utils/app_methods.dart';
+import '/utils/app_route.dart';
+import '/utils/dimensions.dart';
 import 'package:flutter/material.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 import '/utils/app_constant.dart';
 import '/utils/app_assets.dart';
 

@@ -15,65 +15,68 @@ class ResetMobileScreen extends StatelessWidget {
       viewModelBuilder: () => ResetPassViewModel(),
       onModelReady: (viewModel) => viewModel.init(context),
       builder: (context, viewModel, child) {
-        return Scaffold(
-          body: Padding(
-            padding: const EdgeInsets.fromLTRB(20, 0, 30, 20),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                IconButton(
-                  onPressed: () => AppRoutes.dismiss(context),
-                  icon: const Icon(
-                    Icons.arrow_back_ios,
-                    size: 30,
-                    color: Colors.black,
-                  ),
-                ),
-                const SizedBox(height: 15),
-                Text(
-                  Constants.cynthians,
-                  style: AppTextStyle.getStyle()
-                      .comfortaaBold!
-                      .copyWith(fontSize: 23, color: Colors.black),
-                ),
-                const SizedBox(height: 15),
-                Text(
-                  Constants.enterContactNumber,
-                  style: AppTextStyle.getStyle()
-                      .openSansSemiBold!
-                      .copyWith(fontSize: 22, color: Colors.black),
-                ),
-                const SizedBox(height: 40),
-                LoginTextField(
-                  controller: viewModel.mobileNumber,
-                ),
-                const SizedBox(height: 40),
-                CustomButton(
-                  title: Constants.Continue,
-                  callback: () {
-                    viewModel.checkUserExist(context, viewModel.mobileNumber.text);
-                  },
-                ),
-                const SizedBox(height: 20),
-                Padding(
-                  padding: const EdgeInsets.only(left: 10, right: 10),
-                  child: RichText(
-                    text: TextSpan(
-                      text: Constants.buCreatingAnAccount,
-                      style: AppTextStyle.getStyle()
-                          .openSansRegular!
-                          .copyWith(color: Colors.black),
-                      children: [
-                        TextSpan(
-                            text: Constants.privacyPolicy,
-                            style: AppTextStyle.getStyle()
-                                .openSansBold!
-                                .copyWith(color: Colors.black)),
-                      ],
+        return SafeArea(
+          child: Scaffold(
+            backgroundColor: const Color(0XFFf6f2e7),
+            body: SingleChildScrollView(
+              padding: const EdgeInsets.fromLTRB(20, 0, 30, 20),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  IconButton(
+                    onPressed: () => AppRoutes.dismiss(context),
+                    icon: const Icon(
+                      Icons.arrow_back_ios,
+                      size: 30,
+                      color: Colors.black,
                     ),
                   ),
-                ),
-              ],
+                  const SizedBox(height: 15),
+                  Text(
+                    Constants.cynthians,
+                    style: AppTextStyle.getStyle()
+                        .comfortaaBold!
+                        .copyWith(fontSize: 23, color: Colors.black),
+                  ),
+                  const SizedBox(height: 15),
+                  Text(
+                    Constants.enterContactNumber,
+                    style: AppTextStyle.getStyle()
+                        .openSansSemiBold!
+                        .copyWith(fontSize: 22, color: Colors.black),
+                  ),
+                  const SizedBox(height: 40),
+                  LoginTextField(
+                    controller: viewModel.mobileNumber,
+                  ),
+                  const SizedBox(height: 40),
+                  CustomButton(
+                    title: Constants.Continue,
+                    callback: () {
+                      viewModel.checkUserExist(context, viewModel.mobileNumber.text);
+                    },
+                  ),
+                  const SizedBox(height: 20),
+                  Padding(
+                    padding: const EdgeInsets.only(left: 10, right: 10),
+                    child: RichText(
+                      text: TextSpan(
+                        text: Constants.buCreatingAnAccount,
+                        style: AppTextStyle.getStyle()
+                            .openSansRegular!
+                            .copyWith(color: Colors.black),
+                        children: [
+                          TextSpan(
+                              text: Constants.privacyPolicy,
+                              style: AppTextStyle.getStyle()
+                                  .openSansBold!
+                                  .copyWith(color: Colors.black)),
+                        ],
+                      ),
+                    ),
+                  ),
+                ],
+              ),
             ),
           ),
         );
