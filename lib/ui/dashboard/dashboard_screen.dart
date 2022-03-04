@@ -1,3 +1,5 @@
+import 'package:cynthi/ui/razorpay.dart';
+
 import '/ui/knowlwdge_hub/knowledge_hub_screen.dart';
 import '/utils/app_methods.dart';
 import '/utils/app_route.dart';
@@ -17,12 +19,8 @@ class _DashboardState extends State<DashboardScreen> {
   int _currentIndex = 0;
   static final List<Widget> _widgetOptions = <Widget>[
     const TabBarDemo(),
-    const Text(
-      'Index 1: Planner',
-    ),
-    const Text(
-      'Index 2: Cyntest',
-    ),
+    VarshaJangid(),
+    const Text('Index 2: Cyntest'),
     Settings(),
   ];
 
