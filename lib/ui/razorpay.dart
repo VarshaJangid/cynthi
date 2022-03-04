@@ -71,7 +71,7 @@ class _VarshaJangidState extends State<VarshaJangid> {
     try {
       var options = {
         'key': RazorPayDetails.rzpKeyTest,
-        'amount': 100,
+        'amount': 500*100,
         'name': "Name",
         'description': "Cynthi'ans",
         'prefill': {'contact': '+919969696969', 'email': 'test@gmail.com'},
