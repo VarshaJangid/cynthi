@@ -1,3 +1,7 @@
+import 'dart:async';
+
+import 'package:cynthi/utils/app_methods.dart';
+
 import '/ui/reset_password/reset_pass_view_model.dart';
 import '/utils/app_route.dart';
 import 'package:pin_code_fields/pin_code_fields.dart';
@@ -5,10 +9,48 @@ import 'package:flutter/material.dart';
 import '/utils/app_text_style.dart';
 import '/utils/app_constant.dart';
 
-class ResetOtpScreen extends StatelessWidget {
+class ResetOtpScreen extends StatefulWidget {
   const ResetOtpScreen({required this.viewModel});
 
   final ResetPassViewModel viewModel;
+
+  @override
+  _ResetOtpScreen createState() => _ResetOtpScreen();
+}
+
+class _ResetOtpScreen extends State<ResetOtpScreen> {
+  Timer? _timer;
+  int startTimer = 10;
+
+  void startTime() {
+    if (_timer != null) {
+      _timer!.cancel();
+      // _timer = null;
+    } else {
+      _timer = Timer.periodic(const Duration(seconds: 1), (Timer timer) {
+        setState(() {
+          if (startTimer < 1) {
+            timer.cancel();
+          } else {
+            startTimer = startTimer - 1;
+            print("start $startTimer");
+          }
+        });
+      });
+    }
+  }
+
+  @override
+  void initState() {
+    startTime();
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    _timer!.cancel();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -18,7 +60,7 @@ class ResetOtpScreen extends StatelessWidget {
         floatingActionButton: FloatingActionButton(
           elevation: 0,
           onPressed: () {
-            viewModel.otpVerify(context);
+            widget.viewModel.otpVerify(context);
           },
           backgroundColor: Colors.grey,
           child: const Icon(Icons.arrow_forward_ios),
@@ -84,7 +126,7 @@ class ResetOtpScreen extends StatelessWidget {
                     inactiveFillColor: Colors.white,
                     selectedFillColor: Colors.white,
                   ),
-                  controller: viewModel.otpController,
+                  controller: widget.viewModel.otpController,
                   cursorColor: Colors.black,
                   animationDuration: const Duration(milliseconds: 300),
                   enableActiveFill: true,
@@ -106,22 +148,32 @@ class ResetOtpScreen extends StatelessWidget {
               const SizedBox(height: 100),
               Padding(
                 padding: const EdgeInsets.only(left: 10, right: 10),
-                child: RichText(
-                  text: TextSpan(
-                    text: Constants.otpShouldArrive,
-                    style: AppTextStyle.getStyle()
-                        .openSansRegular!
-                        .copyWith(color: Colors.black),
-                    children: <TextSpan>[
-                      TextSpan(
-                          text: Constants.resendOTP,
-                          style: AppTextStyle.getStyle()
-                              .openSansBold!
-                              .copyWith(color: Colors.black)),
-                    ],
-                  ),
+                child: Row(
+                  children: [
+                    Text(
+                      Constants.otpShouldArrive + '$startTimer' + "s. ",
+                      style: AppTextStyle.getStyle()
+                          .openSansRegular!
+                          .copyWith(color: Colors.black),
+                    ),
+                    TextButton(
+                      onPressed: () {
+                        if (startTimer.toString() != "0") {
+                          flutterToast("Please wait ... ", Colors.redAccent);
+                        } else {
+                          widget.viewModel.sendOtp(context);
+                        }
+                      },
+                      child: Text(
+                        Constants.resendOTP,
+                        style: AppTextStyle.getStyle()
+                            .openSansBold!
+                            .copyWith(color: Colors.black),
+                      ),
+                    ),
+                  ],
                 ),
-              )
+              ),
             ],
           ),
         ),

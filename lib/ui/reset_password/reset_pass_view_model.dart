@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import '/model/login_with_otp_model.dart';
 import '/model/user_exist_model.dart';
 import '/ui/reset_password/reset_otp/reset_otp.dart';
@@ -106,6 +108,7 @@ class ResetPassViewModel extends BaseViewModel {
         otpSet = "${loginWithOtpModel.otp}";
         notifyListeners();
         if (loginWithOtpModel.message == "OTP sent successfully.") {
+          // Future.delayed(Duration(milliseconds: 500),()=>startTime());
           AppRoutes.goto(context, ResetOtpScreen(viewModel: this));
           flutterToast(loginWithOtpModel.message, Colors.green);
         } else {
@@ -151,6 +154,8 @@ class ResetPassViewModel extends BaseViewModel {
       Exception("Exception is ---- $e");
     }
   }
+  Timer? timer;
+
 
   @override
   void dispose() {
