@@ -1,5 +1,5 @@
-import 'package:cynthi/ui/register/register_screen.dart';
-import 'package:cynthi/utils/app_text_style.dart';
+import '/ui/register/register_screen.dart';
+import '/utils/app_text_style.dart';
 import 'package:flutter/cupertino.dart';
 
 import '/ui/login_with_password/loginwithpassword_screen.dart';

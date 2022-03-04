@@ -1,4 +1,4 @@
-import 'package:cynthi/utils/app_text_style.dart';
+import '/utils/app_text_style.dart';
 import 'package:flutter/material.dart';
 
 class CustomButton extends StatelessWidget {

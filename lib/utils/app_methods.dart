@@ -1,6 +1,6 @@
 import 'dart:convert';
 
-import 'package:cynthi/ui/onboarding_screens/onboarding.dart';
+import '/ui/onboarding_screens/onboarding.dart';
 
 import '/ui/login_with_password/loginwithpassword_screen.dart';
 import 'package:flutter/material.dart';

@@ -1,5 +1,4 @@
 import 'package:stacked/stacked.dart';
-
 import '../reset_pass_view_model.dart';
 import '/ui/component/login_text_field.dart';
 import '/ui/component/custom_button.dart';
@@ -9,6 +8,8 @@ import '/utils/app_constant.dart';
 import '/utils/app_route.dart';
 
 class ResetMobileScreen extends StatelessWidget {
+  const ResetMobileScreen({Key? key}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     return ViewModelBuilder<ResetPassViewModel>.reactive(
@@ -53,7 +54,8 @@ class ResetMobileScreen extends StatelessWidget {
                   CustomButton(
                     title: Constants.Continue,
                     callback: () {
-                      viewModel.checkUserExist(context, viewModel.mobileNumber.text);
+                      viewModel.checkUserExist(
+                          context, viewModel.mobileNumber.text);
                     },
                   ),
                   const SizedBox(height: 20),
@@ -82,6 +84,5 @@ class ResetMobileScreen extends StatelessWidget {
         );
       },
     );
-
   }
 }

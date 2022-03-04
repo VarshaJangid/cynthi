@@ -1,4 +1,4 @@
-import 'package:cynthi/ui/component/loading_widget.dart';
+import '/ui/component/loading_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 

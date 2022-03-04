@@ -1,4 +1,4 @@
-import 'package:cynthi/utils/app_text_style.dart';
+import '/utils/app_text_style.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import '/ui/onboarding_screens/onboarding.dart';
 import '/ui/dashboard/dashboard_screen.dart';

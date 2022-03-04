@@ -1,6 +1,6 @@
 import 'dart:async';
 
-import 'package:cynthi/utils/app_methods.dart';
+import '/utils/app_methods.dart';
 
 import '/ui/reset_password/reset_pass_view_model.dart';
 import '/utils/app_route.dart';

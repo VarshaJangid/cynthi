@@ -1,7 +1,7 @@
-import 'package:cynthi/ui/component/background_widget.dart';
-import 'package:cynthi/ui/register/register_screen.dart';
-import 'package:cynthi/ui/reset_password/reset_mobile/reset_mobile.dart';
-import 'package:cynthi/utils/app_text_style.dart';
+import '/ui/component/background_widget.dart';
+import '/ui/register/register_screen.dart';
+import '/ui/reset_password/reset_mobile/reset_mobile.dart';
+import '/utils/app_text_style.dart';
 
 import '/ui/component/login_text_field.dart';
 import '/ui/component/app_text_field.dart';

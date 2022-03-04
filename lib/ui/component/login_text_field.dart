@@ -1,5 +1,5 @@
 import 'package:country_code_picker/country_code_picker.dart';
-import 'package:cynthi/utils/app_text_style.dart';
+import '/utils/app_text_style.dart';
 import 'package:flutter/material.dart';
 import '/utils/app_constant.dart';
 

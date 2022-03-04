@@ -1,7 +1,7 @@
-import 'package:cynthi/ui/coaching/coaching_screen.dart';
-import 'package:cynthi/ui/cythians/cynthians_screen.dart';
-import 'package:cynthi/utils/app_assets.dart';
-import 'package:cynthi/utils/app_constant.dart';
+import '/ui/coaching/coaching_screen.dart';
+import '/ui/cythians/cynthians_screen.dart';
+import '/utils/app_assets.dart';
+import '/utils/app_constant.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
