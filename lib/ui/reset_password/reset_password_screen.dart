@@ -1,17 +1,22 @@
-import 'package:cynthi/ui/component/background_widget.dart';
-import 'package:cynthi/utils/app_text_style.dart';
 import '/ui/reset_password/reset_pass_view_model.dart';
+import '/ui/component/background_widget.dart';
 import '/ui/component/app_text_field.dart';
 import '/ui/component/custom_button.dart';
 import 'package:flutter/material.dart';
+import '/utils/app_text_style.dart';
 import '/utils/app_constant.dart';
 import '/utils/app_route.dart';
 
-class ResetPasswordScreen extends StatelessWidget {
+class ResetPasswordScreen extends StatefulWidget {
   const ResetPasswordScreen({Key? key, required this.viewModel})
       : super(key: key);
   final ResetPassViewModel viewModel;
 
+  @override
+  _ResetPasswordScreen createState() => _ResetPasswordScreen();
+}
+
+class _ResetPasswordScreen extends State<ResetPasswordScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -48,23 +53,26 @@ class ResetPasswordScreen extends StatelessWidget {
               ),
               const SizedBox(height: 60),
               AppTextField(
-                obscureText: !viewModel.showPassword,
-                controller: viewModel.pass,
+                obscureText: !showPassword,
+                controller: widget.viewModel.pass,
                 labelText: Constants.createPassword,
                 isIcon: true,
-                iconPressed: () => viewModel.togglePassVisibility(),
+                iconPressed: () => togglePassVisibility(),
               ),
               const SizedBox(height: 30),
               AppTextField(
-                controller: viewModel.confirmPass,
+                controller: widget.viewModel.confirmPass,
                 labelText: Constants.confirmPassword,
                 isIcon: true,
+                iconPressed: () => toggleConfirmPassVisibility(),
+                obscureText: !showConfirmPassword,
               ),
               const SizedBox(height: 40),
               CustomButton(
                 title: Constants.resetPassword.toUpperCase(),
                 callback: () {
-                  viewModel.validation(context, viewModel.mobileNumber.text);
+                  widget.viewModel
+                      .validation(context, widget.viewModel.mobileNumber.text);
                 },
               ),
             ],
@@ -72,5 +80,27 @@ class ResetPasswordScreen extends StatelessWidget {
         ),
       ),
     );
+  }
+
+  bool _showPassword = false;
+
+  bool get showPassword => _showPassword;
+
+  //show Password
+  void togglePassVisibility() {
+    setState(() {
+      _showPassword = !_showPassword;
+    });
+  }
+
+  bool _showConfirmPassword = false;
+
+  bool get showConfirmPassword => _showConfirmPassword;
+
+  //show Confirm Password
+  void toggleConfirmPassVisibility() {
+    setState(() {
+      _showConfirmPassword = !_showConfirmPassword;
+    });
   }
 }

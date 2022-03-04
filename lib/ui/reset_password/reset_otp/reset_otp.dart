@@ -20,12 +20,11 @@ class ResetOtpScreen extends StatefulWidget {
 
 class _ResetOtpScreen extends State<ResetOtpScreen> {
   Timer? _timer;
-  int startTimer = 10;
+  int startTimer = 60;
 
   void startTime() {
     if (_timer != null) {
       _timer!.cancel();
-      // _timer = null;
     } else {
       _timer = Timer.periodic(const Duration(seconds: 1), (Timer timer) {
         setState(() {
@@ -151,7 +150,7 @@ class _ResetOtpScreen extends State<ResetOtpScreen> {
                 child: Row(
                   children: [
                     Text(
-                      Constants.otpShouldArrive + '$startTimer' + "s. ",
+                      Constants.otpShouldArrive + '$startTimer' + "s.",
                       style: AppTextStyle.getStyle()
                           .openSansRegular!
                           .copyWith(color: Colors.black),
