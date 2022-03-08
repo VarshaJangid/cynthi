@@ -22,7 +22,7 @@ class GenderScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-     padding: const EdgeInsets.fromLTRB(20, 0, 20, 0),
+      padding: const EdgeInsets.fromLTRB(20, 0, 20, 0),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -103,19 +103,16 @@ class GenderScreen extends StatelessWidget {
   }
 
   Widget dateWidget(String title) => Container(
-        width: 80,
-        height: 45,
+        padding: const EdgeInsets.fromLTRB(30, 14, 30, 14),
         decoration: BoxDecoration(
           color: const Color(0XFFf9f0d6),
           borderRadius: BorderRadius.circular(35),
         ),
-        child: Center(
-          child: Text(
-            title,
-            style: AppTextStyle.getStyle()
-                .openSansSemiBold!
-                .copyWith(color: Colors.black, fontSize: 17),
-          ),
+        child: Text(
+          title,
+          style: AppTextStyle.getStyle()
+              .openSansSemiBold!
+              .copyWith(color: Colors.black),
         ),
       );
 }

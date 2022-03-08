@@ -13,10 +13,9 @@ class GenderButtonWidget extends StatelessWidget {
     return GestureDetector(
       onTap: callback,
       child: Padding(
-        padding: const EdgeInsets.only(right: 16.5),
+        padding: const EdgeInsets.only(right: 10),
         child: Container(
-          width: 124,
-          height: 50,
+          padding: const EdgeInsets.fromLTRB(30, 14, 30, 14),
           decoration: BoxDecoration(
             color: const Color(0XFFf9f0d6),
             border: Border.all(
@@ -26,13 +25,11 @@ class GenderButtonWidget extends StatelessWidget {
                 width: 2),
             borderRadius: BorderRadius.circular(35),
           ),
-          child: Center(
-            child: Text(
-              "${genderModel.title}",
-              style: AppTextStyle.getStyle()
-                  .openSansSemiBold!
-                  .copyWith(color: Colors.black),
-            ),
+          child: Text(
+            "${genderModel.title}",
+            style: AppTextStyle.getStyle()
+                .openSansSemiBold!
+                .copyWith(color: Colors.black),
           ),
         ),
       ),
