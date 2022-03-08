@@ -33,18 +33,18 @@ class MobileViewModel extends BaseViewModel {
   bool get showPassword => _showPassword;
 
   //  OTP Verify Screen
-  TextEditingController otpController = TextEditingController();
-  TextEditingController locationController = TextEditingController();
+  late TextEditingController otpController = TextEditingController();
+  late TextEditingController locationController = TextEditingController();
   String otpSet = "";
 
   //send_otp_mobile Model
   LoginWithOtpModel loginWithOtpModel = LoginWithOtpModel();
 
   // Create User Screens
-  TextEditingController firstName = TextEditingController();
-  TextEditingController lastName = TextEditingController();
-  TextEditingController password = TextEditingController();
-  TextEditingController confirmPassword = TextEditingController();
+  late TextEditingController firstName = TextEditingController();
+  late TextEditingController lastName = TextEditingController();
+  late TextEditingController password = TextEditingController();
+  late TextEditingController confirmPassword = TextEditingController();
 
   int currentIndex = 1;
   DateTime? datePicked;

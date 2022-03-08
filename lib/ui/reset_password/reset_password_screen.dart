@@ -33,49 +33,53 @@ class _ResetPasswordScreen extends State<ResetPasswordScreen> {
         ),
       ),
       body: BackgroundWidget(
-        child: SingleChildScrollView(
-          padding: const EdgeInsets.fromLTRB(20, 10, 20, 0),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text(
-                Constants.resetYourPassword,
-                style: AppTextStyle.getStyle()
-                    .openSansBold!
-                    .copyWith(fontSize: 24, color: Colors.black),
-              ),
-              const SizedBox(height: 10),
-              Text(
-                Constants.yourNewPassword,
-                style: AppTextStyle.getStyle()
-                    .openSansRegular!
-                    .copyWith(fontSize: 20, color: const Color(0XFF666666)),
-              ),
-              const SizedBox(height: 60),
-              AppTextField(
-                obscureText: !showPassword,
-                controller: widget.viewModel.pass,
-                labelText: Constants.createPassword,
-                isIcon: true,
-                iconPressed: () => togglePassVisibility(),
-              ),
-              const SizedBox(height: 30),
-              AppTextField(
-                controller: widget.viewModel.confirmPass,
-                labelText: Constants.confirmPassword,
-                isIcon: true,
-                iconPressed: () => toggleConfirmPassVisibility(),
-                obscureText: !showConfirmPassword,
-              ),
-              const SizedBox(height: 40),
-              CustomButton(
-                title: Constants.resetPassword.toUpperCase(),
-                callback: () {
-                  widget.viewModel
-                      .validation(context, widget.viewModel.mobileNumber.text);
-                },
-              ),
-            ],
+        child: Container(
+          height: MediaQuery.of(context).size.height,
+          width: MediaQuery.of(context).size.width,
+          child: SingleChildScrollView(
+            padding: const EdgeInsets.fromLTRB(20, 10, 20, 0),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  Constants.resetYourPassword,
+                  style: AppTextStyle.getStyle()
+                      .openSansBold!
+                      .copyWith(fontSize: 24, color: Colors.black),
+                ),
+                const SizedBox(height: 10),
+                Text(
+                  Constants.yourNewPassword,
+                  style: AppTextStyle.getStyle()
+                      .openSansRegular!
+                      .copyWith(fontSize: 20, color: const Color(0XFF666666)),
+                ),
+                const SizedBox(height: 60),
+                AppTextField(
+                  obscureText: !showPassword,
+                  controller: widget.viewModel.pass,
+                  labelText: Constants.createPassword,
+                  isIcon: true,
+                  iconPressed: () => togglePassVisibility(),
+                ),
+                const SizedBox(height: 30),
+                AppTextField(
+                  controller: widget.viewModel.confirmPass,
+                  labelText: Constants.confirmPassword,
+                  isIcon: true,
+                  iconPressed: () => toggleConfirmPassVisibility(),
+                  obscureText: !showConfirmPassword,
+                ),
+                const SizedBox(height: 40),
+                CustomButton(
+                  title: Constants.resetPassword.toUpperCase(),
+                  callback: () {
+                    widget.viewModel.validation(
+                        context, widget.viewModel.mobileNumber.text);
+                  },
+                ),
+              ],
+            ),
           ),
         ),
       ),

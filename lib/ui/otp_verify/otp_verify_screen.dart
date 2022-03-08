@@ -94,32 +94,29 @@ class OtpVerifyScreen extends StatelessWidget {
             ),
           ),
           const SizedBox(height: 100),
-          Padding(
-            padding: const EdgeInsets.only(left: 0, right: 00),
-            child: Row(
-              children: [
-                Text(
-                  Constants.otpShouldArrive + seconds + "s. ",
-                  style: AppTextStyle.getStyle()
-                      .openSansRegular!
-                      .copyWith(color: Colors.black),
-                ),
-                TextButton(
-                  onPressed: () {
-                    if (seconds.toString() != "00") {
-                      flutterToast("Please wait ... ", Colors.redAccent);
-                    } else {
-                      viewModel.sendOtp(context);
-                    }
-                  },
-                  child: Text(
-                    Constants.resendOTP,
+          GestureDetector(
+            onTap: () {
+              if (seconds.toString() != "00") {
+                flutterToast("Please wait ... ", Colors.redAccent);
+              } else {
+                viewModel.sendOtp(context);
+              }
+            },
+            child: RichText(
+              text: TextSpan(
+                text: Constants.otpShouldArrive + seconds + "s. ",
+                style: AppTextStyle.getStyle()
+                    .openSansRegular!
+                    .copyWith(color: Colors.black),
+                children: [
+                  TextSpan(
+                    text: Constants.resendOTP,
                     style: AppTextStyle.getStyle()
                         .openSansBold!
                         .copyWith(color: Colors.black),
                   ),
-                ),
-              ],
+                ],
+              ),
             ),
           ),
         ],
