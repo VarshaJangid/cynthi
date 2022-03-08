@@ -87,6 +87,16 @@ class MobileViewModel extends BaseViewModel {
     notifyListeners();
   }
 
+  bool _showConfirmPassword = false;
+
+  bool get showConfirmPassword => _showConfirmPassword;
+
+  //show Confirm Password
+  void toggleConfirmPassVisibility() {
+    _showConfirmPassword = !_showConfirmPassword;
+    notifyListeners();
+  }
+
   // Select County Code
   void onCountryChange(CountryCode countryCode) {
     // this.countryCode = countryCode.toString();

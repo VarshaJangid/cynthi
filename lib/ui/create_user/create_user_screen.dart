@@ -1,3 +1,4 @@
+import '/ui/create_user/create_user_field.dart';
 import '/ui/register/mobile_view_model.dart';
 import '/ui/component/custom_button.dart';
 import 'package:flutter/material.dart';
@@ -49,29 +50,34 @@ class CreateUserScreen extends StatelessWidget {
             children: [
               SizedBox(
                 width: 150,
-                child: textField(context, Constants.firstName,
-                    viewModel.firstName, false, viewModel, false),
+                child: textField(
+                    context, Constants.firstName, viewModel.firstName),
               ),
               const Spacer(),
               SizedBox(
                 width: 150,
-                child: textField(context, Constants.lastName,
-                    viewModel.lastName, false, viewModel, false),
+                child:
+                    textField(context, Constants.lastName, viewModel.lastName),
               ),
             ],
           ),
-          const SizedBox(height: 40),
-          textField(context, Constants.createPassword, viewModel.password,
-              !viewModel.showPassword, viewModel, true),
-          const SizedBox(height: 40),
-          textField(
-              context,
-              Constants.confirmPassword,
-              viewModel.confirmPassword,
-              !viewModel.showPassword,
-              viewModel,
-              true),
-          const SizedBox(height: 40),
+          const SizedBox(height: 30),
+          CreateUserField(
+            obscureText: !viewModel.showPassword,
+            controller: viewModel.password,
+            labelText: Constants.createPassword,
+            isIcon: true,
+            iconPressed: () => viewModel.togglePassVisibility(),
+          ),
+          const SizedBox(height: 30),
+          CreateUserField(
+            controller: viewModel.confirmPassword,
+            labelText: Constants.confirmPassword,
+            isIcon: true,
+            iconPressed: () => viewModel.toggleConfirmPassVisibility(),
+            obscureText: !viewModel.showConfirmPassword,
+          ),
+          const SizedBox(height: 30),
           CustomButton(
               title: Constants.next,
               callback: () {
@@ -102,17 +108,14 @@ class CreateUserScreen extends StatelessWidget {
   }
 
   Widget textField(
-          BuildContext context,
-          String title,
-          TextEditingController controller,
-          bool obscureText,
-          MobileViewModel model,
-          bool isIcon) =>
+    BuildContext context,
+    String title,
+    TextEditingController controller,
+  ) =>
       SizedBox(
         width: MediaQuery.of(context).size.width,
         height: MediaQuery.of(context).size.height * .08,
         child: TextField(
-          obscureText: obscureText,
           controller: controller,
           cursorColor: Colors.black,
           autocorrect: true,
@@ -124,14 +127,6 @@ class CreateUserScreen extends StatelessWidget {
             fillColor: const Color(0XFFf6f2e7),
             enabledBorder: OutlineInputBorder(
               borderRadius: BorderRadius.circular(15),
-            ),
-            suffixIcon: IconButton(
-              icon: Icon(
-                obscureText ? Icons.visibility_off : Icons.visibility_rounded,
-                size: 20,
-                color: isIcon == true ? Colors.black : Colors.transparent,
-              ),
-              onPressed: () => model.togglePassVisibility(),
             ),
             focusedBorder: OutlineInputBorder(
               borderRadius: BorderRadius.circular(15),
