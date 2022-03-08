@@ -4,6 +4,8 @@ import '/ui/register/mobile_view_model.dart';
 import 'package:flutter/material.dart';
 import '/utils/app_text_style.dart';
 import '/utils/app_constant.dart';
+import '/utils/theme_color.dart';
+import '/utils/dimensions.dart';
 
 class GenderScreen extends StatelessWidget {
   GenderScreen(
@@ -22,7 +24,7 @@ class GenderScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.fromLTRB(20, 0, 20, 0),
+      padding: const EdgeInsets.fromLTRB(Dimensions.s20, 0, Dimensions.s20, 0),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -31,23 +33,24 @@ class GenderScreen extends StatelessWidget {
               viewModel.currentIndex = 3;
               viewModel.notifyListeners();
             },
-            icon: const Icon(
+            icon: Icon(
               Icons.arrow_back_ios,
-              size: 30,
-              color: Colors.black,
+              size: Dimensions.s30,
+              color: const AppColor.getColor().black,
             ),
           ),
           Text(
             Constants.pleaseSelectYourGender,
-            style: AppTextStyle.getStyle()
-                .openSansSemiBold!
-                .copyWith(fontSize: 24, color: Colors.black),
+            style: AppTextStyle.getStyle().openSansSemiBold!.copyWith(
+                  fontSize: Dimensions.s25,
+                  color: const AppColor.getColor().black,
+                ),
           ),
-          const SizedBox(height: 30),
+          const SizedBox(height: Dimensions.s30),
           Wrap(
             crossAxisAlignment: WrapCrossAlignment.center,
-            spacing: 10,
-            runSpacing: 20,
+            spacing: Dimensions.s10,
+            runSpacing: Dimensions.s20,
             children: viewModel.listGender.map((e) {
               return GenderButtonWidget(
                 genderModel: e,
@@ -57,14 +60,14 @@ class GenderScreen extends StatelessWidget {
               );
             }).toList(),
           ),
-          const SizedBox(height: 50),
+          const SizedBox(height: Dimensions.s50),
           Text(
             Constants.enterYourBirthDate,
-            style: AppTextStyle.getStyle()
-                .openSansSemiBold!
-                .copyWith(fontSize: 24, color: Colors.black),
+            style: AppTextStyle.getStyle().openSansSemiBold!.copyWith(
+                fontSize: Dimensions.s25,
+                color: const AppColor.getColor().black),
           ),
-          const SizedBox(height: 30),
+          const SizedBox(height: Dimensions.s30),
           GestureDetector(
             child: Padding(
               padding: const EdgeInsets.only(right: 16.5),
@@ -103,16 +106,17 @@ class GenderScreen extends StatelessWidget {
   }
 
   Widget dateWidget(String title) => Container(
-        padding: const EdgeInsets.fromLTRB(30, 14, 30, 14),
+        padding: const EdgeInsets.fromLTRB(
+            Dimensions.s22, Dimensions.s14, Dimensions.s22, Dimensions.s14),
         decoration: BoxDecoration(
-          color: const Color(0XFFf9f0d6),
-          borderRadius: BorderRadius.circular(35),
+          color: const AppColor.getColor().lightYellow,
+          borderRadius: BorderRadius.circular(Dimensions.s35),
         ),
         child: Text(
           title,
           style: AppTextStyle.getStyle()
               .openSansSemiBold!
-              .copyWith(color: Colors.black),
+              .copyWith(color: const AppColor.getColor().black),
         ),
       );
 }

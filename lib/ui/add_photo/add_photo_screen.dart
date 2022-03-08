@@ -3,7 +3,9 @@ import '/ui/component/custom_button.dart';
 import 'package:flutter/material.dart';
 import '/utils/app_text_style.dart';
 import '/utils/app_constant.dart';
+import '/utils/theme_color.dart';
 import '/utils/app_methods.dart';
+import '/utils/dimensions.dart';
 import 'dart:io';
 
 class AddPhotoScreen extends StatelessWidget {
@@ -15,7 +17,7 @@ class AddPhotoScreen extends StatelessWidget {
   final String mobile;
   final MobileViewModel viewModel;
 
-  AddPhotoScreen(
+  const AddPhotoScreen(
       {Key? key,
       required this.firstName,
       required this.lastName,
@@ -29,7 +31,7 @@ class AddPhotoScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(
-      padding: const EdgeInsets.fromLTRB(20, 0, 20, 0),
+      padding: const EdgeInsets.fromLTRB(Dimensions.s20, 0, Dimensions.s20, 0),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -38,27 +40,31 @@ class AddPhotoScreen extends StatelessWidget {
               viewModel.currentIndex = 4;
               viewModel.notifyListeners();
             },
-            icon:
-                const Icon(Icons.arrow_back_ios, size: 30, color: Colors.black),
+            icon: Icon(
+              Icons.arrow_back_ios,
+              size: Dimensions.s30,
+              color: const AppColor.getColor().black,
+            ),
           ),
           Center(
             child: Text(
               Constants.addPhotoOfYou,
-              style: AppTextStyle.getStyle()
-                  .openSansSemiBold!
-                  .copyWith(fontSize: 22, color: Colors.black),
+              style: AppTextStyle.getStyle().openSansSemiBold!.copyWith(
+                  fontSize: Dimensions.s22,
+                  color: const AppColor.getColor().black),
             ),
           ),
-          const SizedBox(height: 20),
+          const SizedBox(height: Dimensions.s20),
           Center(
             child: Container(
-              height: 120,
-              width: 120,
-              padding: const EdgeInsets.all(10),
+              height: Dimensions.s120,
+              width: Dimensions.s120,
+              padding: const EdgeInsets.all(Dimensions.s10),
               decoration: BoxDecoration(
-                color: Colors.white,
-                borderRadius: BorderRadius.circular(100),
-                border: Border.all(width: 2, color: Colors.black),
+                color: const AppColor.getColor().white,
+                borderRadius: BorderRadius.circular(Dimensions.s100),
+                border: Border.all(
+                    width: 2, color: const AppColor.getColor().black),
                 image: DecorationImage(
                   image: FileImage(
                     File(viewModel.imageFile!.path),
@@ -68,52 +74,55 @@ class AddPhotoScreen extends StatelessWidget {
               ),
             ),
           ),
-          const SizedBox(height: 50),
+          const SizedBox(height: Dimensions.s50),
           CustomButton(
             callback: () => viewModel.getFromCamera(),
             title: Constants.takePhoto.toUpperCase(),
           ),
-          const SizedBox(height: 20),
+          const SizedBox(height: Dimensions.s20),
           CustomButton(
             callback: () => viewModel.getFromGallery(),
             title: Constants.chooseFromCameraRoll.toUpperCase(),
           ),
-          const SizedBox(height: 30),
+          const SizedBox(height: Dimensions.s30),
           Text(
             Constants.enterYourLocation,
-            style: AppTextStyle.getStyle()
-                .openSansSemiBold!
-                .copyWith(color: Colors.black, fontSize: 24),
+            style: AppTextStyle.getStyle().openSansSemiBold!.copyWith(
+                color: const AppColor.getColor().black,
+                fontSize: Dimensions.s22),
           ),
-          const SizedBox(height: 20),
+          const SizedBox(height: Dimensions.s20),
           TextField(
-            cursorColor: Colors.black,
+            cursorColor: const AppColor.getColor().black,
             controller: viewModel.locationController,
             decoration: InputDecoration(
-                contentPadding: const EdgeInsets.only(top: 10),
-                enabledBorder: const UnderlineInputBorder(
-                    borderSide: BorderSide(color: Colors.black)),
-                focusedBorder: const UnderlineInputBorder(
-                  borderSide: BorderSide(color: Colors.black),
+                contentPadding: const EdgeInsets.only(top: Dimensions.s10),
+                enabledBorder: UnderlineInputBorder(
+                    borderSide:
+                        BorderSide(color: const AppColor.getColor().black)),
+                focusedBorder: UnderlineInputBorder(
+                  borderSide:
+                      BorderSide(color: const AppColor.getColor().black),
                 ),
-                hintText: 'Enter Location',
+                hintText: Constants.enterLocation,
                 hintStyle: AppTextStyle.getStyle()
                     .openSansSemiBold!
-                    .copyWith(color: Colors.black)),
+                    .copyWith(color: const AppColor.getColor().black)),
           ),
-          const SizedBox(height: 30),
+          const SizedBox(height: Dimensions.s30),
           Row(
             mainAxisAlignment: MainAxisAlignment.end,
             children: [
               ElevatedButton(
                 style: ElevatedButton.styleFrom(
                     primary: const Color(0XFF828687),
-                    padding: const EdgeInsets.fromLTRB(30, 12, 30, 12)),
+                    padding: const EdgeInsets.fromLTRB(Dimensions.s30,
+                        Dimensions.s12, Dimensions.s30, Dimensions.s12)),
                 onPressed: () {
                   if (viewModel.imageFile!.path.isEmpty) {
-                    flutterToast("Image is required !!!", Colors.redAccent);
+                    flutterToast(Constants.imageRequired, Colors.redAccent);
                   } else if (viewModel.locationController.text.isEmpty) {
-                    flutterToast("Location is required !!!", Colors.redAccent);
+                    flutterToast(Constants.locationRequired, Colors.redAccent);
                   } else {
                     Future.delayed(const Duration(milliseconds: 500),
                         () => viewModel.registerUser(context));

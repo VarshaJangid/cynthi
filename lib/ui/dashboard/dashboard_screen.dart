@@ -136,16 +136,13 @@ void logOutPopup({
             overflow: Overflow.visible,
             children: [
               Padding(
-                padding: const EdgeInsets.only(top: Dimensions.paddingXL * 2),
+                padding: const EdgeInsets.only(top: Dimensions.s65),
                 child: Container(
                   decoration: BoxDecoration(
                       color: Colors.white,
-                      borderRadius:
-                          BorderRadius.circular(Dimensions.paddingXL)),
+                      borderRadius: BorderRadius.circular(Dimensions.s30)),
                   child: Padding(
-                    padding: const EdgeInsets.all(
-                      Dimensions.paddingL,
-                    ),
+                    padding: const EdgeInsets.all(Dimensions.s25),
                     child: Center(
                       child: Column(
                         mainAxisAlignment: MainAxisAlignment.center,
@@ -191,7 +188,7 @@ void logOutPopup({
                 child: Center(
                   child: Image.asset(
                     image,
-                    height: Dimensions.paddingXXL * 1.4,
+                    height: Dimensions.s70 * 1.4,
                   ),
                 ),
               ),

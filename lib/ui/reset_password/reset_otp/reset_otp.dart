@@ -1,15 +1,15 @@
-import 'dart:async';
-
-import 'package:cynthi/ui/component/background_widget.dart';
-
-import '/utils/app_methods.dart';
-
 import '/ui/reset_password/reset_pass_view_model.dart';
-import '/utils/app_route.dart';
 import 'package:pin_code_fields/pin_code_fields.dart';
+import '/ui/component/background_widget.dart';
+import '/utils/context_extension.dart';
 import 'package:flutter/material.dart';
 import '/utils/app_text_style.dart';
 import '/utils/app_constant.dart';
+import '/utils/app_methods.dart';
+import '/utils/theme_color.dart';
+import '/utils/dimensions.dart';
+import '/utils/app_route.dart';
+import 'dart:async';
 
 class ResetOtpScreen extends StatefulWidget {
   const ResetOtpScreen({required this.viewModel});
@@ -57,7 +57,7 @@ class _ResetOtpScreen extends State<ResetOtpScreen> {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
-        backgroundColor: const Color(0XFFf6f2e7),
+        backgroundColor: const AppColor.getColor().creamColor,
         floatingActionButton: FloatingActionButton(
           elevation: 0,
           onPressed: () {
@@ -68,45 +68,45 @@ class _ResetOtpScreen extends State<ResetOtpScreen> {
         ),
         body: BackgroundWidget(
           child: SizedBox(
-            height: MediaQuery.of(context).size.height,
-            width: MediaQuery.of(context).size.width,
+            height: context.getScreenHeight(aspectRatio: 1),
+            width: context.getScreenWidth(aspectRatio: 1),
             child: SingleChildScrollView(
-              padding: const EdgeInsets.fromLTRB(20, 0, 30, 20),
+              padding: const EdgeInsets.fromLTRB(
+                  Dimensions.s20, 0, Dimensions.s30, Dimensions.s20),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   IconButton(
-                    onPressed: () {
-                      AppRoutes.dismiss(context);
-                    },
-                    icon: const Icon(
+                    onPressed: () => AppRoutes.dismiss(context),
+                    icon: Icon(
                       Icons.arrow_back_ios,
-                      size: 30,
-                      color: Colors.black,
+                      size: Dimensions.s30,
+                      color: const AppColor.getColor().black,
                     ),
                   ),
-                  const SizedBox(height: 15),
+                  const SizedBox(height: Dimensions.s15),
                   Text(
                     Constants.verifyYourNumber,
-                    style: AppTextStyle.getStyle()
-                        .openSansSemiBold!
-                        .copyWith(fontSize: 22, color: Colors.black),
+                    style: AppTextStyle.getStyle().openSansSemiBold!.copyWith(
+                        fontSize: Dimensions.s22,
+                        color: const AppColor.getColor().black),
                   ),
-                  const SizedBox(height: 80),
+                  const SizedBox(height: Dimensions.s80),
                   Padding(
-                    padding: const EdgeInsets.only(left: 20, right: 110),
+                    padding: const EdgeInsets.only(
+                        left: Dimensions.s20, right: Dimensions.s110),
                     child: PinCodeTextField(
                       autoFocus: true,
                       enablePinAutofill: true,
                       appContext: context,
-                      pastedTextStyle: const TextStyle(
-                        color: Colors.grey,
+                      pastedTextStyle: TextStyle(
+                        color: const AppColor.getColor().grey,
                         fontWeight: FontWeight.bold,
                       ),
                       length: 4,
                       obscureText: true,
-                      textStyle: const TextStyle(
-                        color: Colors.grey,
+                      textStyle: TextStyle(
+                        color: const AppColor.getColor().grey,
                         fontWeight: FontWeight.bold,
                       ),
                       obscuringCharacter: 'X',
@@ -122,14 +122,14 @@ class _ResetOtpScreen extends State<ResetOtpScreen> {
                       pinTheme: PinTheme(
                         shape: PinCodeFieldShape.box,
                         borderRadius: BorderRadius.circular(5),
-                        fieldHeight: 35,
-                        fieldWidth: 35,
-                        activeFillColor: Colors.white,
-                        activeColor: Colors.white,
-                        selectedColor: Colors.white,
-                        inactiveColor: Colors.white,
-                        inactiveFillColor: Colors.white,
-                        selectedFillColor: Colors.white,
+                        fieldHeight: Dimensions.s35,
+                        fieldWidth: Dimensions.s35,
+                        activeFillColor: const AppColor.getColor().white,
+                        activeColor: const AppColor.getColor().white,
+                        selectedColor: const AppColor.getColor().white,
+                        inactiveColor: const AppColor.getColor().white,
+                        inactiveFillColor: const AppColor.getColor().white,
+                        selectedFillColor: const AppColor.getColor().white,
                       ),
                       controller: widget.viewModel.otpController,
                       cursorColor: Colors.black,
@@ -150,16 +150,17 @@ class _ResetOtpScreen extends State<ResetOtpScreen> {
                       },
                     ),
                   ),
-                  const SizedBox(height: 100),
+                  const SizedBox(height: Dimensions.s100),
                   Padding(
-                    padding: const EdgeInsets.only(left: 10, right: 10),
+                    padding: const EdgeInsets.only(
+                        left: Dimensions.s10, right: Dimensions.s10),
                     child: Row(
                       children: [
                         Text(
                           Constants.otpShouldArrive + '$startTimer' + "s.",
                           style: AppTextStyle.getStyle()
                               .openSansRegular!
-                              .copyWith(color: Colors.black),
+                              .copyWith(color: const AppColor.getColor().black),
                         ),
                         TextButton(
                           onPressed: () {
@@ -174,7 +175,8 @@ class _ResetOtpScreen extends State<ResetOtpScreen> {
                             Constants.resendOTP,
                             style: AppTextStyle.getStyle()
                                 .openSansBold!
-                                .copyWith(color: Colors.black),
+                                .copyWith(
+                                    color: const AppColor.getColor().black),
                           ),
                         ),
                       ],

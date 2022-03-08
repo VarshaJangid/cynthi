@@ -2,8 +2,10 @@ import 'package:pin_code_fields/pin_code_fields.dart';
 import '/ui/register/mobile_view_model.dart';
 import 'package:flutter/material.dart';
 import '/utils/app_text_style.dart';
-import '/utils/app_methods.dart';
 import '/utils/app_constant.dart';
+import '/utils/theme_color.dart';
+import '/utils/app_methods.dart';
+import '/utils/dimensions.dart';
 
 class OtpVerifyScreen extends StatelessWidget {
   const OtpVerifyScreen({Key? key, required this.otp, required this.viewModel})
@@ -16,7 +18,8 @@ class OtpVerifyScreen extends StatelessWidget {
     String twoDigits(int n) => n.toString().padLeft(2, '0');
     final seconds = twoDigits(viewModel.duration.inSeconds.remainder(60));
     return Padding(
-      padding: const EdgeInsets.fromLTRB(20, 0, 20, 20),
+      padding: const EdgeInsets.fromLTRB(
+          Dimensions.s20, 0, Dimensions.s20, Dimensions.s20),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -28,22 +31,23 @@ class OtpVerifyScreen extends StatelessWidget {
             icon:
                 const Icon(Icons.arrow_back_ios, size: 30, color: Colors.black),
           ),
-          const SizedBox(height: 15),
+          const SizedBox(height: Dimensions.s15),
           Text(
             Constants.verifyYourNumber,
             style: AppTextStyle.getStyle()
                 .openSansSemiBold!
-                .copyWith(fontSize: 22, color: Colors.black),
+                .copyWith(fontSize: Dimensions.s22, color: Colors.black),
           ),
-          const SizedBox(height: 80),
+          const SizedBox(height: Dimensions.s80),
           Padding(
-            padding: const EdgeInsets.only(left: 20, right: 110),
+            padding: const EdgeInsets.only(
+                left: Dimensions.s20, right: Dimensions.s110),
             child: PinCodeTextField(
               autoFocus: true,
               enablePinAutofill: true,
               appContext: context,
-              pastedTextStyle: const TextStyle(
-                color: Colors.grey,
+              pastedTextStyle: TextStyle(
+                color: const AppColor.getColor().grey,
                 fontWeight: FontWeight.bold,
               ),
               length: 4,
@@ -65,17 +69,17 @@ class OtpVerifyScreen extends StatelessWidget {
               pinTheme: PinTheme(
                 shape: PinCodeFieldShape.box,
                 borderRadius: BorderRadius.circular(5),
-                fieldHeight: 35,
-                fieldWidth: 35,
-                activeFillColor: Colors.white,
-                activeColor: Colors.white,
-                selectedColor: Colors.white,
-                inactiveColor: Colors.white,
-                inactiveFillColor: Colors.white,
-                selectedFillColor: Colors.white,
+                fieldHeight: Dimensions.s35,
+                fieldWidth: Dimensions.s35,
+                activeFillColor: const AppColor.getColor().white,
+                activeColor: const AppColor.getColor().white,
+                selectedColor: const AppColor.getColor().white,
+                inactiveColor: const AppColor.getColor().white,
+                inactiveFillColor: const AppColor.getColor().white,
+                selectedFillColor: const AppColor.getColor().white,
               ),
               controller: viewModel.otpController,
-              cursorColor: Colors.black,
+              cursorColor: const AppColor.getColor().black,
               animationDuration: const Duration(milliseconds: 300),
               enableActiveFill: true,
               keyboardType: TextInputType.number,
@@ -93,7 +97,7 @@ class OtpVerifyScreen extends StatelessWidget {
               },
             ),
           ),
-          const SizedBox(height: 100),
+          const SizedBox(height: Dimensions.s100),
           GestureDetector(
             onTap: () {
               if (seconds.toString() != "00") {
@@ -107,13 +111,13 @@ class OtpVerifyScreen extends StatelessWidget {
                 text: Constants.otpShouldArrive + seconds + "s. ",
                 style: AppTextStyle.getStyle()
                     .openSansRegular!
-                    .copyWith(color: Colors.black),
+                    .copyWith(color: const AppColor.getColor().black),
                 children: [
                   TextSpan(
                     text: Constants.resendOTP,
                     style: AppTextStyle.getStyle()
                         .openSansBold!
-                        .copyWith(color: Colors.black),
+                        .copyWith(color: const AppColor.getColor().black),
                   ),
                 ],
               ),

@@ -1,8 +1,11 @@
 import 'package:percent_indicator/linear_percent_indicator.dart';
 import '/ui/component/background_widget.dart';
+import '/utils/context_extension.dart';
 import 'package:flutter/material.dart';
 import 'package:stacked/stacked.dart';
+import '/utils/theme_color.dart';
 import 'mobile_view_model.dart';
+import '/utils/dimensions.dart';
 
 class RegisterScreen extends StatelessWidget {
   const RegisterScreen({Key? key}) : super(key: key);
@@ -28,15 +31,15 @@ class RegisterScreen extends StatelessWidget {
                         child: const Icon(Icons.arrow_forward_ios),
                       )
                     : Container(),
-            backgroundColor: const Color(0XFFf6f2e7),
+            backgroundColor: const AppColor.getColor().creamColor,
             body: BackgroundWidget(
               child: SingleChildScrollView(
                 child: SizedBox(
-                  height: MediaQuery.of(context).size.height,
-                  width: MediaQuery.of(context).size.width,
+                  height: context.getScreenHeight(aspectRatio: 1),
+                  width: context.getScreenWidth(aspectRatio: 1),
                   child: Column(
                     children: [
-                      const SizedBox(height: 10),
+                      const SizedBox(height: Dimensions.s10),
                       LinearPercentIndicator(
                         padding: const EdgeInsets.all(00),
                         width: MediaQuery.of(context).size.width,
@@ -44,7 +47,7 @@ class RegisterScreen extends StatelessWidget {
                         percent: viewModel.getCompletionPercentage(),
                         progressColor: const Color(0XFF08263d),
                       ),
-                      const SizedBox(height: 20),
+                      const SizedBox(height: Dimensions.s20),
                       viewModel.registerFlow(),
                     ],
                   ),

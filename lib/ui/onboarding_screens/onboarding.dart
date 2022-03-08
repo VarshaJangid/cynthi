@@ -1,12 +1,12 @@
-import '/ui/register/register_screen.dart';
-import '/utils/app_text_style.dart';
-import 'package:flutter/cupertino.dart';
-
 import '/ui/login_with_password/loginwithpassword_screen.dart';
-import '/ui/register/mobile_screen.dart';
+import '/ui/register/register_screen.dart';
+import '/utils/context_extension.dart';
 import 'package:flutter/material.dart';
+import '/utils/app_text_style.dart';
 import '/utils/app_constant.dart';
+import '/utils/theme_color.dart';
 import '/utils/app_assets.dart';
+import '/utils/dimensions.dart';
 import '/utils/app_route.dart';
 import 'dart:async';
 
@@ -82,20 +82,27 @@ class _BodyState extends State<Body> {
     Size size = MediaQuery.of(context).size;
     return SafeArea(
       child: Container(
-        color: const Color(0XFF08263d),
-        padding:
-            const EdgeInsets.only(top: 25, left: 20, right: 20, bottom: 20),
+        color: const AppColor.getColor().theme,
+        padding: const EdgeInsets.only(
+            top: Dimensions.s25,
+            left: Dimensions.s20,
+            right: Dimensions.s20,
+            bottom: Dimensions.s20),
         child: Column(
           children: [
             const Spacer(),
-            Image.asset(Assets.logo, width: 100, height: 100, fit: BoxFit.fill),
-            const SizedBox(height: 30),
+            Image.asset(Assets.logo,
+                width: Dimensions.s100,
+                height: Dimensions.s100,
+                fit: BoxFit.fill),
+            const SizedBox(height: Dimensions.s30),
             Text(
               Constants.cynthians,
-              style:
-                  AppTextStyle.getStyle().comfortaaBold!.copyWith(fontSize: 30),
+              style: AppTextStyle.getStyle()
+                  .comfortaaBold!
+                  .copyWith(fontSize: Dimensions.s30),
             ),
-            const SizedBox(height: 30),
+            const SizedBox(height: Dimensions.s30),
             SizedBox(
               height: size.height * 0.38,
               child: PageView.builder(
@@ -120,35 +127,37 @@ class _BodyState extends State<Body> {
               children: List.generate(
                 onBoardingData.length,
                 (index) => Container(
-                  margin: const EdgeInsets.only(right: 15),
-                  height: currentPage == index ? 20 : 13,
-                  width: currentPage == index ? 20 : 13,
+                  margin: const EdgeInsets.only(right: Dimensions.s15),
+                  height:
+                      currentPage == index ? Dimensions.s20 : Dimensions.s13,
+                  width: currentPage == index ? Dimensions.s20 : Dimensions.s13,
                   decoration: BoxDecoration(
-                    color: currentPage == index ? Colors.white : Colors.white,
-                    border: Border.all(color: Colors.black),
-                    borderRadius: const BorderRadius.all(Radius.circular(10)),
+                    color: Colors.white,
+                    border: Border.all(color: const AppColor.getColor().black),
+                    borderRadius:
+                        const BorderRadius.all(Radius.circular(Dimensions.s10)),
                   ),
                 ),
               ),
             ),
             const Spacer(),
             TextButton(
-              onPressed: () => AppRoutes.goto(context, RegisterScreen()),
+              onPressed: () => AppRoutes.goto(context, const RegisterScreen()),
               child: Container(
-                width: MediaQuery.of(context).size.width * .8,
+                width: context.getScreenWidth(),
                 color: Colors.white,
-                height: 50,
+                height: Dimensions.s50,
                 child: Center(
                   child: Text(
                     Constants.letsGetStarted,
-                    style: AppTextStyle.getStyle()
-                        .openSansBold!
-                        .copyWith(color: const Color(0XFF08263d), fontSize: 12),
+                    style: AppTextStyle.getStyle().openSansBold!.copyWith(
+                        color: const AppColor.getColor().theme,
+                        fontSize: Dimensions.s12),
                   ),
                 ),
               ),
             ),
-            Spacer(),
+            const Spacer(),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
@@ -156,7 +165,7 @@ class _BodyState extends State<Body> {
                   Constants.alreadyHaveAccount,
                   style: AppTextStyle.getStyle()
                       .openSansRegular!
-                      .copyWith(fontSize: 13),
+                      .copyWith(fontSize: Dimensions.s13),
                 ),
                 TextButton(
                   onPressed: () =>
@@ -164,7 +173,8 @@ class _BodyState extends State<Body> {
                   child: Text(
                     Constants.login,
                     style: AppTextStyle.getStyle().openSansBold!.copyWith(
-                        decoration: AppTextStyle.underline, fontSize: 14),
+                        decoration: AppTextStyle.underline,
+                        fontSize: Dimensions.s14),
                   ),
                 ),
               ],
@@ -195,8 +205,7 @@ class Content extends StatelessWidget {
       child: Column(
         children: [
           const SizedBox(height: 10),
-          Image.asset(onBoarding,
-              width: 120, height: 120, fit: BoxFit.fill),
+          Image.asset(onBoarding, width: 120, height: 120, fit: BoxFit.fill),
           const SizedBox(height: 20),
           Text(
             welcomeText,

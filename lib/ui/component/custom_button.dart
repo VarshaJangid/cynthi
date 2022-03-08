@@ -1,22 +1,26 @@
+import 'package:cynthi/utils/dimensions.dart';
+import 'package:cynthi/utils/theme_color.dart';
+
 import '/utils/app_text_style.dart';
 import 'package:flutter/material.dart';
+import '/utils/context_extension.dart';
 
 class CustomButton extends StatelessWidget {
   final GestureTapCallback callback;
   final String title;
 
-  CustomButton({required this.callback, required this.title});
+  const CustomButton({required this.callback, required this.title});
 
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      width: MediaQuery.of(context).size.width,
-      height: MediaQuery.of(context).size.height * .08,
+      width: context.getScreenWidth(aspectRatio: 1),
+      height: context.getScreenHeight(aspectRatio: .08),
       child: ElevatedButton(
         style: ElevatedButton.styleFrom(
-            primary: const Color(0XFF08263d),
+            primary: const AppColor.getColor().theme,
             shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(22))),
+                borderRadius: BorderRadius.circular(Dimensions.s22))),
         onPressed: callback,
         child: Text(
           title,

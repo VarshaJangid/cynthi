@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import '/utils/theme_color.dart';
+import '/utils/dimensions.dart';
 
 @immutable
 class AppTextStyle {
@@ -31,35 +33,35 @@ class AppTextStyle {
   });
 
   AppTextStyle.getStyle()
-      : comfortaaBold = const TextStyle(
+      : comfortaaBold = TextStyle(
           fontFamily: _comfortaaBold,
-          fontSize: 25,
-          color: Colors.white,
+          fontSize: Dimensions.s25,
+          color: const AppColor.getColor().white,
           fontWeight: FontWeight.bold,
           inherit: true,
         ),
-        openSansBold = const TextStyle(
+        openSansBold = TextStyle(
           fontFamily: _openSansBold,
-          fontSize: 15,
-          color: Colors.white,
+          fontSize: Dimensions.s15,
+          color: const AppColor.getColor().white,
           inherit: true,
         ),
-        openSansRegular = const TextStyle(
+        openSansRegular = TextStyle(
           fontFamily: _openSansRegular,
-          fontSize: 15,
-          color: Colors.white,
+          fontSize: Dimensions.s15,
+          color: const AppColor.getColor().white,
           inherit: true,
         ),
-        openSansExtraBold = const TextStyle(
+        openSansExtraBold = TextStyle(
           fontFamily: _openSansExtraBold,
-          fontSize: 15,
-          color: Colors.white,
+          fontSize: Dimensions.s15,
+          color: const AppColor.getColor().white,
           inherit: true,
         ),
-        openSansSemiBold = const TextStyle(
-          fontSize: 15,
+        openSansSemiBold = TextStyle(
+          fontSize: Dimensions.s15,
           fontFamily: _openSansSemibold,
-          color: Colors.white,
+          color: const AppColor.getColor().white,
           inherit: false,
         );
 }

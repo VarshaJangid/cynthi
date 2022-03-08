@@ -111,14 +111,14 @@ class Constants {
   static const String letsGetStarted = "LET'S GET STARTED";
 
   static const String placeToLearn = "This is a place to learn, plan & grow.";
-}
 
-class AuthConstants{
-  static const String studentID = "studentID";
-  static const String firstName = "firstName";
-  static const String lastName = "lastName";
-  static const String gender = "gender";
-  static const String mobileNo = "mobileNo";
-  static const String token = "token";
+  static const String appFor = 'App for ';
 
+  static const String knowledge = 'Knowledge';
+
+  static const String enterLocation = 'Enter Location';
+
+  static const String imageRequired = 'Image is required !!!';
+
+  static const String locationRequired = 'Location is required !!! !!!';
 }

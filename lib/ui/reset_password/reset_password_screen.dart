@@ -3,8 +3,11 @@ import '/ui/component/background_widget.dart';
 import '/ui/component/app_text_field.dart';
 import '/ui/component/custom_button.dart';
 import 'package:flutter/material.dart';
+import '/utils/context_extension.dart';
 import '/utils/app_text_style.dart';
 import '/utils/app_constant.dart';
+import '/utils/theme_color.dart';
+import '/utils/dimensions.dart';
 import '/utils/app_route.dart';
 
 class ResetPasswordScreen extends StatefulWidget {
@@ -20,7 +23,7 @@ class _ResetPasswordScreen extends State<ResetPasswordScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color(0XFFf6f2e7),
+      backgroundColor: const AppColor.getColor().creamColor,
       appBar: AppBar(
         elevation: 0,
         backgroundColor: Colors.transparent,
@@ -33,28 +36,28 @@ class _ResetPasswordScreen extends State<ResetPasswordScreen> {
         ),
       ),
       body: BackgroundWidget(
-        child: Container(
-          height: MediaQuery.of(context).size.height,
-          width: MediaQuery.of(context).size.width,
+        child: SizedBox(
+          height: context.getScreenHeight(aspectRatio: 1),
+          width: context.getScreenWidth(aspectRatio: 1),
           child: SingleChildScrollView(
-            padding: const EdgeInsets.fromLTRB(20, 10, 20, 0),
+            padding: const EdgeInsets.fromLTRB(
+                Dimensions.s20, Dimensions.s10, Dimensions.s20, 0),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
                   Constants.resetYourPassword,
-                  style: AppTextStyle.getStyle()
-                      .openSansBold!
-                      .copyWith(fontSize: 24, color: Colors.black),
+                  style: AppTextStyle.getStyle().openSansBold!.copyWith(
+                      fontSize: Dimensions.s25,
+                      color: const AppColor.getColor().black),
                 ),
-                const SizedBox(height: 10),
+                const SizedBox(height: Dimensions.s10),
                 Text(
                   Constants.yourNewPassword,
-                  style: AppTextStyle.getStyle()
-                      .openSansRegular!
-                      .copyWith(fontSize: 20, color: const Color(0XFF666666)),
+                  style: AppTextStyle.getStyle().openSansRegular!.copyWith(
+                      fontSize: Dimensions.s20, color: const Color(0XFF666666)),
                 ),
-                const SizedBox(height: 60),
+                const SizedBox(height: Dimensions.s60),
                 AppTextField(
                   obscureText: !showPassword,
                   controller: widget.viewModel.pass,
@@ -62,7 +65,7 @@ class _ResetPasswordScreen extends State<ResetPasswordScreen> {
                   isIcon: true,
                   iconPressed: () => togglePassVisibility(),
                 ),
-                const SizedBox(height: 30),
+                const SizedBox(height: Dimensions.s30),
                 AppTextField(
                   controller: widget.viewModel.confirmPass,
                   labelText: Constants.confirmPassword,
@@ -70,7 +73,7 @@ class _ResetPasswordScreen extends State<ResetPasswordScreen> {
                   iconPressed: () => toggleConfirmPassVisibility(),
                   obscureText: !showConfirmPassword,
                 ),
-                const SizedBox(height: 40),
+                const SizedBox(height: Dimensions.s40),
                 CustomButton(
                   title: Constants.resetPassword.toUpperCase(),
                   callback: () {
@@ -87,8 +90,11 @@ class _ResetPasswordScreen extends State<ResetPasswordScreen> {
   }
 
   bool _showPassword = false;
+  bool _showConfirmPassword = false;
 
   bool get showPassword => _showPassword;
+
+  bool get showConfirmPassword => _showConfirmPassword;
 
   //show Password
   void togglePassVisibility() {
@@ -96,10 +102,6 @@ class _ResetPasswordScreen extends State<ResetPasswordScreen> {
       _showPassword = !_showPassword;
     });
   }
-
-  bool _showConfirmPassword = false;
-
-  bool get showConfirmPassword => _showConfirmPassword;
 
   //show Confirm Password
   void toggleConfirmPassVisibility() {
