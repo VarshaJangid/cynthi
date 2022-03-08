@@ -16,7 +16,6 @@ import '/model/register_model.dart';
 import '/model/gender_model.dart';
 import '/utils/app_methods.dart';
 import '/utils/app_route.dart';
-import 'dart:typed_data';
 import 'dart:convert';
 import 'dart:async';
 import 'dart:io';
@@ -306,54 +305,48 @@ class MobileViewModel extends BaseViewModel {
   }
 
   registerUser(BuildContext context) async {
-    Uint8List imageBytes = await imageFile!.readAsBytes();
-    String base64string = base64.encode(imageBytes);
+    // Uint8List imageBytes = await imageFile!.readAsBytes();
+    // String base64string = base64.encode(imageBytes);
 
     //File Name
-    String fileName = imageFile!.path.split('/').last.toString();
-    print("First name ---- ${firstName.text}");
-    print("last name ---- ${lastName.text}");
-    print("mobile ----$countryCode${mobileNumber.text}");
-    print("password ---- ${password.text}");
-    print("Date picked ---- $datePicked");
-    print("gender ---- $selectedGender");
-    print("base64string ---- $base64string");
-    print("fileName ---- $fileName");
+    // String fileName = imageFile!.path.split('/').last.toString();
+
+    // print("fileName ---- $fileName");
 
     Map<String, String> params = {
       'mobile': mobileNumber.text,
       'fname': firstName.text,
       'lname': lastName.text,
-      'password': password.text,
+      'confirmPassword': password.text,
       'source_id': '1',
       'student_dob': datePicked.toString().substring(0, 10),
       'gender': selectedGender,
-      'profilepicurl': base64string,
-      'file_name': fileName,
+      'city': locationController.text,
+      'state': "state",
+      'profilepic': '${imageFile.toString().replaceAll("File: ", "")}',
+      // 'file_name': fileName,
     };
+    print("params ------- ${params}");
     try {
       showLoadingDialog(context);
       final response = await http.post(
-          Uri.parse(
-              "https://api.cynthians.com/index.php/api/save_newstudentPassword"),
+          Uri.parse("https://institute.cynthians.com/signup/savenewpassword"),
           body: params);
       if (response.statusCode == 200) {
-        print("Response ----- ${response.body}");
         RegisterModel registerModel =
             RegisterModel.fromJson(jsonDecode(response.body));
+
         if (registerModel.message == 'Password saved successfully') {
           flutterToast(registerModel.message, Colors.green);
           AppRoutes.dismiss(context);
-          getAndSaveToken(context, registerModel.token);
           AppRoutes.goto(context,
               WelcomeScreen(name: firstName.text, imageFile: imageFile!));
         } else {
-          flutterToast(registerModel.message+" Something went wrong !!!", Colors.redAccent);
+          flutterToast(registerModel.message, Colors.redAccent);
         }
       }
     } catch (e) {
-      flutterToast("Something went wrong !!!\n or User already registered",
-          Colors.redAccent);
+      flutterToast("Something went wrong !!!", Colors.redAccent);
       print("Exception in Login API $e");
     }
   }
