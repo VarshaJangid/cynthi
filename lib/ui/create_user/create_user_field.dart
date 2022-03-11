@@ -12,7 +12,7 @@ class CreateUserField extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      height: 50,
+      height: 55,
       width: MediaQuery.of(context).size.width,
       child: TextField(
         obscureText: obscureText,
@@ -21,7 +21,7 @@ class CreateUserField extends StatelessWidget {
         cursorColor: Colors.black,
         decoration: InputDecoration(
           labelText: labelText,
-          contentPadding: const EdgeInsets.only(left: 50),
+          contentPadding: const EdgeInsets.only(left: 20),
           labelStyle: const TextStyle(color: Colors.grey, fontSize: 15),
           filled: true,
           fillColor: const Color(0XFFf6f2e7),

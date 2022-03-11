@@ -19,7 +19,7 @@ class LoginTextField extends StatelessWidget {
       children: [
         Container(
           width: 70,
-          height: 51.8,
+          height: 55,
           // padding: const EdgeInsets.all(7),
           margin: const EdgeInsets.only(top: 16),
           decoration: BoxDecoration(
@@ -43,7 +43,7 @@ class LoginTextField extends StatelessWidget {
         ),
         Container(
           width: MediaQuery.of(context).size.width - 130,
-          height: 51.8,
+          height: 55,
           margin: const EdgeInsets.only(top: 16),
           decoration: BoxDecoration(
             border: Border.all(width: 1, color: Colors.black),

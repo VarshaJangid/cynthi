@@ -1,3 +1,5 @@
+import 'dart:ui';
+
 import '/ui/create_user/create_user_field.dart';
 import '/ui/register/mobile_view_model.dart';
 import '/ui/component/custom_button.dart';
@@ -58,7 +60,8 @@ class CreateUserScreen extends StatelessWidget {
           Row(
             children: [
               SizedBox(
-                width: Dimensions.s150,
+
+                width: Dimensions.s170,
                 child: textField(
                   context,
                   Constants.firstName,
@@ -67,7 +70,7 @@ class CreateUserScreen extends StatelessWidget {
               ),
               const Spacer(),
               SizedBox(
-                width: Dimensions.s150,
+                width: Dimensions.s170,
                 child: textField(
                   context,
                   Constants.lastName,
@@ -76,7 +79,7 @@ class CreateUserScreen extends StatelessWidget {
               ),
             ],
           ),
-          const SizedBox(height: Dimensions.s30),
+          const SizedBox(height: Dimensions.s20),
           CreateUserField(
             obscureText: !viewModel.showPassword,
             controller: viewModel.password,
@@ -84,7 +87,7 @@ class CreateUserScreen extends StatelessWidget {
             isIcon: true,
             iconPressed: () => viewModel.togglePassVisibility(),
           ),
-          const SizedBox(height: Dimensions.s30),
+          const SizedBox(height: Dimensions.s20),
           CreateUserField(
             controller: viewModel.confirmPassword,
             labelText: Constants.confirmPassword,
@@ -92,7 +95,7 @@ class CreateUserScreen extends StatelessWidget {
             iconPressed: () => viewModel.toggleConfirmPassVisibility(),
             obscureText: !viewModel.showConfirmPassword,
           ),
-          const SizedBox(height: Dimensions.s30),
+          const SizedBox(height: Dimensions.s20),
           CustomButton(
               title: Constants.next,
               callback: () {

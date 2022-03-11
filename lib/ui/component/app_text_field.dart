@@ -21,7 +21,7 @@ class AppTextField extends StatelessWidget {
         cursorColor: Colors.black,
         decoration: InputDecoration(
           labelText: labelText,
-          contentPadding: const EdgeInsets.only(left: 50),
+          contentPadding: const EdgeInsets.only(left: 20),
           labelStyle: const TextStyle(color: Colors.black, fontSize: 15),
           filled: true,
           fillColor: const Color(0XFFf6f2e7),

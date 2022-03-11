@@ -77,7 +77,7 @@ class LoginWithPasswordScreen extends StatelessWidget {
                       controller: viewModel.mobileNumber,
                       changedCountry: viewModel.onCountryChange,
                     ),
-                    const SizedBox(height: Dimensions.s30),
+                    const SizedBox(height: Dimensions.s25),
                     AppTextField(
                       obscureText: !viewModel.showPassword,
                       labelText: Constants.enterPassword,
@@ -89,18 +89,16 @@ class LoginWithPasswordScreen extends StatelessWidget {
                     GestureDetector(
                       onTap: () =>
                           AppRoutes.goto(context, const ResetMobileScreen()),
-                      child: Center(
-                        child: Text(
-                          Constants.forgotYourPassword,
-                          style: AppTextStyle.getStyle()
-                              .openSansSemiBold!
-                              .copyWith(
-                                  color: const AppColor.getColor().grey,
-                                  fontSize: Dimensions.s14),
-                        ),
+                      child: Text(
+                        Constants.forgotYourPassword,
+                        style: AppTextStyle.getStyle()
+                            .openSansSemiBold!
+                            .copyWith(
+                                color: const AppColor.getColor().grey,
+                                fontSize: Dimensions.s15),
                       ),
                     ),
-                    const SizedBox(height: Dimensions.s40),
+                    const SizedBox(height: Dimensions.s30),
                     CustomButton(
                       title: Constants.Continue,
                       callback: () => viewModel.validation(context),

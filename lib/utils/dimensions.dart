@@ -52,4 +52,5 @@ class Dimensions {
 
   static const double s120 = 120;
   static const double s150 = 150;
+  static const double s170 = 170;
 }
