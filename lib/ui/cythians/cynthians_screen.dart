@@ -1,10 +1,10 @@
-import 'package:cynthi/ui/explore/explore_screen.dart';
-import 'package:cynthi/utils/app_route.dart';
-import 'package:cynthi/utils/dimensions.dart';
+import 'package:flutter_share/flutter_share.dart';
+import '/ui/explore/explore_screen.dart';
 import 'package:flutter/material.dart';
-import 'package:share_plus/share_plus.dart';
 import '/utils/app_constant.dart';
 import '/utils/app_assets.dart';
+import '/utils/dimensions.dart';
+import '/utils/app_route.dart';
 
 class CythiansScreen extends StatelessWidget {
   const CythiansScreen({Key? key}) : super(key: key);
@@ -133,8 +133,8 @@ class CythiansScreen extends StatelessWidget {
                           ),
                         ),
                         const SizedBox(height: 10),
-                        Center(
-                          child: const Text(
+                        const Center(
+                          child: Text(
                             "IAS, Ketki Sharma\nBatch 1999,\nKanpur",
                             style: TextStyle(
                                 color: Colors.black,
@@ -228,9 +228,8 @@ class CythiansScreen extends StatelessWidget {
                   ],
                 ),
                 GestureDetector(
-                  onTap: () {
-                    Share.share('check out my website www.cynthians.com',
-                        subject: 'Look what I made!');
+                  onTap: () async {
+                    await share();
                   },
                   child: Row(
                     children: [
@@ -250,4 +249,12 @@ class CythiansScreen extends StatelessWidget {
           const SizedBox(height: 20),
         ],
       );
+
+  Future<void> share() async {
+    await FlutterShare.share(
+        title: 'Example share',
+        text: 'Example share text',
+        linkUrl: 'https://flutter.dev/',
+        chooserTitle: 'Example Chooser Title');
+  }
 }
