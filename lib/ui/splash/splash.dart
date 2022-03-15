@@ -4,11 +4,11 @@ import '/ui/dashboard/dashboard_screen.dart';
 import '/utils/context_extension.dart';
 import 'package:flutter/material.dart';
 import '/utils/app_text_style.dart';
-import '/utils/app_constant.dart';
 import '/utils/theme_color.dart';
 import '/utils/dimensions.dart';
 import '/utils/app_assets.dart';
 import '/utils/app_route.dart';
+import '/generated/l10n.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({Key? key}) : super(key: key);
@@ -52,20 +52,20 @@ class _SplashScreenState extends State<SplashScreen> {
               Image.asset(Assets.logo, width: Dimensions.s120),
               const SizedBox(height: Dimensions.s20),
               Text(
-                Constants.cynthians,
+                Strings.of(context).cynthians,
                 style: AppTextStyle.getStyle()
                     .openSansBold!
                     .copyWith(fontSize: Dimensions.s30),
               ),
               RichText(
                 text: TextSpan(
-                  text: Constants.appFor,
+                  text: Strings.of(context).appFor,
                   style: AppTextStyle.getStyle()
                       .openSansSemiBold!
                       .copyWith(fontSize: Dimensions.s22),
                   children: [
                     TextSpan(
-                      text: Constants.knowledge,
+                      text: Strings.of(context).knowledge,
                       style: AppTextStyle.getStyle().openSansSemiBold!.copyWith(
                           fontSize: Dimensions.s22,
                           color: const AppColor.getColor().orange),

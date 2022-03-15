@@ -98,10 +98,6 @@ class Constants {
 
   static const String welcomeText = "Welcome to the\nworld of knowledge";
 
-  static const String alreadyHaveAccount = "Already have an account? ";
-
-  static const String login = "Log in";
-
   static const String bookNow = "BOOK NOW";
 
   static const String topicsCovered = "Topics Covered";
@@ -109,8 +105,6 @@ class Constants {
   static const String startNow = "Start Now";
 
   static const String letsGetStarted = "LET'S GET STARTED";
-
-  static const String placeToLearn = "This is a place to learn, plan & grow.";
 
   static const String appFor = 'App for ';
 

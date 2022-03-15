@@ -51,43 +51,19 @@ class _DashboardState extends State<DashboardScreen> {
         },
         items: [
           BottomNavigationBarItem(
-            title: const Padding(
-              padding: EdgeInsets.only(top: 8),
-              child: Text(
-                Constants.knowledgeHub,
-                style: TextStyle(fontSize: 10),
-              ),
-            ),
+            label:  Constants.knowledgeHub,
             icon: Image.asset(Assets.knowledge),
           ),
           BottomNavigationBarItem(
-            title: const Padding(
-              padding: EdgeInsets.only(top: 8),
-              child: Text(
-                Constants.planner,
-                style: TextStyle(fontSize: 10),
-              ),
-            ),
+            label:  Constants.planner,
             icon: Image.asset(Assets.planner),
           ),
           BottomNavigationBarItem(
-            title: const Padding(
-              padding: EdgeInsets.only(top: 8),
-              child: Text(
-                Constants.cyntest,
-                style: TextStyle(fontSize: 10),
-              ),
-            ),
+            label:  Constants.cyntest,
             icon: Image.asset(Assets.cyntest),
           ),
           BottomNavigationBarItem(
-            title: const Padding(
-              padding: EdgeInsets.only(top: 8),
-              child: Text(
-                Constants.setting,
-                style: TextStyle(fontSize: 10),
-              ),
-            ),
+            label:  Constants.setting,
             icon: Image.asset(Assets.setting),
           ),
         ],
