@@ -26,4 +26,6 @@ class Assets {
   static const String growth = "assets/images/growth.png";
 
   static const String learning = "assets/images/learning.png";
+
+  static const String playShare = "assets/images/playshare.png";
 }

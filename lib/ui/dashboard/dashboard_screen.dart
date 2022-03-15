@@ -131,6 +131,7 @@ void logOutPopup({
     context: context,
     builder: (_) {
       return AlertDialog(
+        
         title: SizedBox(
           child: Stack(
             overflow: Overflow.visible,

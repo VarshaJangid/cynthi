@@ -60,8 +60,7 @@ class CreateUserScreen extends StatelessWidget {
           Row(
             children: [
               SizedBox(
-
-                width: Dimensions.s170,
+                width: context.getScreenWidth(aspectRatio: 1 / 2.4),
                 child: textField(
                   context,
                   Constants.firstName,
@@ -70,7 +69,7 @@ class CreateUserScreen extends StatelessWidget {
               ),
               const Spacer(),
               SizedBox(
-                width: Dimensions.s170,
+                width: context.getScreenWidth(aspectRatio: 1 / 2.4),
                 child: textField(
                   context,
                   Constants.lastName,

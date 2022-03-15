@@ -1,4 +1,8 @@
+import 'package:cynthi/ui/explore/explore_screen.dart';
+import 'package:cynthi/utils/app_route.dart';
+import 'package:cynthi/utils/dimensions.dart';
 import 'package:flutter/material.dart';
+import 'package:share_plus/share_plus.dart';
 import '/utils/app_constant.dart';
 import '/utils/app_assets.dart';
 
@@ -17,7 +21,6 @@ class CythiansScreen extends StatelessWidget {
             ),
             padding: const EdgeInsets.fromLTRB(20, 15, 20, 15),
             margin: const EdgeInsets.fromLTRB(40, 10, 40, 10),
-            // height: 50,
             child: Row(
               children: [
                 Stack(
@@ -47,12 +50,15 @@ class CythiansScreen extends StatelessWidget {
                   ],
                 ),
                 const Spacer(),
-                const Text(
-                  "Explore",
-                  style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 15,
-                      fontWeight: FontWeight.w500),
+                GestureDetector(
+                  onTap: () => AppRoutes.goto(context, ExploreScreen()),
+                  child: const Text(
+                    "Explore",
+                    style: TextStyle(
+                        color: Colors.white,
+                        fontSize: Dimensions.s17,
+                        fontWeight: FontWeight.w500),
+                  ),
                 ),
               ],
             ),
@@ -100,7 +106,6 @@ class CythiansScreen extends StatelessWidget {
     );
   }
 
-
   Widget cythiansWidget(BuildContext context) => Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -132,7 +137,9 @@ class CythiansScreen extends StatelessWidget {
                           child: const Text(
                             "IAS, Ketki Sharma\nBatch 1999,\nKanpur",
                             style: TextStyle(
-                                color: Colors.black, fontWeight: FontWeight.w500, fontSize: 11),
+                                color: Colors.black,
+                                fontWeight: FontWeight.w500,
+                                fontSize: 11),
                           ),
                         ),
                       ],
@@ -144,7 +151,9 @@ class CythiansScreen extends StatelessWidget {
                         const Text(
                           "01:30 PM - 02:30 PM",
                           style: TextStyle(
-                              color: Colors.grey, fontWeight: FontWeight.w500, fontSize: 10),
+                              color: Colors.grey,
+                              fontWeight: FontWeight.w500,
+                              fontSize: 10),
                         ),
                         const SizedBox(height: 10),
                         const Text(
@@ -218,16 +227,22 @@ class CythiansScreen extends StatelessWidget {
                     )
                   ],
                 ),
-                Row(
-                  children: [
-                    Image.asset(Assets.share),
-                    const SizedBox(width: 5),
-                    const Text(
-                      "Share",
-                      style: TextStyle(
-                          color: Colors.white, fontWeight: FontWeight.bold),
-                    )
-                  ],
+                GestureDetector(
+                  onTap: () {
+                    Share.share('check out my website www.cynthians.com',
+                        subject: 'Look what I made!');
+                  },
+                  child: Row(
+                    children: [
+                      Image.asset(Assets.share),
+                      const SizedBox(width: 5),
+                      const Text(
+                        "Share",
+                        style: TextStyle(
+                            color: Colors.white, fontWeight: FontWeight.bold),
+                      )
+                    ],
+                  ),
                 )
               ],
             ),
