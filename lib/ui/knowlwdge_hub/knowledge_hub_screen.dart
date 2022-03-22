@@ -1,3 +1,6 @@
+import 'package:cynthi/ui/story/story_screen.dart';
+import 'package:cynthi/utils/app_route.dart';
+
 import '/ui/knowlwdge_hub/knowledge_view_model.dart';
 import 'package:stacked/stacked.dart';
 import '/ui/coaching/coaching_screen.dart';
@@ -72,18 +75,21 @@ class TabBarDemo extends StatelessWidget {
                             ],
                           ),
                           const Spacer(),
-                          Container(
-                            height: 45,
-                            width: 45,
-                            padding: const EdgeInsets.all(10),
-                            decoration: BoxDecoration(
-                              border:
-                                  Border.all(color: Colors.redAccent, width: 2),
-                              borderRadius: BorderRadius.circular(100),
-                              image: const DecorationImage(
-                                image: NetworkImage(
-                                    "https://picsum.photos/200/300"),
-                                fit: BoxFit.fill,
+                          GestureDetector(
+                            onTap: () => AppRoutes.goto(context, const StoryScreen()),
+                            child: Container(
+                              height: 45,
+                              width: 45,
+                              padding: const EdgeInsets.all(10),
+                              decoration: BoxDecoration(
+                                border: Border.all(
+                                    color: Colors.redAccent, width: 2),
+                                borderRadius: BorderRadius.circular(100),
+                                image: const DecorationImage(
+                                  image: NetworkImage(
+                                      "https://picsum.photos/200/300"),
+                                  fit: BoxFit.fill,
+                                ),
                               ),
                             ),
                           ),
