@@ -1,10 +1,10 @@
-import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:cynthi/utils/app_constant.dart';
+
 import '/ui/component/dismiss_keyboard.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter/material.dart';
 import '/utils/theme_color.dart';
 import '/ui/splash/splash.dart';
-import '/generated/l10n.dart';
 
 void main() {
   SystemChrome.setSystemUIOverlayStyle(
@@ -23,16 +23,11 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return DismissKeyboard(
       child: MaterialApp(
-        title: Strings.of(context).cynthians,
+        title: Constants.cynthians,
         theme: ThemeData(
           primarySwatch: Colors.blue,
         ),
         home: const SplashScreen(),
-        localizationsDelegates: const [
-          Strings.delegate,
-          GlobalMaterialLocalizations.delegate,
-        ],
-        supportedLocales: Strings.delegate.supportedLocales,
       ),
     );
   }

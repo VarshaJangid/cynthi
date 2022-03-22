@@ -9,6 +9,12 @@ class Constants {
 
   static const String privacyPolicy = "Privacy Policy";
 
+  static const String alreadyHaveAccount = "Already have an account? ";
+
+  static const String login = "Log in";
+
+  static const String placeToLearn = "This is a place to learn, plan & grow.";
+
   static const String buCreatingAnAccount =
       "By creating an account, you agree to our ";
 

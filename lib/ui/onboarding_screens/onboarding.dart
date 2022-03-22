@@ -8,7 +8,6 @@ import '/utils/theme_color.dart';
 import '/utils/app_assets.dart';
 import '/utils/dimensions.dart';
 import '/utils/app_route.dart';
-import '/generated/l10n.dart';
 import 'dart:async';
 
 class OnBoardingScreen extends StatelessWidget {
@@ -98,7 +97,7 @@ class _BodyState extends State<Body> {
                 fit: BoxFit.fill),
             const SizedBox(height: Dimensions.s30),
             Text(
-              Strings.of(context).cynthians,
+              Constants.cynthians,
               style: AppTextStyle.getStyle()
                   .comfortaaBold!
                   .copyWith(fontSize: Dimensions.s30),
@@ -150,7 +149,7 @@ class _BodyState extends State<Body> {
                 height: Dimensions.s50,
                 child: Center(
                   child: Text(
-                    Strings.of(context).letsGetStarted,
+                    Constants.letsGetStarted,
                     style: AppTextStyle.getStyle().openSansBold!.copyWith(
                         color: const AppColor.getColor().theme,
                         fontSize: Dimensions.s12),
@@ -163,7 +162,7 @@ class _BodyState extends State<Body> {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Text(
-                  Strings.of(context).alreadyHaveAccount,
+                  Constants.alreadyHaveAccount,
                   style: AppTextStyle.getStyle()
                       .openSansRegular!
                       .copyWith(fontSize: Dimensions.s13),
@@ -172,7 +171,7 @@ class _BodyState extends State<Body> {
                   onPressed: () =>
                       AppRoutes.goto(context, const LoginWithPasswordScreen()),
                   child: Text(
-                    Strings.of(context).login,
+                    Constants.login,
                     style: AppTextStyle.getStyle().openSansBold!.copyWith(
                         decoration: AppTextStyle.underline,
                         fontSize: Dimensions.s14),
@@ -216,7 +215,7 @@ class Content extends StatelessWidget {
           ),
           const SizedBox(height: 25),
           Text(
-            Strings.of(context).placeToLearn,
+            Constants.placeToLearn,
             textAlign: TextAlign.center,
             style: AppTextStyle.getStyle()
                 .openSansSemiBold!
