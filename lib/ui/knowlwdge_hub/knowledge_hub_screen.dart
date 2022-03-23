@@ -49,9 +49,9 @@ class TabBarDemo extends StatelessWidget {
                             decoration: BoxDecoration(
                               color: Colors.white,
                               borderRadius: BorderRadius.circular(100),
-                              image: const DecorationImage(
-                                image: NetworkImage(
-                                    "https://businessadmin.cynthians.com/uploads/students/profile/10_1640157972.jpg"),
+                              image: DecorationImage(
+                                image: NetworkImage(viewModel
+                                    .profileModel!.result.imagewithurl),
                                 fit: BoxFit.fill,
                               ),
                             ),
@@ -76,7 +76,8 @@ class TabBarDemo extends StatelessWidget {
                           ),
                           const Spacer(),
                           GestureDetector(
-                            onTap: () => AppRoutes.goto(context, const StoryScreen()),
+                            onTap: () =>
+                                AppRoutes.goto(context, const StoryScreen()),
                             child: Container(
                               height: 45,
                               width: 45,
