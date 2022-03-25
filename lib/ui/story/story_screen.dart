@@ -1,44 +1,30 @@
-import 'package:cynthi/utils/app_route.dart';
+import '../../model/story_model.dart';
+import '/ui/story/story_view_model.dart';
 import 'package:flutter/material.dart';
+import 'package:stacked/stacked.dart';
 import 'package:story_view/story_view.dart';
 
-class StoryScreen extends StatefulWidget {
-  const StoryScreen({Key? key}) : super(key: key);
-
-  @override
-  _StoryState createState() => _StoryState();
-}
-
-class _StoryState extends State<StoryScreen> {
-  final storyController = StoryController();
-
-  @override
-  void dispose() {
-    storyController.dispose();
-    super.dispose();
-  }
-
+class StoryViewScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: StoryView(
-        storyItems: [
-          StoryItem.text(
-            title: "I guess you'd love to see more of our food. That's great.",
-            backgroundColor: Colors.blue,
-          ),
-          StoryItem.text(
-            title: "Nice!\n\nTap to continue.",
-            backgroundColor: Colors.red,
-            textStyle: const TextStyle(
-              fontFamily: 'Dancing',
-              fontSize: 40,
-            ),
-          ),
-          StoryItem.inlineImage(
-            url:
-            "https://media.giphy.com/media/5GoVLqeAOo6PK/giphy.gif",
-            controller: storyController,
+    return ViewModelBuilder<StoryViewModel>.reactive(
+      viewModelBuilder: () => StoryViewModel(),
+      onModelReady: (viewModel) => viewModel.init(context),
+      builder: (context, viewModel, child) {
+        return Scaffold(
+            body: viewModel.modelList == null ||
+                    viewModel.modelList!.listStoryModelList.isEmpty
+                ? const Center(child: CircularProgressIndicator())
+                : storyWidget(viewModel));
+      },
+    );
+  }
+
+  Widget storyWidget(StoryViewModel viewModel) => StoryView(
+        storyItems: viewModel.modelList!.listStoryModelList.map((e) {
+          return StoryItem.inlineImage(
+            url: "https://media.giphy.com/media/5GoVLqeAOo6PK/giphy.gif",
+            controller: viewModel.storyController,
             caption: Text(
               "Hektas, sektas and skatad",
               style: TextStyle(
@@ -47,22 +33,22 @@ class _StoryState extends State<StoryScreen> {
                 fontSize: 17,
               ),
             ),
-          ),
-          StoryItem.pageVideo(
-              "http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4",
-              controller: storyController),
-        ],
+          );
+        }).toList(),
+        controller: viewModel.storyController,
+
+        // StoryItem.pageVideo(
+        //   "http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4",
+        //   controller: viewModel.storyController,
+        // ),
         onStoryShow: (s) {
           print("Showing a story");
         },
         onComplete: () {
           print("Completed a cycle");
-          AppRoutes.dismiss(context);
+          // AppRoutes.dismiss(context);
         },
         progressPosition: ProgressPosition.top,
         repeat: false,
-        controller: storyController,
-      ),
-    );
-  }
+      );
 }

@@ -1,13 +1,12 @@
-import 'package:cynthi/ui/story/story_screen.dart';
-import 'package:cynthi/utils/app_route.dart';
-
 import '/ui/knowlwdge_hub/knowledge_view_model.dart';
-import 'package:stacked/stacked.dart';
-import '/ui/coaching/coaching_screen.dart';
 import '/ui/cythians/cynthians_screen.dart';
-import '/utils/app_assets.dart';
-import '/utils/app_constant.dart';
+import '/ui/coaching/coaching_screen.dart';
 import 'package:flutter/material.dart';
+import 'package:stacked/stacked.dart';
+import '/ui/story/story_screen.dart';
+import '/utils/app_constant.dart';
+import '/utils/app_assets.dart';
+import '/utils/app_route.dart';
 
 class TabBarDemo extends StatelessWidget {
   const TabBarDemo({Key? key}) : super(key: key);
@@ -77,7 +76,7 @@ class TabBarDemo extends StatelessWidget {
                           const Spacer(),
                           GestureDetector(
                             onTap: () =>
-                                AppRoutes.goto(context, const StoryScreen()),
+                                AppRoutes.goto(context, StoryViewScreen()),
                             child: Container(
                               height: 45,
                               width: 45,
