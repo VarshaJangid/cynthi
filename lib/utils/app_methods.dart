@@ -77,3 +77,23 @@ Future<String> fileToBase64(File file) async{
   }
   return mainImageString!;
 }
+
+//image file to base 64
+
+// Future<String> imageToBase64(File imageFile) async {
+//   String mainImageString;
+//   try {
+//     //Get Image from Image File
+//     final bytes = await imageFile.readAsBytesSync();
+//     IMG.Image image = IMG.decodeImage(bytes);
+//
+//     // Resize the image to a 120x? thumbnail (maintaining the aspect ratio).
+//     // IMG.Image thumbnail = IMG.copyResize(image, width: 300, height: 200);
+//     List<int> imageBytes = IMG.encodeJpg(image);
+//     String base64Image = base64Encode(imageBytes);
+//     mainImageString = '$base64Image';
+//   } catch (e) {
+//     print('Base 64 error FullSize $e');
+//   }
+//   return mainImageString;
+// }

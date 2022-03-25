@@ -12,8 +12,10 @@ import 'dart:io';
 class KnowledgeViewModel extends BaseViewModel {
   File? imageFile = File("");
   ProfileModel? profileModel;
+
   init(BuildContext context) {
-    Future.delayed(Duration(milliseconds: 500), () => studentData(context));
+    Future.delayed(Duration(milliseconds: 500), () => masterClassLive(context));
+    Future.delayed(Duration(milliseconds: 1000), () => studentData(context));
   }
 
   studentData(BuildContext context) async {
@@ -29,8 +31,25 @@ class KnowledgeViewModel extends BaseViewModel {
               "https://api.cynthians.com/index.php/api/getstudentdetails"),
           body: params);
       if (response.statusCode == 200) {
-        profileModel =
-        ProfileModel.fromJson(jsonDecode(response.body));
+        profileModel = ProfileModel.fromJson(jsonDecode(response.body));
+        notifyListeners();
+        AppRoutes.dismiss(context);
+      }
+    } catch (e) {
+      flutterToast("Something went wrong !!!", Colors.redAccent);
+      Exception("Exception in Login API $e");
+    }
+  }
+
+  masterClassLive(BuildContext context) async {
+    try {
+      showLoadingDialog(context);
+      final response = await http.get(
+        Uri.parse("https://codevweb.com/demo/api/masterclasslive"),
+      );
+
+      if (response.statusCode == 200) {
+        print("res ---- ${response.body}");
         notifyListeners();
         AppRoutes.dismiss(context);
       }
