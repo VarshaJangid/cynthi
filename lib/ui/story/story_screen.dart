@@ -1,10 +1,13 @@
-import '../../model/story_model.dart';
+import 'dart:convert';
+import '../../utils/app_route.dart';
 import '/ui/story/story_view_model.dart';
 import 'package:flutter/material.dart';
 import 'package:stacked/stacked.dart';
 import 'package:story_view/story_view.dart';
 
 class StoryViewScreen extends StatelessWidget {
+  const StoryViewScreen({Key? key}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     return ViewModelBuilder<StoryViewModel>.reactive(
@@ -15,38 +18,45 @@ class StoryViewScreen extends StatelessWidget {
             body: viewModel.modelList == null ||
                     viewModel.modelList!.listStoryModelList.isEmpty
                 ? const Center(child: CircularProgressIndicator())
-                : storyWidget(viewModel));
+                : storyWidget(viewModel, context));
       },
     );
   }
 
-  Widget storyWidget(StoryViewModel viewModel) => StoryView(
+  Widget storyWidget(StoryViewModel viewModel, BuildContext context) =>
+      StoryView(
         storyItems: viewModel.modelList!.listStoryModelList.map((e) {
-          return StoryItem.inlineImage(
-            url: "https://media.giphy.com/media/5GoVLqeAOo6PK/giphy.gif",
-            controller: viewModel.storyController,
-            caption: Text(
-              "Hektas, sektas and skatad",
-              style: TextStyle(
-                color: Colors.white,
-                backgroundColor: Colors.black54,
-                fontSize: 17,
-              ),
-            ),
-          );
+          String foo = e.story.split('.')[0];
+          List<int> res = base64.decode(base64.normalize(foo));
+          String urlImage = utf8.decode(res);
+          List<String> tmpList = urlImage.split('.');
+          String fileType = tmpList[tmpList.length - 1];
+          return fileType != "mp4"
+              ? StoryItem.inlineImage(
+                  url: urlImage,
+                  controller: viewModel.storyController,
+                  caption: Text(
+                    e.name,
+                    style: const TextStyle(
+                        fontSize: 15,
+                        color: Colors.white,
+                        backgroundColor: Colors.black54),
+                    textAlign: TextAlign.center,
+                  ),
+                )
+              : StoryItem.pageVideo(
+                  urlImage,
+                  controller: viewModel.storyController,
+                  caption: e.name,
+                );
         }).toList(),
         controller: viewModel.storyController,
-
-        // StoryItem.pageVideo(
-        //   "http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4",
-        //   controller: viewModel.storyController,
-        // ),
         onStoryShow: (s) {
           print("Showing a story");
         },
         onComplete: () {
           print("Completed a cycle");
-          // AppRoutes.dismiss(context);
+          AppRoutes.dismiss(context);
         },
         progressPosition: ProgressPosition.top,
         repeat: false,
