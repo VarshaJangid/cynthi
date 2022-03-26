@@ -29,6 +29,7 @@ class StoryViewScreen extends StatelessWidget {
           String foo = e.story.split('.')[0];
           List<int> res = base64.decode(base64.normalize(foo));
           String urlImage = utf8.decode(res);
+          print("Image URl ------ $urlImage");
           List<String> tmpList = urlImage.split('.');
           String fileType = tmpList[tmpList.length - 1];
           return fileType != "mp4"

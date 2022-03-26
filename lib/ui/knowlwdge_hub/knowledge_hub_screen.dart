@@ -76,7 +76,7 @@ class TabBarDemo extends StatelessWidget {
                           const Spacer(),
                           GestureDetector(
                             onTap: () =>
-                                AppRoutes.goto(context, StoryViewScreen()),
+                                AppRoutes.goto(context, const StoryViewScreen()),
                             child: Container(
                               height: 45,
                               width: 45,
@@ -110,11 +110,11 @@ class TabBarDemo extends StatelessWidget {
                         ],
                       ),
               ),
-              body: const TabBarView(
+              body: TabBarView(
                 children: [
-                  CythiansScreen(),
-                  CoachingScreen(),
-                  Icon(Icons.directions_bike),
+                  CythiansScreen(viewModel:viewModel),
+                  const CoachingScreen(),
+                  const Icon(Icons.directions_bike),
                 ],
               ),
             ),

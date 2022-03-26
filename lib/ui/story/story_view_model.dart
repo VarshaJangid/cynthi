@@ -17,7 +17,7 @@ class StoryViewModel extends BaseViewModel {
   }
 
   init(BuildContext context) {
-    Future.delayed(Duration(milliseconds: 500), () => storyAPI(context));
+    Future.delayed(const Duration(milliseconds: 500), () => storyAPI(context));
   }
 
   storyAPI(BuildContext context) async {

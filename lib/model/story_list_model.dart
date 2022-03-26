@@ -1,4 +1,4 @@
-import 'package:cynthi/model/story_model.dart';
+import '/model/story_model.dart';
 
 class StoryListModel {
   List<StoryModel> listStoryModelList;
