@@ -1,10 +1,7 @@
 import 'dart:convert';
-import 'dart:typed_data';
-
-import 'package:cynthi/model/master_class_model.dart';
-import 'package:cynthi/utils/app_text_style.dart';
-import 'package:cynthi/utils/theme_color.dart';
-
+import '/model/master_class_model.dart';
+import '/utils/app_text_style.dart';
+import '/utils/theme_color.dart';
 import '/ui/knowlwdge_hub/knowledge_view_model.dart';
 import 'package:flutter_share/flutter_share.dart';
 import '/ui/explore/explore_screen.dart';
@@ -61,7 +58,7 @@ class CythiansScreen extends StatelessWidget {
                 ),
                 const Spacer(),
                 GestureDetector(
-                  onTap: () => AppRoutes.goto(context, ExploreScreen()),
+                  onTap: () => AppRoutes.goto(context, const ExploreScreen()),
                   child: const Text(
                     "Explore",
                     style: TextStyle(
@@ -112,7 +109,6 @@ class CythiansScreen extends StatelessWidget {
       BuildContext context, MasterClassLiveModel masterModel) {
     List<int> res = base64.decode(base64.normalize(masterModel.facultyImage));
     String urlImage = utf8.decode(res);
-    print("Image URl ------ $urlImage");
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -211,18 +207,29 @@ class CythiansScreen extends StatelessWidget {
               left: 120,
               right: 110,
               bottom: -12 * 2,
-              child: Container(
-                padding: const EdgeInsets.all(10),
-                decoration: BoxDecoration(
-                    color: Colors.blue,
-                    borderRadius: BorderRadius.circular(25)),
-                child: const Center(
-                  child: Text(
-                    Constants.bookNow,
-                    style: TextStyle(
-                        fontWeight: FontWeight.w500,
-                        fontSize: 13,
-                        color: Colors.white),
+              child: GestureDetector(
+                onTap: () {
+                  viewModel.bookNow(
+                      context,
+                      masterModel.id,
+                      '1',
+                      masterModel.amount,
+                      '1',
+                      viewModel.profileModel!.result.id);
+                },
+                child: Container(
+                  padding: const EdgeInsets.all(10),
+                  decoration: BoxDecoration(
+                      color: Colors.blue,
+                      borderRadius: BorderRadius.circular(25)),
+                  child: const Center(
+                    child: Text(
+                      Constants.bookNow,
+                      style: TextStyle(
+                          fontWeight: FontWeight.w500,
+                          fontSize: 13,
+                          color: Colors.white),
+                    ),
                   ),
                 ),
               ),

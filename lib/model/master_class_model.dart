@@ -13,6 +13,7 @@ String masterClassLiveModelToJson(List<MasterClassLiveModel> data) =>
 
 class MasterClassLiveModel {
   MasterClassLiveModel({
+    this.id = '',
     this.facultyName = '',
     this.facultyExperties = '',
     this.facultyExperience = '',
@@ -25,6 +26,7 @@ class MasterClassLiveModel {
     this.topicCoverd = '',
   });
 
+  String id;
   String facultyName;
   String facultyExperties;
   String facultyExperience;
@@ -38,6 +40,7 @@ class MasterClassLiveModel {
 
   factory MasterClassLiveModel.fromJson(Map<String, dynamic> json) =>
       MasterClassLiveModel(
+        id: json["id"],
         facultyName: json["faculty_name"],
         facultyExperties: json["faculty_experties"],
         facultyExperience: json["faculty_experience"],
@@ -51,6 +54,7 @@ class MasterClassLiveModel {
       );
 
   Map<String, dynamic> toJson() => {
+        "id": id,
         "faculty_name": facultyName,
         "faculty_experties": facultyExperties,
         "faculty_experience": facultyExperience,

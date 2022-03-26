@@ -15,8 +15,10 @@ class KnowledgeViewModel extends BaseViewModel {
   MasterClassListModel? listModel;
 
   init(BuildContext context) {
-    Future.delayed(const Duration(milliseconds: 500), () => masterClassLive(context));
-    Future.delayed(const Duration(milliseconds: 1000), () => studentData(context));
+    Future.delayed(
+        const Duration(milliseconds: 500), () => masterClassLive(context));
+    Future.delayed(
+        const Duration(milliseconds: 1000), () => studentData(context));
   }
 
   masterClassLive(BuildContext context) async {
@@ -55,6 +57,35 @@ class KnowledgeViewModel extends BaseViewModel {
         profileModel = ProfileModel.fromJson(jsonDecode(response.body));
         notifyListeners();
         AppRoutes.dismiss(context);
+      }
+    } catch (e) {
+      flutterToast("Something went wrong !!!", Colors.redAccent);
+      Exception("Exception in Login API $e");
+    }
+  }
+
+  // Book Now
+  bookNow(BuildContext context, String lactureId, String transactionId,
+      String amount, String status, String studentId) async {
+    Map<String, String> params = {
+      'lacture_id': "1",
+      'transaction_id': "21",
+      'amount': "250",
+      'status': "1",
+      'student_id': "1",
+    };
+    try {
+      final response = await http.post(
+          Uri.parse("https://codevweb.com/demo/api/booklacture"),
+          body: params);
+      if (response.statusCode == 200) {
+        final valur = jsonDecode(response.body);
+        notifyListeners();
+        if (valur == "Your Lacture Have been successfully Booked") {
+          flutterToast(valur, Colors.green);
+        } else {
+          flutterToast(valur, Colors.redAccent);
+        }
       }
     } catch (e) {
       flutterToast("Something went wrong !!!", Colors.redAccent);
