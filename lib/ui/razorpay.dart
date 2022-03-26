@@ -32,6 +32,7 @@ class _VarshaJangidState extends State<VarshaJangid> {
 
   void _handlePaymentSuccess(PaymentSuccessResponse response) {
     print("_handlePaymentSuccess $response");
+    print("_handlePaymentSuccess ${response.paymentId}");
   }
 
   void _handlePaymentError(PaymentFailureResponse response) {

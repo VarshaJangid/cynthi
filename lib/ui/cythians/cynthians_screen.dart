@@ -1,4 +1,6 @@
 import 'dart:convert';
+import 'package:cynthi/utils/context_extension.dart';
+
 import '/model/master_class_model.dart';
 import '/utils/app_text_style.dart';
 import '/utils/theme_color.dart';
@@ -33,7 +35,10 @@ class CythiansScreen extends StatelessWidget {
                 Stack(
                   children: [
                     SizedBox(
-                      width: MediaQuery.of(context).size.width / 2.25,
+                      width: MediaQuery
+                          .of(context)
+                          .size
+                          .width / 2.25,
                       child: const Text(
                         "Masterclass LIVE",
                         style: TextStyle(
@@ -87,15 +92,15 @@ class CythiansScreen extends StatelessWidget {
                   ),
                   const SizedBox(height: Dimensions.s15),
                   viewModel.listModel == null ||
-                          viewModel.listModel!.listMasterClassModelList.isEmpty
-                      ? const SizedBox()
+                      viewModel.listModel!.listMasterClassModelList.isEmpty
+                      ? SizedBox(width: context.getScreenWidth())
                       : Column(
-                          children: viewModel
-                              .listModel!.listMasterClassModelList
-                              .map((masterModel) {
-                            return cythiansWidget(context, masterModel);
-                          }).toList(),
-                        )
+                    children: viewModel
+                        .listModel!.listMasterClassModelList
+                        .map((masterModel) {
+                      return cythiansWidget(context, masterModel);
+                    }).toList(),
+                  )
                 ],
               ),
             ),
@@ -105,178 +110,204 @@ class CythiansScreen extends StatelessWidget {
     );
   }
 
-  Widget cythiansWidget(
-      BuildContext context, MasterClassLiveModel masterModel) {
+  Widget cythiansWidget(BuildContext context,
+      MasterClassLiveModel masterModel) {
     List<int> res = base64.decode(base64.normalize(masterModel.facultyImage));
     String urlImage = utf8.decode(res);
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Stack(
-          overflow: Overflow.visible,
-          children: <Widget>[
-            Container(
-              padding: const EdgeInsets.all(15),
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(20),
-                color: const Color(0XFFeaf2f6),
-              ),
-              child: Row(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Column(
-                    children: [
-                      Container(
-                        height: 80,
-                        width: 100,
-                        decoration: BoxDecoration(
-                          image: DecorationImage(
-                              image: NetworkImage(urlImage), fit: BoxFit.fill
+    return GestureDetector(
+      onTap: () async{
+        if (masterModel.meetingType == "paid") {
+          viewModel.openCheckout(int.parse(masterModel.amount));
+          await viewModel.bookNow(
+              context,
+              masterModel.id,
+              "${viewModel.transactionId}",
+              masterModel.amount,
+              '1',
+              viewModel.profileModel!.result.id);
+        } else {
+          viewModel.bookNow(
+              context,
+              masterModel.id,
+              "",
+              "Free",
+              '1',
+              viewModel.profileModel!.result.id);
+        }
+      },
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Stack(
+            overflow: Overflow.visible,
+            children: <Widget>[
+              Container(
+                padding: const EdgeInsets.all(15),
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(20),
+                  color: const Color(0XFFeaf2f6),
+                ),
+                child: Row(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Column(
+                      children: [
+                        Container(
+                          height: 80,
+                          width: 100,
+                          decoration: BoxDecoration(
+                            image: DecorationImage(
+                                image: NetworkImage(urlImage), fit: BoxFit.fill
                               // image: AssetImage(Assets.sad),
-                              ),
-                        ),
-                      ),
-                      const SizedBox(height: 10),
-                      Center(
-                        child: Text(
-                          masterModel.facultyName +
-                              '\n' +
-                              masterModel.facultyExperties,
-                          // "IAS, Ketki Sharma\nBatch 1999,\nKanpur",
-                          style: const TextStyle(
-                              color: Colors.black,
-                              fontWeight: FontWeight.w500,
-                              fontSize: 11),
-                        ),
-                      ),
-                    ],
-                  ),
-                  const SizedBox(width: 30),
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        "${masterModel.startTime} - ${masterModel.endTime}",
-                        style: const TextStyle(
-                            color: Colors.grey,
-                            fontWeight: FontWeight.w500,
-                            fontSize: 10),
-                      ),
-                      const SizedBox(height: 10),
-                      SizedBox(
-                        width: 150,
-                        child: Text(
-                          masterModel.lactureName,
-                          // "How to prepare for\nUPSC Entrance\nexam",
-                          style: const TextStyle(
-                              color: Color(0XFF446481),
-                              fontWeight: FontWeight.bold,
-                              fontSize: 15),
-                        ),
-                      ),
-                      const SizedBox(height: 10),
-                      GestureDetector(
-                        onTap: () => showDialog(
-                          context: context,
-                          builder: (BuildContext context) => _buildPopupDialog(
-                              context, masterModel.topicCoverd),
-                        ),
-                        child: Row(
-                          children: const [
-                            Text(
-                              Constants.topicsCovered,
-                              style: TextStyle(
-                                  color: Colors.black,
-                                  fontWeight: FontWeight.bold,
-                                  fontSize: 10),
                             ),
-                            SizedBox(width: 5),
-                            Icon(
-                              Icons.info_outline,
-                              size: 16,
-                            )
-                          ],
+                          ),
                         ),
-                      )
-                    ],
-                  )
-                ],
+                        const SizedBox(height: 10),
+                        Center(
+                          child: Text(
+                            masterModel.facultyName +
+                                '\n' +
+                                masterModel.facultyExperties,
+                            // "IAS, Ketki Sharma\nBatch 1999,\nKanpur",
+                            style: const TextStyle(
+                                color: Colors.black,
+                                fontWeight: FontWeight.w500,
+                                fontSize: 11),
+                          ),
+                        ),
+                      ],
+                    ),
+                    const SizedBox(width: 30),
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          "${masterModel.startTime} - ${masterModel.endTime}",
+                          style: const TextStyle(
+                              color: Colors.grey,
+                              fontWeight: FontWeight.w500,
+                              fontSize: 10),
+                        ),
+                        const SizedBox(height: 10),
+                        SizedBox(
+                          width: 150,
+                          child: Text(
+                            masterModel.lactureName+" (${masterModel.meetingType})",
+                            // "How to prepare for\nUPSC Entrance\nexam",
+                            style: const TextStyle(
+                                color: Color(0XFF446481),
+                                fontWeight: FontWeight.bold,
+                                fontSize: 15),
+                          ),
+                        ),
+                        const SizedBox(height: 10),
+                        GestureDetector(
+                          onTap: () =>
+                              showDialog(
+                                context: context,
+                                builder: (BuildContext context) =>
+                                    _buildPopupDialog(
+                                        context, masterModel.topicCoverd),
+                              ),
+                          child: Row(
+                            children: const [
+                              Text(
+                                Constants.topicsCovered,
+                                style: TextStyle(
+                                    color: Colors.black,
+                                    fontWeight: FontWeight.bold,
+                                    fontSize: 10),
+                              ),
+                              SizedBox(width: 5),
+                              Icon(
+                                Icons.info_outline,
+                                size: 16,
+                              )
+                            ],
+                          ),
+                        )
+                      ],
+                    )
+                  ],
+                ),
               ),
-            ),
-            Positioned(
-              left: 120,
-              right: 110,
-              bottom: -12 * 2,
-              child: GestureDetector(
-                onTap: () {
-                  viewModel.bookNow(
-                      context,
-                      masterModel.id,
-                      '1',
-                      masterModel.amount,
-                      '1',
-                      viewModel.profileModel!.result.id);
-                },
-                child: Container(
-                  padding: const EdgeInsets.all(10),
-                  decoration: BoxDecoration(
-                      color: Colors.blue,
-                      borderRadius: BorderRadius.circular(25)),
-                  child: const Center(
-                    child: Text(
-                      Constants.bookNow,
-                      style: TextStyle(
-                          fontWeight: FontWeight.w500,
-                          fontSize: 13,
-                          color: Colors.white),
+              Positioned(
+                left: 120,
+                right: 110,
+                bottom: -12 * 2,
+                child: GestureDetector(
+                  onTap: () {
+                    // print("fdbsfjsdnjfvbjhfbvdjkfndbv");
+                    // viewModel.openCheckout(masterModel.amount);
+                    // viewModel.bookNow(
+                    //     context,
+                    //     masterModel.id,
+                    //     '1',
+                    //     masterModel.amount,
+                    //     '1',
+                    //     viewModel.profileModel!.result.id);
+                  },
+                  child: Container(
+                    padding: const EdgeInsets.all(10),
+                    decoration: BoxDecoration(
+                        color: Colors.blue,
+                        borderRadius: BorderRadius.circular(25)),
+                    child: const Center(
+                      child: Text(
+                        Constants.bookNow,
+                        style: TextStyle(
+                            fontWeight: FontWeight.w500,
+                            fontSize: 13,
+                            color: Colors.white),
+                      ),
                     ),
                   ),
                 ),
               ),
-            ),
-          ],
-        ),
-        const SizedBox(height: 10),
-        Padding(
-          padding: const EdgeInsets.only(left: 30, right: 40),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Row(
-                children: const [
-                  Icon(
-                    Icons.favorite,
-                    color: Colors.redAccent,
-                  ),
-                  SizedBox(width: 5),
-                  Text(
-                    "96%",
-                    style: TextStyle(
-                        color: Colors.white, fontWeight: FontWeight.bold),
-                  )
-                ],
-              ),
-              GestureDetector(
-                onTap: () async {
-                  await share();
-                },
-                child: Row(
-                  children: [
-                    Image.asset(Assets.share),
-                    const SizedBox(width: 5),
-                    const Text(
-                      "Share",
+            ],
+          ),
+          const SizedBox(height: 10),
+          Padding(
+            padding: const EdgeInsets.only(left: 30, right: 40),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Row(
+                  children: const [
+                    Icon(
+                      Icons.favorite,
+                      color: Colors.redAccent,
+                    ),
+                    SizedBox(width: 5),
+                    Text(
+                      "96%",
                       style: TextStyle(
                           color: Colors.white, fontWeight: FontWeight.bold),
                     )
                   ],
                 ),
-              )
-            ],
+                GestureDetector(
+                  onTap: () async {
+                    await share();
+                  },
+                  child: Row(
+                    children: [
+                      Image.asset(Assets.share),
+                      const SizedBox(width: 5),
+                      const Text(
+                        "Share",
+                        style: TextStyle(
+                            color: Colors.white, fontWeight: FontWeight.bold),
+                      )
+                    ],
+                  ),
+                )
+              ],
+            ),
           ),
-        ),
-        const SizedBox(height: 20),
-      ],
+          const SizedBox(height: 20),
+        ],
+      ),
     );
   }
 
@@ -292,7 +323,8 @@ class CythiansScreen extends StatelessWidget {
     return AlertDialog(
       title: Text(
         'Topic Covered',
-        style: AppTextStyle.getStyle()
+        style: AppTextStyle
+            .getStyle()
             .openSansSemiBold!
             .copyWith(color: Colors.black, fontSize: Dimensions.s16),
       ),
