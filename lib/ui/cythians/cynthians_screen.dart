@@ -116,23 +116,22 @@ class CythiansScreen extends StatelessWidget {
     String urlImage = utf8.decode(res);
     return GestureDetector(
       onTap: () async{
+        print("Clicked ${masterModel.meetingType}");
+
         if (masterModel.meetingType == "paid") {
+          viewModel.lactureId = masterModel.id;
+          viewModel.amount = masterModel.amount;
+          viewModel.notifyListeners();
           viewModel.openCheckout(int.parse(masterModel.amount));
-          await viewModel.bookNow(
-              context,
-              masterModel.id,
-              "${viewModel.transactionId}",
-              masterModel.amount,
-              '1',
-              viewModel.profileModel!.result.id);
         } else {
-          viewModel.bookNow(
-              context,
-              masterModel.id,
-              "",
-              "Free",
-              '1',
-              viewModel.profileModel!.result.id);
+          viewModel.bookNowFree();
+          // viewModel.bookNow(
+          //     context,
+          //     masterModel.id,
+          //     "",
+          //     "Free",
+          //     '1',
+          //     viewModel.profileModel!.result.id);
         }
       },
       child: Column(

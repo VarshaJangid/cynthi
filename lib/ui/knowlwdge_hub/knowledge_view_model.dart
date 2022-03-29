@@ -19,6 +19,8 @@ class KnowledgeViewModel extends BaseViewModel {
   Razorpay? _razorpay;
   String? transactionId;
   bool data = false;
+  String lactureId = '';
+  String amount = '';
 
   init(BuildContext context) {
     Future.delayed(
@@ -76,15 +78,15 @@ class KnowledgeViewModel extends BaseViewModel {
   }
 
   // Book Now
-  bookNow(BuildContext context, String lactureId, String transactionId,
-      String amount, String status, String studentId) async {
+  bookNow() async {
     Map<String, String> params = {
-      'lacture_id': "1",
-      'transaction_id': "21",
-      'amount': "250",
+      'lacture_id': lactureId,
+      'transaction_id': transactionId!,
+      'amount': amount,
       'status': "1",
-      'student_id': "1",
+      'student_id': profileModel!.result.id,
     };
+    print("Params ---- $params");
     try {
       final response = await http.post(
           Uri.parse("https://codevweb.com/demo/api/booklacture"),
@@ -93,7 +95,38 @@ class KnowledgeViewModel extends BaseViewModel {
         final valur = jsonDecode(response.body);
         notifyListeners();
         if (valur == "Your Lacture Have been successfully Booked") {
-          flutterToast(valur, Colors.green);
+          print(valur);
+          // flutterToast(valur, Colors.green);
+        } else {
+          flutterToast(valur, Colors.redAccent);
+        }
+      }
+    } catch (e) {
+      flutterToast("Something went wrong !!!", Colors.redAccent);
+      Exception("Exception in Login API $e");
+    }
+  }
+
+  bookNowFree() async {
+    Map<String, String> params = {
+      'lacture_id': lactureId,
+      'status': '0',
+      'amount': amount,
+      'transaction_id':'0',
+      'student_id': profileModel!.result.id,
+    };
+    print("Params ---- $params");
+    try {
+      final response = await http.post(
+          Uri.parse("https://codevweb.com/demo/api/booklacture"),
+          body: params);
+      print(response.body);
+      if (response.statusCode == 200) {
+        final valur = jsonDecode(response.body);
+        notifyListeners();
+        print(valur);
+        if (valur == "Your Lacture Have been successfully Booked") {
+          print(valur);
         } else {
           flutterToast(valur, Colors.redAccent);
         }
@@ -109,6 +142,7 @@ class KnowledgeViewModel extends BaseViewModel {
     print("_handlePaymentSuccess ${response.paymentId}");
     transactionId = response.paymentId;
     notifyListeners();
+    bookNow();
   }
 
   void _handlePaymentError(PaymentFailureResponse response) {
